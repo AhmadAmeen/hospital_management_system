@@ -17,6 +17,7 @@ class CreateVaccinesTable extends Migration
           $table->id();
           $table->string('vname');
           $table->string('vtiming');
+          $table->string('doc_id');
           $table->timestamps();
         });
     }

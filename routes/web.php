@@ -13,9 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::view('/', 'docregform_docdetails');
 
 Route::view('adminlogin', 'adminlogin');
 Route::get('/getlogout', 'AdminController@adminlogout');
@@ -24,3 +22,4 @@ Route::get('docregform_docdetails', 'DoctorController@show');
 Route::post('doctorstore', 'DoctorController@doctorstore');
 Route::post('doctorcentersstore', 'CenterController@doctorcentersstore');
 Route::get('docregform_vaccinedetails/{current_doc_id}', 'VaccineController@show');
+Route::post('doctorvaccinestore', 'VaccineController@doctorvaccinestore');
