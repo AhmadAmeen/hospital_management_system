@@ -6,7 +6,18 @@
 
 @section('content')
 
-
+  <link rel="stylesheet" type="text/css" href="{{ asset('public/css/checkbox-etc-css.css') }}" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script>
+  /*
+  $(document).ready(function(){
+  $("#toggle_box").hide();
+    $("#toggle").click(function(){
+      $("#toggle_box").toggle();
+    });
+  });
+  */
+  </script>
 
   <div class="right_col" role="main">
    <div class="clearfix"></div>
@@ -46,7 +57,6 @@
                           <input type="file" id="dimg" name="dimg" required="required" class="form-control col-md-7 col-xs-12">
                         </div>
                       </div>
-
                       <!--doc-name-->
                       <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="sname">Doctor Name <span class="required">*</span>
@@ -79,7 +89,6 @@
                         </div>
                       </div>
 
-
                       <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">username <span class="required">*</span>
                         </label>
@@ -88,7 +97,6 @@
                         </div>
                       </div>
 
-
                       <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">password <span class="required">*</span>
                         </label>
@@ -96,7 +104,28 @@
                           <input type="text" id="password" name="password" class="date-picker form-control col-md-7 col-xs-12" required="required" type="email">
                         </div>
                       </div>
-
+                      <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Has Receptionist? <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <label class="b-contain">
+                            <input id="toggle" value="TRUE" name="has_receptionist" type="checkbox">
+                            <div class="b-input"></div>
+                          </label>
+                        </div>
+                      </div>
+                      <!--
+                      <p>
+                        <div class="form-group" id="toggle_box">
+                          <label class="control-label col-md-3 col-sm-3 col-xs-12" for="dcoordinator">Receptionist Details<span class="required">*</span></label>
+                          <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="text" id="recp_username" name="recp_username" placeholder="Receptionist Username" class="date-picker form-control col-md-7 col-xs-12" required="required">
+                            <br><br>
+                            <input type="text" id="recp_password" name="recp_password"  placeholder="Receptionist Password" class="date-picker form-control col-md-7 col-xs-12" required="required">
+                          </div>
+                        </div>
+                      </p>
+                      -->
                       <div class="ln_solid"></div>
                       <div class="form-group">
                         <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
@@ -111,5 +140,4 @@
               </div>
             </div>
           </div>
-
 @endsection

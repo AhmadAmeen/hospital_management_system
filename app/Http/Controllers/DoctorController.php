@@ -23,8 +23,13 @@ class DoctorController extends Controller
       $doctor->email = $request->email;
       $doctor->username = $request->username;
       $doctor->password = $request->password;
+      $doctor->has_receptionist = $request->has_receptionist;
       $doctor->save();
-      return view ('docregform_centersdetails')->with('current_doc_id', $doctor->id);
+      if ($doctor->has_receptionist == TRUE) {
+        return view ('docregform_recepsdetails')->with('current_doc_id', $doctor->id);
+      } else {
+        return view ('docregform_centersdetails')->with('current_doc_id', $doctor->id);
+      }
     }
 
 }

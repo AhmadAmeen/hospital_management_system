@@ -20,7 +20,7 @@ class CreateDoctorsTable extends Migration
             $table->string('qualification');
             $table->string('phno');
             $table->string('email');
-            $table->string('username');
+            $table->string('username')->unique();
             $table->string('password');
             $table->timestamps();
         });
@@ -28,7 +28,6 @@ class CreateDoctorsTable extends Migration
 
     /**
      * Reverse the migrations.
-     *
      * @return void
      */
     public function down()
