@@ -6,6 +6,8 @@
 
 @section('content')
 
+
+
   <div class="right_col" role="main">
    <div class="clearfix"></div>
              <div class="row">
@@ -35,7 +37,7 @@
                     <br>
                     <form action="{{url('doctorstore')}}" method="post" enctype="multipart/form-data" id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
                       @csrf
-                      <h1 style="text-align: center; margin-down: 20px">Registration Form</h1>
+                      <h1 style="text-align: center; margin-down: 20px">Register Doctor</h1>
                       <!--doctor-image-->
                       <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="dimg">Doctor Image <span class="required">*</span>

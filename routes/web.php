@@ -13,8 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::view('/', 'docregform_docdetails');
-
+Route::view('/', 'welcome');
 Route::view('adminlogin', 'adminlogin');
 Route::get('/getlogout', 'AdminController@adminlogout');
 Route::post('/islogin', 'AdminController@adminloggedin');

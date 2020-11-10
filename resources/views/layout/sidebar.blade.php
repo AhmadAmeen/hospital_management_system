@@ -4,7 +4,7 @@
       <div class="col-md-3 left_col">
         <div class="left_col scroll-view">
           <div class="navbar nav_title" style="border: 0;">
-            <a href="" class="site_title"> <span>School Management</span></a>
+            <a href="" class="site_title"> <span>Hospital Management System</span></a>
 
           </div>
 
@@ -25,16 +25,14 @@
   <br />
 
 <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
-  <div class="menu_section">
+  <div class="menu_section" style="margin-top: 5px">
     <h3>General</h3>
     <ul class="nav side-menu">
       <li>
-          <li><a href="{{url('doctorregistrationform')}}">Student Registation</a></li>
-          <li><a href="{{url('showdoctors')}}">Show All Students</a></li>
-          <li><a></i> Disciplines ↓ <span class="fa fa-chevron-down"></span></a>
+          <li><a style="border-style: outset; margin-right: 2px; border-color: #767676;"></i> Doctor ↓ <span class="fa fa-chevron-down"></span></a>
              <ul class="nav child_menu">
-               <li><a href="{{url('adddiscipline')}}">Add Disciplines</a></li>
-               <li><a href="{{url('viewdisciplines')}}">View Disciplines</a></li>
+               <li><a href="{{url('docregform_docdetails')}}">Register New Doctor</a></li>
+               <li><a href="{{url('showdoctors')}}">Show All Doctors</a></li>
             </ul>
           </li>
           <!--
@@ -44,21 +42,21 @@
                <li><a href="{{url('viewcourses')}}">View Courses</a></li>
             </ul>
           </li>
-        -->
+
           <li><a></i> Teachers ↓ <span class="fa fa-chevron-down"></span></a>
              <ul class="nav child_menu">
                <li><a href="{{url('addteacher')}}">Add Teacher</a></li>
                <li><a href="{{url('viewteachers')}}">View Teachers</a></li>
             </ul>
           </li>
-          <li><a href="{{url('allclassesdetails')}}"></i> Classes <span class="fa fa-chevron-down"></span></a>
-            <!--
+
+            <li><a href="{{url('allclassesdetails')}}"></i> Classes <span class="fa fa-chevron-down"></span></a>
              <ul class="nav child_menu">
                @for ($class = 1; $class <= 10; $class++)
                   <li><a href="classinfo/{{ $class }}">Class {{ $class }}</a></li>
                 @endfor
               </ul>
-            -->
+
           </li>
           <li><a></i> School Branches ↓ <span class="fa fa-chevron-down"></span></a>
              <ul class="nav child_menu">
@@ -66,6 +64,7 @@
                <li><a href="{{url('showbranch')}}">View Branches</a></li>
             </ul>
           </li>
+          -->
       </li>
     </ul>
   </div>
