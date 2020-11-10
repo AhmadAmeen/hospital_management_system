@@ -19,7 +19,7 @@
 
       <footer>
         <div class="pull-right">
-          Student Management System <a href="https://colorlib.com">Visit Our Site</a>
+          Hospital Management System <a href="#">Visit Our Site</a>
         </div>
         <div class="clearfix"></div>
       </footer>

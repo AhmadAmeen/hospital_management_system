@@ -15,6 +15,7 @@ class VaccineController extends Controller
       $vaccine->vname = $request->vname;
       $vaccine->vtiming = $request->vtiming;
       $vaccine->doc_id = $request->doc_id;
+      $vaccine->vdescription = $request->vdescription;
       $vaccine->save();
       $current_doc_id = $vaccine->doc_id;
       return view ('docregform_vaccinedetails')->with('current_doc_id', $current_doc_id);

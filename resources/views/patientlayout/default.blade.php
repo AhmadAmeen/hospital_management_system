@@ -7,7 +7,7 @@
    <!-- /top navigation -->
 
   <!-- sidebar menu -->
-  @include('layout/sidebar')
+  @include('patientlayout/sidebar')
   <!-- /sidebar menu -->
 
   <!-- /menu footer buttons -->

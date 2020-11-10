@@ -12,7 +12,7 @@
                <div class="col-md-12 col-sm-12 col-xs-12">
                  <div class="x_panel">
                    <div class="x_title">
-                     <h2>Welcome <small>Doctor Centers Details</small></h2>
+                     <h2>Welcome <small>Doctor Vaccine Details</small></h2>
                      <ul class="nav navbar-right panel_toolbox">
                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                        </li>
@@ -53,10 +53,18 @@
 
                       <input type="hidden" id="doc_id" name="doc_id" value="{{$current_doc_id}}">
 
+                      <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="address">Vaccination Description <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <input type="text" id="vdescription" name="vdescription" required="required" class="form-control col-md-7 col-xs-12">
+                        </div>
+                      </div>
+
                       <div class="ln_solid"></div>
                       <div class="form-group">
                         <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                          <button type="submit" name="submit" class="btn btn-success">Add Another Vaccine</button>
+                          <button type="submit" name="submit" class="btn btn-success">Add Vaccine</button>
                         </div>
                       </div>
                     </form>

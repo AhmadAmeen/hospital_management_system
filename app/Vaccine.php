@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class Vaccine extends Model
 {
-  public $fillable = array('vname', 'vtiming', 'doc_id');
+  public $fillable = array('vname', 'vtiming', 'doc_id', 'vdescription');
 }
