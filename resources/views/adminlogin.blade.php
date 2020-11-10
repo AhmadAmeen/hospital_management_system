@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Student Project | </title>
+    <title>Admin Login</title>
 
     <!-- Bootstrap -->
     <link href="public/gentelella-master/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -19,51 +19,55 @@
     <link href="public/gentelella-master/vendors/animate.css/animate.min.css" rel="stylesheet">
     <!-- Custom Theme Style -->
     <link href="public/gentelella-master/build/css/custom.min.css" rel="stylesheet">
+    <!--animated login form-->
+    <link href="public/css/adminloginform-css.css" rel="stylesheet">
+
+
   </head>
-
-  <body class="login">
-    <div>
-      <a class="hiddenanchor" id="signup"></a>
-      <a class="hiddenanchor" id="signin"></a>
-      <div class="login_wrapper">
-        <div class="animate form login_form">
-          <section class="login_content">
-            <form action="{{url ('islogin') }}" method="post">
-              @csrf
-              <h1>Login Form</h1>
-              <div>
-                <input type="text" class="form-control" placeholder="Username" name="username" required="" />
-              </div>
-              <div>
-                <input type="password" class="form-control" placeholder="Password" name="password" required="" />
-              </div>
-              <div>
-                <input type="submit" value="Log in!" class="btn btn-default submit">
-                <a class="reset_pass" href="#">Please enter username and password</a>
-              </div>
-
-              <div class="clearfix"></div>
-
-              <div class="separator">
-
-                <div class="clearfix"></div>
-                <br />
-
-                <div>
-                  <p>
-                    @if (Session::has('coc'))
-                      <i  class="fa fa-paw" style="color:red"><br>
-                        {{ session('coc') }}
-                      </i>
-                    @endif
-                  </p>
-                </div>
-              </div>
-            </form>
-          </section>
-        </div>
-        </div>
-      </div>
+  <body class="login" >
+<div class="container" style="background-color: white">
+  <div class="left">
+    <div class="header">
+      <h2 class="animation a1" style="color: black">Admin Login</h2>
+      <h4 class="animation a2">Log in to your account using email and password</h4>
     </div>
-  </body>
+    <div class="form">
+      <section class="login_content">
+        <form action="{{url ('islogin') }}" method="post">
+          @csrf
+          <h1>Login Form</h1>
+          <div>
+            <input type="text" class="form-field animation a3" placeholder="Username" name="username" required="" />
+          </div>
+          <div>
+            <input type="password" class="form-field animation a4" placeholder="Password" name="password" required="" />
+          </div>
+          <div>
+            <input type="submit" value="Log in!" class="btn btn-default submit" class="animation a6">
+            <a class="reset_pass" href="#">Please enter username and password</a>
+          </div>
+
+          <div class="clearfix"></div>
+
+          <div class="separator">
+
+            <div class="clearfix"></div>
+            <br />
+
+            <div>
+              <p>
+                @if (Session::has('coc'))
+                  <i  class="fa fa-paw" style="color:gray"><br>
+                    {{ session('coc') }}
+                  </i>
+                @endif
+              </p>
+            </div>
+          </div>
+        </form>
+    </div>
+  </div>
+  <div class="right"></div>
+</div>
+</body>
 </html>

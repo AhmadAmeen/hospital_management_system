@@ -1,91 +1,57 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+<!DOCTYPE HTML>
+<!--
+	Dimension by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Dimension by HTML5 UP</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="public/welcome-page-bootstrap/assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="public/welcome-page-bootstrap/assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
 
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;600&display=swap" rel="stylesheet">
+		<!-- Wrapper -->
+			<div id="wrapper">
 
-        <!-- Styles -->
-        <style>
-            html, body {
-                background-color: #fff;
-                color: #636b6f;
-                font-family: 'Nunito', sans-serif;
-                font-weight: 200;
-                height: 100vh;
-                margin: 0;
-            }
+				<!-- Header -->
+					<header id="header">
+						<div class="content">
+							<div class="inner">
+								<h1>Welcome</h1>
+								<p>Please Login as Doctor, Admin, or Receptionist</p>
+							</div>
+						</div>
+						<nav>
+							<ul>
+								<li><a href="{{url('adminlogin')}}">Admin</a></li>
+								<li><a href="{{url('doclogin')}}">Doctor</a></li>
+								<li><a href="{{url('recplogin')}}">Receptionist</a></li>
+							</ul>
+						</nav>
+					</header>
 
-            .full-height {
-                height: 100vh;
-            }
 
-            .flex-center {
-                align-items: center;
-                display: flex;
-                justify-content: center;
-            }
+				<!-- Footer -->
+					<footer id="footer">
+						<p class="copyright">&copy; All Rights Reserved <a href="#">Hospital Management System</a>.</p>
+					</footer>
 
-            .position-ref {
-                position: relative;
-            }
 
-            .top-right {
-                position: absolute;
-                right: 10px;
-                top: 18px;
-            }
+			</div>
 
-            .content {
-                text-align: center;
-            }
+		<!-- BG -->
+			<div id="bg"></div>
 
-            .title {
-                font-size: 84px;
-            }
-
-            .links > a {
-                color: #636b6f;
-                padding: 0 25px;
-                font-size: 13px;
-                font-weight: 600;
-                letter-spacing: .1rem;
-                text-decoration: none;
-                text-transform: uppercase;
-            }
-
-            .m-b-md {
-                margin-bottom: 30px;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @auth
-                        <a href="{{ url('/home') }}">Home</a>
-                    @else
-                        <a href="{{ route('login') }}">Login</a>
-
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}">Register</a>
-                        @endif
-                    @endauth
-                </div>
-            @endif
-
-            <div class="content">
-                <div class="title m-b-md">
-                  <h4><a href="{{url('adminlogin')}}">  Admin </a></h4>
-
-                  <h4><a href="{{url('doctorlogin')}}">  Doctor </a></h4>
-                </div>
-            </div>
-        </div>
-    </body>
+		<!-- Scripts -->
+			<script src="public/welcome-page-bootstrap/assets/js/jquery.min.js"></script>
+			<script src="public/welcome-page-bootstrap/assets/js/browser.min.js"></script>
+			<script src="public/welcome-page-bootstrap/assets/js/breakpoints.min.js"></script>
+			<script src="public/welcome-page-bootstrap/assets/js/util.js"></script>
+			<script src="public/welcome-page-bootstrap/assets/js/main.js"></script>
+	</body>
 </html>
