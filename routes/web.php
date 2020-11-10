@@ -22,3 +22,4 @@ Route::post('doctorstore', 'DoctorController@doctorstore');
 Route::post('doctorcentersstore', 'CenterController@doctorcentersstore');
 Route::get('docregform_vaccinedetails/{current_doc_id}', 'VaccineController@show');
 Route::post('doctorvaccinestore', 'VaccineController@doctorvaccinestore');
+Route::post('doctorrecepstore', 'ReceptionistController@doctorrecepstore');

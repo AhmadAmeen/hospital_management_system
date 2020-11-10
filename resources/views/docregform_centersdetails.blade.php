@@ -1,5 +1,5 @@
 @if(!Session::has('admin_name_session'))
-<script>window.location = "adminlogin";</script>
+<script>window.location = "welcome";</script>
 @endif
 
 @extends('layout.default')
@@ -57,7 +57,6 @@
                           <input type="text" id="offdays" name="offdays" required="required" class="form-control col-md-7 col-xs-12">
                         </div>
                       </div>
-
                       <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Timing <span class="required">*</span>
                         </label>

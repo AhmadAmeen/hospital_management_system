@@ -6,13 +6,14 @@
 
 @section('content')
 
+
   <div class="right_col" role="main">
    <div class="clearfix"></div>
              <div class="row">
                <div class="col-md-12 col-sm-12 col-xs-12">
                  <div class="x_panel">
                    <div class="x_title">
-                     <h2>Welcome <small>Doctor Centers Details</small></h2>
+                     <h2>Welcome <small>Receptionist Registation</small></h2>
                      <ul class="nav navbar-right panel_toolbox">
                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                        </li>
@@ -33,21 +34,22 @@
                      </div>
                         <div class="x_content">
                     <br>
-                    <form action="{{url('doctorvaccinestore')}}" method="post" enctype="multipart/form-data" id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
+                    <form action="{{url('doctorrecepstore')}}" method="post" enctype="multipart/form-data" id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
                       @csrf
-                      <h1 style="text-align: center; margin-down: 20px">Add Vaccination Details</h1>
+                      <h1 style="text-align: center; margin-down: 20px">Register Receptionist</h1>
                       <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="cname">Vaccination Name <span class="required">*</span>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">username <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="text" id="vname" name="vname" required="required" class="form-control col-md-7 col-xs-12">
+                          <input type="text" id="username" name="username" class="date-picker form-control col-md-7 col-xs-12" required="required" type="email">
                         </div>
                       </div>
+
                       <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="address">Vaccination Timing <span class="required">*</span>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">password <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="text" id="vtiming" name="vtiming" required="required" class="form-control col-md-7 col-xs-12">
+                          <input type="text" id="password" name="password" class="date-picker form-control col-md-7 col-xs-12" required="required" type="email">
                         </div>
                       </div>
 
@@ -56,11 +58,12 @@
                       <div class="ln_solid"></div>
                       <div class="form-group">
                         <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                          <button type="submit" name="submit" class="btn btn-success">Add Another Vaccine</button>
+                          <button class="btn btn-primary" type="button">Cancel</button>
+                          <button class="btn btn-primary" type="reset">Reset</button>
+                          <button type="submit" name="submit" class="btn btn-success">Submit</button>
                         </div>
                       </div>
                     </form>
-                    <button style="float: right" id="tovaccine" class="btn btn-success"><a href="docregform_docdetails" style="color: white;">Add New Doctor</a></button>
                   </div>
                 </div>
               </div>

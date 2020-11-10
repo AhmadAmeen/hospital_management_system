@@ -1,5 +1,5 @@
 @if(!Session::has('admin_name_session'))
-<script>window.location = "adminlogin";</script>
+<script>window.location = "welcome";</script>
 @endif
 
 @extends('layout.default')
