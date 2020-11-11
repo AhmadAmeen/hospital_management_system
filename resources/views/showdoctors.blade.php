@@ -1,5 +1,5 @@
 @if(!Session::has('admin_name_session'))
-<script>window.location = "adminlogin";</script>
+<script>window.location = "welcome";</script>
 @endif
 
 @extends ('layout.default')
@@ -14,7 +14,7 @@ img {
 </style>
 <div class="right_col" role="main">
 <table class="table table-hover" style="background-color: white; color: black; padding-left: 10px">
-  <h2>All Students Record</h2>
+  <h2>All Doctors Record</h2>
   <tr>
     <th>Doctor Image</th>
     <th>Doctor namespace</th>

@@ -69,8 +69,8 @@ class DoctorController extends Controller
     }
 
     public function deletedoctor($id) {
-      $student = student::find($id);
-      $student->delete();
-      return redirect('showstudents');
+      $doctor = Doctor::find($id);
+      $doctor->delete();
+      return redirect('showdoctors');
     }
 }
