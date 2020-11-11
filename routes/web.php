@@ -14,15 +14,24 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::view('/', 'welcome');
+//admin
 Route::view('adminlogin', 'adminlogin');
 Route::get('/getlogout', 'AdminController@adminlogout');
 Route::post('/islogin', 'AdminController@adminloggedin');
+//doctor
 Route::get('docregform_docdetails', 'DoctorController@show');
 Route::post('doctorstore', 'DoctorController@doctorstore');
 Route::post('doctorcentersstore', 'CenterController@doctorcentersstore');
 Route::get('docregform_vaccinedetails/{current_doc_id}', 'VaccineController@show');
 Route::post('doctorvaccinestore', 'VaccineController@doctorvaccinestore');
 Route::post('doctorrecepstore', 'ReceptionistController@doctorrecepstore');
+//show all doctors
+Route::get('showdoctors', 'DoctorController@showdoctors');
+//edit, update & doctor
+Route::get('editingdoctor/{id}', 'DoctorController@editingdoctor');
+Route::post('updatedoctor/{id}', 'DoctorController@updatedoctor');
+Route::get('deletedoctor/{id}', 'DoctorController@deletedoctor');
+//receptionist
 Route::view('recplogin', 'recplogin');
 Route::post('/isreceplogin', 'ReceptionistController@receploggedin');
 //patient
