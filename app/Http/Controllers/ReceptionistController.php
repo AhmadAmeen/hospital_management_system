@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Receptionist;
+use Validator;
 use Session;
 
 class ReceptionistController extends Controller
@@ -31,6 +32,18 @@ class ReceptionistController extends Controller
    }
 
    public function doctorrecepstore (Request $request) {
+
+     $validator = Validator::make($request->all(), [
+       'username' => 'unique:receptionists,username',
+       'password' => 'min:6',
+     ]);
+
+     if ($validator->fails()) {
+         return view ('docregform_recepsdetails')->with('current_doc_id', $request->doc_id)
+                     ->withErrors($validator);
+                     //->withInput();
+     }
+
      $receptionist = new Receptionist;
      $receptionist->username = $request->username;
      $receptionist->password = $request->password;

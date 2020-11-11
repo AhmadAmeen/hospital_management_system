@@ -13,6 +13,10 @@ class DoctorController extends Controller
     }
 
     public function doctorstore(Request $request) {
+      $request->validate([
+          'username' => 'unique:doctors,username',
+          'password' => 'min:6',
+      ]);
       $doctor = new Doctor;
       $image_file = $request->file('dimg');
       $image_resize = Image::make($image_file)->resize(150, 150)->encode('jpg');
@@ -45,7 +49,6 @@ class DoctorController extends Controller
       $doctor = Doctor::find($id);
       return view ('editingdoctor')->with('doctor', $doctor);
     }
-
     public function updatedoctor($id, Request $request) {
       $doctor = Doctor::find($id);
       if($request->file('dimg')) {

@@ -56,6 +56,13 @@
                       <input type="hidden" id="doc_id" name="doc_id" value="{{$current_doc_id}}">
 
                       <div class="ln_solid"></div>
+                      @if($errors->any())
+                      <hr>
+                      @foreach($errors->all() as $error)
+                            <li style="color: red; text-align:center">{{$error}}</li>
+                        @endforeach
+                        <hr>
+                      @endif
                       <div class="form-group">
                         <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
                           <button class="btn btn-primary" type="button">Cancel</button>

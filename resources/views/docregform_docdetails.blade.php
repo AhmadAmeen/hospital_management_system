@@ -46,6 +46,7 @@
                      </div>
                         <div class="x_content">
                     <br>
+
                     <form action="{{url('doctorstore')}}" method="post" enctype="multipart/form-data" id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
                       @csrf
                       <h1 style="text-align: center; margin-down: 20px">Register Doctor</h1>
@@ -127,6 +128,13 @@
                       </p>
                       -->
                       <div class="ln_solid"></div>
+                      @if($errors->any())
+                      <hr>
+                      @foreach($errors->all() as $error)
+                            <li style="color: red; text-align:center">{{$error}}</li>
+                        @endforeach
+                        <hr>
+                      @endif
                       <div class="form-group">
                         <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
                           <button class="btn btn-primary" type="button">Cancel</button>
@@ -135,6 +143,7 @@
                         </div>
                       </div>
                     </form>
+                    <hr>
                   </div>
                 </div>
               </div>
