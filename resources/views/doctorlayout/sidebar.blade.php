@@ -18,7 +18,7 @@
   </div>
   <div class="profile_info">
    <span>Welcome,</span>
-    <h2>Dear {{session('recep_name_session')}}</h2>
+    <h2>Dear {{session('doctor_name_session')}}</h2>
   </div>
 </div>
     <!-- /menu profile quick info -->
@@ -29,10 +29,11 @@
     <h3>General</h3>
     <ul class="nav side-menu">
       <li>
-          <li><a style="border-style: outset; margin-right: 2px; border-color: #767676;"></i> Doctor ↓ <span class="fa fa-chevron-down"></span></a>
+          <li><a style="border-style: outset; margin-right: 2px; border-color: #767676;"></i> Patient ↓ <span class="fa fa-chevron-down"></span></a>
              <ul class="nav child_menu">
-               <li><a href="{{url('viewpatients')}}">View Patients</a></li>
-               <li><a href="{{url('viewpatientshistory')}}">Patients History</a></li>
+               <li><a href="{{url('patientregform')}}">Register New Patient</a></li>
+               <li><a href="{{url('showpatients')}}">Edit or Delete Patients</a></li>
+               <li><a href="{{url('vh_main_patients')}}">Visit History Patients</a></li>
             </ul>
           </li>
           <!--

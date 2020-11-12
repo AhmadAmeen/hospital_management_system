@@ -29,7 +29,7 @@
 						<nav>
 							<ul>
 								<li><a href="{{url('adminlogin')}}">Admin</a></li>
-								<li><a href="{{url('doclogin')}}">Doctor</a></li>
+								<li><a href="{{url('doctorlogin')}}">Doctor</a></li>
 								<li><a href="{{url('recplogin')}}">Receptionist</a></li>
 							</ul>
 						</nav>

@@ -3,11 +3,11 @@
 <body>
 
     <!-- top navigation -->
-    @include('patientlayout/header')
+    @include('doctorlayout/header')
    <!-- /top navigation -->
 
   <!-- sidebar menu -->
-  @include('patientlayout/sidebar')
+  @include('doctorlayout/sidebar')
   <!-- /sidebar menu -->
 
   <!-- /menu footer buttons -->

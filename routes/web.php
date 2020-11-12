@@ -60,3 +60,9 @@ Route::get('vh_getseachedpatients', 'VisitHistoryController@vh_getseachedpatient
 Route::get('getseachedpatients', 'PatientController@getseachedpatients');
 //search doctors
 Route::get('getseacheddoctors', 'DoctorController@getseacheddoctors');
+//Doctor login/logout/isdoctorlogin
+Route::view('doctorlogin', 'doctorlogin');
+Route::get('/getdoctorlogout', 'DoctorController@getdoctorlogout');
+Route::post('/isdoctorlogin', 'DoctorController@doctorloggedin');
+//doctor main page
+Route::view('doctormainpage', 'doctormainpage');

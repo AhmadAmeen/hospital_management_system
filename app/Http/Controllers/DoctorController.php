@@ -5,9 +5,33 @@ use Illuminate\Http\Request;
 use App\Doctor;
 use Illuminate\Facades\Response;
 use Image;
+use Session;
 
 class DoctorController extends Controller
 {
+  public function doctorlogin() {
+    return view('doctorlogin');
+  }
+
+  public function getdoctorlogout() {
+    Session::flush();
+    return redirect('/');
+  }
+
+  public function doctorloggedin(Request $request) {
+    $doctor = Doctor::where('username',$request->username)->where('password',$request->password)
+    ->get()
+    ->toArray();
+    if ($doctor) {
+      $request->session()->put('doctor_session', $doctor[0]['id']);
+      $request->session()->put('doctor_name_session', $request->username);
+      return redirect('doctormainpage');
+    } else {
+      session::flash('coc', 'Email or Password is incorrect!');
+      return redirect('doctorlogin')->withinput();
+    }
+  }
+
     public function show() {
       return view ('docregform_docdetails');
     }
