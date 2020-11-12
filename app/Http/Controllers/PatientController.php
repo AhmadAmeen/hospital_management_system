@@ -26,6 +26,17 @@ class PatientController extends Controller
       $doctor = Doctor::find($id);
       $patient->doc_id = $doctor->id;
       $patient->save();
+      return $this->showpatients();
+    }
+
+    public function getseachedpatients (Request $request) {
+       $patients = Patient::where('fname' ,$request->pname)
+       ->orwhere('lname' ,$request->pname)
+       ->orwhere('gender' ,$request->pname)
+       ->orwhere('father_name' ,$request->pname)
+       ->orwhere('guard_no' ,$request->pname)
+       ->paginate(5);
+       return view ('showpatients')->with('patients', $patients);
     }
 
     public function showpatients () {

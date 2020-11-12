@@ -10,11 +10,18 @@ img {
   border-radius: 50%;
   display: block;
   margin: 0 auto;
+
 }
 </style>
+<link rel="stylesheet" type="text/css" href="{{ asset('public/css/searchbox-css.css') }}" />
+
 <div class="right_col" role="main">
 <table class="table table-hover" style="background-color: white; color: black; padding-left: 10px">
   <h2>All Patients Record</h2>
+  <form action="getseachedpatients" method="get">
+    <input type="text" id="pname" name="pname" required="required" placeholder="Search Patients...">
+    <!--<button type="submit" name="submit" class="btn btn-success" style="margin-left: 10px">Search Patients</button>-->
+  </form>
   <tr>
     <th>Patient First Name</th>
     <th>Patient Last Name</th>

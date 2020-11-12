@@ -40,7 +40,7 @@
 
 <script>
 function addnewpvhrecord() {
-  window.location = "{{url('addnewpvhhistory')}}";
+  window.location = "{{url('addnewpvhhistory/' . $patient->id)}}";
 }
 </script>
 @endsection

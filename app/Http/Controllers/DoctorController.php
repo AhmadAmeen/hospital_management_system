@@ -76,4 +76,15 @@ class DoctorController extends Controller
       $doctor->delete();
       return redirect('showdoctors');
     }
+
+   public function getseacheddoctors(Request $request) {
+     $doctors = Doctor::where('dname' ,$request->dname)
+     ->orwhere('qualification' ,$request->dname)
+     ->orwhere('phno' ,$request->dname)
+     ->orwhere('email' ,$request->dname)
+     ->orwhere('username' ,$request->dname)
+     ->orwhere('has_receptionist' ,$request->dname)
+     ->paginate(5);
+     return view ('showdoctors')->with('doctors', $doctors);
+   }
 }

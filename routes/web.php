@@ -54,3 +54,9 @@ Route::get('vh_patient/{id}', 'VisitHistoryController@vh_patient');
 Route::get('addnewpvhhistory/{id}', 'VisitHistoryController@addnewpvhhistory');
 //adding patient route
 Route::post('addingpatientvh/{id}', 'VisitHistoryController@addingpatientvh');
+//search Patients
+Route::get('vh_getseachedpatients', 'VisitHistoryController@vh_getseachedpatients');
+//search visit history patients
+Route::get('getseachedpatients', 'PatientController@getseachedpatients');
+//search doctors
+Route::get('getseacheddoctors', 'DoctorController@getseacheddoctors');

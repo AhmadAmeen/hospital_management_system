@@ -40,4 +40,14 @@ class VisitHistoryController extends Controller
     return $this->vh_patient($id);
   }
 
+
+  public function vh_getseachedpatients (Request $request) {
+   $patients = Patient::where('fname' ,$request->pname)
+   ->orwhere('lname' ,$request->pname)
+   ->orwhere('gender' ,$request->pname)
+   ->orwhere('father_name' ,$request->pname)
+   ->orwhere('guard_no' ,$request->dname)
+   ->paginate(5);
+   return view ('vh_main_patients')->with('patients', $patients);
+  }
 }
