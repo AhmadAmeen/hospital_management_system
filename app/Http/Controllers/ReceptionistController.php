@@ -38,14 +38,18 @@ class ReceptionistController extends Controller
        'password' => 'min:6',
      ]);
      if ($validator->fails()) {
-         return view ('docregform_recepsdetails')->with('current_doc_id', $request->doc_id)
-                     ->withErrors($validator);
+         return view ('docregform_recepsdetails')
+         ->with('current_doc_id', $request->doc_id)
+         ->with('center_id', $request->$center->id)
+         ->withErrors($validator);
                      //->withInput();
      }
+     
      $receptionist = new Receptionist;
      $receptionist->username = $request->username;
      $receptionist->password = $request->password;
      $receptionist->doc_id = $request->doc_id;
+     $receptionist->center_id = $request->center_id;
      $current_doc_id = $receptionist->doc_id;
      $receptionist->save();
      return view ('docregform_centersdetails')->with('current_doc_id', $current_doc_id);

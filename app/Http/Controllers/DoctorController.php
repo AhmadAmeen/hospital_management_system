@@ -51,17 +51,22 @@ class DoctorController extends Controller
       $doctor->email = $request->email;
       $doctor->username = $request->username;
       $doctor->password = $request->password;
+      /*
       if ($request->has_receptionist == "TRUE") {
       $doctor->has_receptionist = $request->has_receptionist;
       } else {
       $doctor->has_receptionist = "FALSE";
       }
+      */
       $doctor->save();
+      /*
       if ($request->has_receptionist == "TRUE") {
         return view ('docregform_recepsdetails')->with('current_doc_id', $doctor->id);
       } else {
         return view ('docregform_centersdetails')->with('current_doc_id', $doctor->id);
       }
+      */
+      return view ('docregform_centersdetails')->with('current_doc_id', $doctor->id);
     }
 
     public function showdoctors() {
@@ -86,6 +91,7 @@ class DoctorController extends Controller
       $doctor->email = $request->email;
       $doctor->username = $request->username;
       $doctor->password = $request->password;
+      /*
       $current_state = $doctor->has_receptionist;
       if ($request->has_receptionist == "TRUE") {
       $doctor->has_receptionist = $request->has_receptionist;
@@ -98,9 +104,10 @@ class DoctorController extends Controller
         }
       } else {
       $doctor->has_receptionist = "FALSE";
+      }
+      */
       $doctor->save();
       return redirect ('showdoctors');
-      }
     }
 
     public function deletedoctor($id) {

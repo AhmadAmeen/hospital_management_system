@@ -29,7 +29,7 @@ img {
     <th>Email</th>
     <th>Username</th>
     <th>Password</th>
-    <th>Has a receptionist</th>
+    <!--<th>Has a receptionist</th>-->
     <th>Edit</th>
     <th>Delete</th>
   </tr>
@@ -42,7 +42,7 @@ img {
     <td>{{$doctor->email}}</td>
     <td>{{$doctor->username}}</td>
     <td>{{$doctor->password}}</td>
-    <td>{{$doctor->has_receptionist}}</td>
+    <!--<td>{{$doctor->has_receptionist}}</td>-->
     <td><a href="editingdoctor/{{$doctor->id}}">Edit</a></td>
     <td><a href="deletedoctor/{{$doctor->id}}">Delete</a></td>
   </tr>

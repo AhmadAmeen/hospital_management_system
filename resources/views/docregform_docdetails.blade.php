@@ -105,6 +105,7 @@
                           <input type="text" id="password" name="password" class="date-picker form-control col-md-7 col-xs-12" required="required" type="email">
                         </div>
                       </div>
+                      <!--
                       <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Has Receptionist? <span class="required">*</span>
                         </label>
@@ -115,7 +116,6 @@
                           </label>
                         </div>
                       </div>
-                      <!--
                       <p>
                         <div class="form-group" id="toggle_box">
                           <label class="control-label col-md-3 col-sm-3 col-xs-12" for="dcoordinator">Receptionist Details<span class="required">*</span></label>

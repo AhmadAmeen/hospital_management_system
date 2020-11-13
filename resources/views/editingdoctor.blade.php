@@ -101,7 +101,8 @@ img {
                  <input type="text" id="password" name="password"  value="{{ $doctor->password }}" class="form-control col-md-7 col-xs-12">
                </div>
              </div>
-             <!--doctor has a receptionist?-->
+             <!--doctor has a receptionist? commenting now-->
+             <!--
              <div class="form-group">
                <label class="control-label col-md-3 col-sm-3 col-xs-12">Has receptionist? (TRUE/FALSE)<span class="required"></span>
                </label>
@@ -109,6 +110,7 @@ img {
                  <input id="has_receptionist" name="has_receptionist" class="date-picker form-control col-md-7 col-xs-12" value="{{ $doctor->has_receptionist }}">
                </div>
              </div>
+           -->
              <div class="ln_solid"></div>
              <div class="form-group">
                <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">

@@ -64,9 +64,17 @@
                           <input type="text" id="timing" name="timing" class="date-picker form-control col-md-7 col-xs-12" required="required" type="number">
                         </div>
                       </div>
-
                       <input type="hidden" id="doc_id" name="doc_id" value="{{$current_doc_id}}">
-
+                      <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Has Receptionist? <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <label class="b-contain">
+                            <input id="toggle" value="TRUE" name="has_receptionist" type="checkbox">
+                            <div class="b-input"></div>
+                          </label>
+                        </div>
+                      </div>
                       <div class="ln_solid"></div>
                       <div class="form-group">
                         <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">

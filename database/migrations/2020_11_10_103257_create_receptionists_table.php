@@ -18,6 +18,7 @@ class CreateReceptionistsTable extends Migration
           $table->string('username');
           $table->string('password');
           $table->string('doc_id');
+          $table->string('center_id');
           $table->timestamps();
         });
     }

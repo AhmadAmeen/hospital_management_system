@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddHasReceptionistToDoctorsTable extends Migration
+class AddHasReceptionistToCentersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class AddHasReceptionistToDoctorsTable extends Migration
      */
     public function up()
     {
-        Schema::table('doctors', function (Blueprint $table) {
+        Schema::table('centers', function (Blueprint $table) {
           $table->string('has_receptionist');
         });
     }
@@ -25,7 +25,7 @@ class AddHasReceptionistToDoctorsTable extends Migration
      */
     public function down()
     {
-        Schema::table('doctors', function (Blueprint $table) {
+        Schema::table('centers', function (Blueprint $table) {
           $table->dropColumn('has_receptionist');
         });
     }

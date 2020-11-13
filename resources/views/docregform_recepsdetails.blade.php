@@ -44,7 +44,6 @@
                           <input type="text" id="username" name="username" class="date-picker form-control col-md-7 col-xs-12" required="required" type="email">
                         </div>
                       </div>
-
                       <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">password <span class="required">*</span>
                         </label>
@@ -54,6 +53,7 @@
                       </div>
 
                       <input type="hidden" id="doc_id" name="doc_id" value="{{$current_doc_id}}">
+                      <input type="hidden" id="center_id" name="center_id" value="{{$center_id}}">
 
                       <div class="ln_solid"></div>
                       @if($errors->any())

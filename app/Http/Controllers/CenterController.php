@@ -15,8 +15,18 @@ class CenterController extends Controller
       $center->offdays = $request->offdays;
       $center->timing = $request->timing;
       $center->doc_id = $request->doc_id;
-      $center->save();
-      return view('docregform_centersdetails')->with('current_doc_id', $center->doc_id);
+      if ($request->has_receptionist) {
+        $center->has_receptionist = $request->has_receptionist;
+        $center->save();
+        return view('docregform_recepsdetails')
+        ->with('current_doc_id', $center->doc_id)
+        ->with('center_id', $center->id);
+      } else {
+        $center->has_receptionist = "FALSE";
+        $center->save();
+        return view('docregform_centersdetails')->with('current_doc_id', $center->doc_id);
+      }
+      //$center->has_receptionist = $request->has_receptionist;
       //if ($request->submit != 'vaccine') {
       //
       //} else {
