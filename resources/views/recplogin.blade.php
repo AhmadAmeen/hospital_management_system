@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Receptionist Login</title>
+    <title>Doctor Assistant Login</title>
 
     <!-- Bootstrap -->
     <link href="public/gentelella-master/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -26,7 +26,7 @@
   <div class="container" style="background-color: white">
     <div class="left">
       <div class="header">
-        <h2 class="animation a1" style="color: black">Receptionist Login</h2>
+        <h2 class="animation a1" style="color: black">Doctor Assistant Login</h2>
         <h4 class="animation a2">Log in to your account using email and password</h4>
       </div>
       <div class="form">

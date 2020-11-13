@@ -4,7 +4,7 @@
       <div class="col-md-3 left_col">
         <div class="left_col scroll-view">
           <div class="navbar nav_title" style="border: 0;">
-            <a href="" class="site_title"> <span>Hospital Management System</span></a>
+            <a href="" class="site_title"> <span style="font-family: Impact; font-size: 17px">Hospital Management System</span></a>
 
           </div>
 
@@ -31,8 +31,8 @@
       <li>
           <li><a style="border-style: outset; margin-right: 2px; border-color: #767676;"></i> Doctor ↓ <span class="fa fa-chevron-down"></span></a>
              <ul class="nav child_menu">
-               <li><a href="{{url('viewpatients')}}">View Patients</a></li>
-               <li><a href="{{url('viewpatientshistory')}}">Patients History</a></li>
+               <li><a href="{{url('showpatients')}}">Edit or Delete Patients</a></li>
+               <li><a href="{{url('vh_main_patients')}}">Patients History</a></li>
             </ul>
           </li>
           <!--

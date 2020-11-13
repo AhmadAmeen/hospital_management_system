@@ -23,14 +23,14 @@
 						<div class="content">
 							<div class="inner">
 								<h1>Welcome</h1>
-								<p>Please Login as Doctor, Admin, or Receptionist</p>
+								<p>Please Login as Admin, Doctor, or Doctor Assistant</p>
 							</div>
 						</div>
 						<nav>
 							<ul>
 								<li><a href="{{url('adminlogin')}}">Admin</a></li>
 								<li><a href="{{url('doctorlogin')}}">Doctor</a></li>
-								<li><a href="{{url('recplogin')}}">Receptionist</a></li>
+								<li><a href="{{url('recplogin')}}">Assistant</a></li>
 							</ul>
 						</nav>
 					</header>
