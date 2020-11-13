@@ -28,6 +28,8 @@ Route::get('docregform_vaccinedetails/{current_doc_id}', 'VaccineController@show
 Route::post('doctorvaccinestore', 'VaccineController@doctorvaccinestore');
 //add doc receptionist
 Route::post('doctorrecepstore', 'ReceptionistController@doctorrecepstore');
+//add doc receptionist from update
+Route::post('addrecepfromupdate', 'ReceptionistController@addrecepfromupdate');
 //show all doctors
 Route::get('showdoctors', 'DoctorController@showdoctors');
 //edit, update & delete doctor

@@ -86,13 +86,21 @@ class DoctorController extends Controller
       $doctor->email = $request->email;
       $doctor->username = $request->username;
       $doctor->password = $request->password;
+      $current_state = $doctor->has_receptionist;
       if ($request->has_receptionist == "TRUE") {
       $doctor->has_receptionist = $request->has_receptionist;
+      $doctor->save();
+      //add receptionist
+        if($request->has_receptionist == $current_state) {
+          return redirect ('showdoctors');
+        } else {
+          return view ('addrecepfromupdate')->with('current_doc_id', $doctor->id);
+        }
       } else {
       $doctor->has_receptionist = "FALSE";
-      }
       $doctor->save();
       return redirect ('showdoctors');
+      }
     }
 
     public function deletedoctor($id) {

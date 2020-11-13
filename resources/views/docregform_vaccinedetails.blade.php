@@ -39,7 +39,7 @@
                       @for ($i = 0, $j = 0; $i < count($vdetails); $i++, $j++)
                       <!--Vaccine-->
                       <div class="form-group">
-                        <p style="text-align: center; color: black">Vaccine No: {{$j}}</p>
+                        <p style="text-align: center; color: black">Vaccination No: {{$j}}</p>
                         <div class="form-group">
                           <label class="control-label col-md-3 col-sm-3 col-xs-12" for="cname">Vaccination Name <span class="required">*</span>
                           </label>

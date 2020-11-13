@@ -31,6 +31,7 @@
       <li>
           <li><a style="border-style: outset; margin-right: 2px; border-color: #767676;"></i> Doctor ↓ <span class="fa fa-chevron-down"></span></a>
              <ul class="nav child_menu">
+               <li><a href="{{url('patientregform')}}">Add Patient</a></li>
                <li><a href="{{url('showpatients')}}">Edit or Delete Patients</a></li>
                <li><a href="{{url('vh_main_patients')}}">Patients History</a></li>
             </ul>

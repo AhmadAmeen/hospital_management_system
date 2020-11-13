@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Patient;
 use App\Doctor;
+use App\Receptionist;
 
 class PatientController extends Controller
 {
@@ -22,8 +23,10 @@ class PatientController extends Controller
       $patient->father_name = $request->father_name;
       $patient->guard_no = $request->guard_no;
       $patient->pat_history = $request->pat_history;
-      $id = $request->session()->get('recep_session');
-      $doctor = Doctor::find($id);
+      $recp_id = $request->session()->get('recep_session');
+      $recep = Receptionist::find($recp_id);
+      $doctor = Doctor::find($recep->doc_id);
+      echo $doctor->doc_id;
       $patient->doc_id = $doctor->id;
       $patient->save();
       return $this->showpatients();
@@ -40,9 +43,16 @@ class PatientController extends Controller
     }
 
     public function showpatients () {
-      $patients = Patient::paginate(5);
+      //getting all patients
+      $patients = Patient::get();
       return view ('showpatients')->with('patients', $patients);
-    }
+
+      //get the patients of only this recep's doctor
+      //$recp_id = $request->session()->get('recep_session');
+      //$recep = Receptionist::find($recp_id);
+      //$patients = Patient::where('doc_id', $recep->doc_id)->get();
+      //return view ('showpatients')->with('patients', $patients);
+}
 
    public function editingpatient($id) {
      $patient = Patient::find($id);
@@ -59,11 +69,13 @@ class PatientController extends Controller
      $patient->father_name = $request->father_name;
      $patient->guard_no = $request->guard_no;
      $patient->pat_history = $request->pat_history;
-     $id = $request->session()->get('recep_session');
-     $doctor = Doctor::find($id);
+     $recp_id = $request->session()->get('recep_session');
+     $recep = Receptionist::find($recp_id);
+     $doctor = Doctor::find($recep->doc_id);
+     //echo $doctor->doc_id;
      $patient->doc_id = $doctor->id;
      $patient->save();
-     return redirect ('showpatients');
+     return $this->showpatients();
    }
 
    public function deletepatient ($id) {

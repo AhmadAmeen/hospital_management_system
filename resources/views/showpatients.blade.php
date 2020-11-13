@@ -48,7 +48,6 @@ img {
     <td><a href="deletepatient/{{$patient->id}}">Delete</a></td>
   </tr>
   @endforeach
-  {{$patients->links()}}
 </table>
 <hr>
 </div>
