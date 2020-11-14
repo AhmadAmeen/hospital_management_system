@@ -78,6 +78,7 @@ class DoctorController extends Controller
       $doctor = Doctor::find($id);
       return view ('editingdoctor')->with('doctor', $doctor);
     }
+    
     public function updatedoctor($id, Request $request) {
       $doctor = Doctor::find($id);
       if($request->file('dimg')) {

@@ -26,6 +26,8 @@ Route::post('doctorcentersstore', 'CenterController@doctorcentersstore');
 //add doc vaccine
 Route::get('docregform_vaccinedetails/{current_doc_id}', 'VaccineController@show');
 Route::post('doctorvaccinestore', 'VaccineController@doctorvaccinestore');
+//doctorvaccineupdate
+Route::post('doctorvaccineupdate', 'VaccineController@doctorvaccineupdate');
 //add doc receptionist
 Route::post('doctorrecepstore', 'ReceptionistController@doctorrecepstore');
 //add doc receptionist from update
@@ -36,6 +38,16 @@ Route::get('showdoctors', 'DoctorController@showdoctors');
 Route::get('editingdoctor/{id}', 'DoctorController@editingdoctor');
 Route::post('updatedoctor/{id}', 'DoctorController@updatedoctor');
 Route::get('deletedoctor/{id}', 'DoctorController@deletedoctor');
+//show centers of current doc
+Route::get('showcentersofcurdoc/{id}', 'CenterController@showcentersofcurdoc');
+//show vaccine of current doc
+Route::get('showvaccinesofcurdoc/{doc_id}', 'VaccineController@showvaccinesofcurdoc');
+//edit, update & delete center
+Route::get('editingcenter/{id}', 'CenterController@editingcenter');
+Route::post('updatecenter/{id}', 'CenterController@updatecenter');
+Route::get('deletecenter/{id}', 'CenterController@deletecenter');
+//show update vaccine
+Route::post('updatevaccine/{id}', 'VaccineController@updatevaccine');
 //receptionist
 Route::view('recplogin', 'recplogin');
 Route::post('/isreceplogin', 'ReceptionistController@receploggedin');

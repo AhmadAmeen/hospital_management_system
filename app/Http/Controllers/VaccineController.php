@@ -139,6 +139,7 @@ class VaccineController extends Controller
     }
 
     public function doctorvaccinestore (Request $request) {
+
       for ($i = 0; $i < $request->tot_length; $i++) {
         $vaccine = new Vaccine;
         $vaccine->vname = $request->vname[$i];
@@ -150,5 +151,49 @@ class VaccineController extends Controller
       $current_doc_id = $request->doc_id;
       return $this->show ($current_doc_id);
       //return view ('docregform_vaccinedetails')->with('current_doc_id', $current_doc_id);
+    }
+
+
+
+    public function updatevaccine ($doc_id, Request $request) {
+      $vaccines = Vaccine::where('doc_id', $doc_id);
+      //print_r($vaccines);
+      //foreach ($vaccines as $vaccine) {
+          //print_r($request->vname);
+          //$vaccine->save();
+      //}
+      //$vaccines = Vaccine::where('doc_id', $doc_id)->get();
+      //return view ('showvaccinesofcurdoc')->with('vaccines', $vaccines)
+      //->with('current_doc_id', $doc_id);
+    }
+
+
+    public function showvaccinesofcurdoc($doc_id) {
+      $vaccines = Vaccine::where('doc_id', $doc_id)->get();
+      //ini_set('memory_limit', '-1');
+      //print_r($vaccines);
+      return view ('showvaccinesofcurdoc')
+        ->with('current_doc_id', $doc_id)
+        ->with('vaccines', $vaccines);
+    }
+
+    public function doctorvaccineupdate(Request $request) {
+      //print_r ($request->vname);
+      //$vaccines = Vaccine::find($request->vid[0]);
+      //echo $request->vid[0];
+      //echo $vaccines->id;
+
+      for ($i = 0; $i < 31; $i++) {
+        $vaccine = Vaccine::find($request->vid[$i]);
+        $vaccine->vname = $request->vname[$i];
+        //print_r($request->vname[0]);
+        $vaccine->vtiming = $request->vtiming[$i];
+        //$vaccine->doc_id = $request->doc_id;
+        $vaccine->vdescription = $request->vdescription[$i];
+        $vaccine->save();
+      }
+
+      $current_doc_id = $request->doc_id;
+      return $this->showvaccinesofcurdoc ($current_doc_id);
     }
 }

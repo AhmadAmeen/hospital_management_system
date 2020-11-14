@@ -41,73 +41,57 @@ img {
             </div>
          <div class="x_content">
            <br>
-           <form action="{{ url ('updatedoctor', $doctor->id) }}" method="post" enctype="multipart/form-data" id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
+           <form action="{{ url ('updatecenter', $center->id) }}" method="post" enctype="multipart/form-data" id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
              @csrf
-             <h1 style="text-align: center; margin-down: 20px">Edit Doctor</h1>
-             <!--doctor image-->
-             <img src="data:image/png;base64,{{ chunk_split(base64_encode($doctor->dimg)) }}" alt="doctor_img" style="width:150px; height:150px;"></img>
+             <h1 style="text-align: center; margin-down: 20px">Edit Center</h1>
+             <!--cname-->
              <div class="form-group">
-               <label class="control-label col-md-3 col-sm-3 col-xs-12" for="dimg">Change doctor Image <span class="required"></span>
+               <label class="control-label col-md-3 col-sm-3 col-xs-12" for="cname">Center Name <span class="required"></span>
                </label>
                <div class="col-md-6 col-sm-6 col-xs-12">
-                 <input type="file" id="dimg" name="dimg" class="form-control col-md-7 col-xs-12">
+                 <input type="text" id="cname" name="cname" value="{{ $center->cname }}" class="form-control col-md-7 col-xs-12">
                </div>
              </div>
-             <!--doctor Name-->
+             <!--address-->
              <div class="form-group">
-               <label class="control-label col-md-3 col-sm-3 col-xs-12" for="dname">Doctor Name <span class="required"></span>
+               <label class="control-label col-md-3 col-sm-3 col-xs-12" for="address">Center Address <span class="required"></span>
                </label>
                <div class="col-md-6 col-sm-6 col-xs-12">
-                 <input type="text" id="dname" name="dname" value="{{ $doctor->dname }}" class="form-control col-md-7 col-xs-12">
+                 <input type="text" id="address" name="address"  value="{{ $center->address }}" class="form-control col-md-7 col-xs-12">
                </div>
              </div>
-             <!--doctor qualification-->
+             <!--offdays-->
              <div class="form-group">
-               <label class="control-label col-md-3 col-sm-3 col-xs-12" for="qualification">Qualification <span class="required"></span>
+               <label class="control-label col-md-3 col-sm-3 col-xs-12" for="offdays">Off Days <span class="required"></span>
                </label>
                <div class="col-md-6 col-sm-6 col-xs-12">
-                 <input type="text" id="qualification" name="qualification"  value="{{ $doctor->qualification }}" class="form-control col-md-7 col-xs-12">
+                 <input type="text" id="offdays" name="offdays"  value="{{ $center->offdays }}" class="form-control col-md-7 col-xs-12">
                </div>
              </div>
-             <!--doctor phno-->
+             <!--timing-->
              <div class="form-group">
-               <label class="control-label col-md-3 col-sm-3 col-xs-12" for="phno">Phone No <span class="required"></span>
+               <label class="control-label col-md-3 col-sm-3 col-xs-12" for="timing">Timing <span class="required"></span>
                </label>
                <div class="col-md-6 col-sm-6 col-xs-12">
-                 <input type="text" id="phno" name="phno"  value="{{ $doctor->phno }}" class="form-control col-md-7 col-xs-12">
+                 <input type="text" id="timing" name="timing"  value="{{ $center->timing }}" class="form-control col-md-7 col-xs-12">
                </div>
              </div>
-             <!--doctor email-->
+             <!--center has_receptionist-->
              <div class="form-group">
-               <label class="control-label col-md-3 col-sm-3 col-xs-12" for="email">Email <span class="required"></span>
+               <label class="control-label col-md-3 col-sm-3 col-xs-12" for="has_receptionist">Has a Receptionist?<span class="required"></span>
                </label>
                <div class="col-md-6 col-sm-6 col-xs-12">
-                 <input type="text" id="email" name="email"  value="{{ $doctor->email }}" class="form-control col-md-7 col-xs-12">
+                 <input type="text" id="has_receptionist" name="has_receptionist"  value="{{ $center->has_receptionist }}" class="form-control col-md-7 col-xs-12">
                </div>
              </div>
-             <!--doctor username-->
-             <div class="form-group">
-               <label class="control-label col-md-3 col-sm-3 col-xs-12" for="username">Username <span class="required"></span>
-               </label>
-               <div class="col-md-6 col-sm-6 col-xs-12">
-                 <input type="text" id="username" name="username"  value="{{ $doctor->username }}" class="form-control col-md-7 col-xs-12">
-               </div>
-             </div>
-             <!--doctor password-->
-             <div class="form-group">
-               <label class="control-label col-md-3 col-sm-3 col-xs-12" for="password">Password <span class="required"></span>
-               </label>
-               <div class="col-md-6 col-sm-6 col-xs-12">
-                 <input type="text" id="password" name="password"  value="{{ $doctor->password }}" class="form-control col-md-7 col-xs-12">
-               </div>
-             </div>
+
              <!--doctor has a receptionist? commenting now-->
              <!--
              <div class="form-group">
                <label class="control-label col-md-3 col-sm-3 col-xs-12">Has receptionist? (TRUE/FALSE)<span class="required"></span>
                </label>
                <div class="col-md-6 col-sm-6 col-xs-12">
-                 <input id="has_receptionist" name="has_receptionist" class="date-picker form-control col-md-7 col-xs-12" value="{{ $doctor->has_receptionist }}">
+                 <input id="has_receptionist" name="has_receptionist" class="date-picker form-control col-md-7 col-xs-12" value="{{ $center->has_receptionist }}">
                </div>
              </div>
            -->
@@ -115,7 +99,7 @@ img {
              <div class="form-group">
                <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
                  <button class="btn btn-primary" type="button" onclick="showalldoctors()">Cancel</button>
-                 <button class="btn btn-primary" type="button" onclick="showcentersofcurdoc()">Edit Centers</button>
+                 <button class="btn btn-primary" type="button" onclick="showvaccineofcurdoc()">Edit Vaccines</button>
                  <button type="submit" name="submit" class="btn btn-success">Update</button>
                </div>
              </div>
@@ -129,8 +113,9 @@ img {
  function showalldoctors() {
    window.location = "{{url('showdoctors')}}";
  }
- function showcentersofcurdoc() {
-   window.location = "{{url('showcentersofcurdoc/' . $doctor->id)}}";
+ function showvaccineofcurdoc() {
+   window.location = "{{url('showvaccinesofcurdoc/' . $center->doc_id)}}";
  }
+
  </script>
 @endsection

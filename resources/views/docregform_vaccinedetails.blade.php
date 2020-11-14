@@ -34,10 +34,31 @@
                         <div class="x_content">
                     <br>
                     <form action="{{url('doctorvaccinestore')}}" method="post" enctype="multipart/form-data" id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
-                      @csrf
-                      <h1 style="text-align: center; margin-down: 20px">Add Vaccination Details</h1>
+                    @csrf
+                    <h1 style="text-align: center; margin-down: 20px">Add Vaccination Details</h1>
+                    <div class="form-group">
+                      <table class="table table-hove" style="background-color: white; color: black; padding-left: 10px">
+                        <tr>
+                          <th>Vaccine Name</th>
+                          <th>Vaccine Timing</th>
+                          <th>Vaccine Description</th>
+                          <th></th>
+                        </tr>
+                        @for ($i = 0; $i < count($vdetails); $i++)
+                        <tr style="padding: 5">
+                          <td><input type="text" id="vname" name="vname[]" value="{{$vdetails[$i]}}" required="required" class="form-control col-md-7 col-xs-12"></td>
+                          <?php $i++; ?>
+                          <td><input type="text" id="vtiming" name="vtiming[]" value="{{$vdetails[$i]}}" required="required" class="form-control col-md-7 col-xs-12"></td>
+                          <?php $i++; ?>
+                          <td><input type="text" id="vdescription" name="vdescription[]" value="{{$vdetails[$i]}}" required="required" class="form-control col-md-7 col-xs-12"></td>
+                          <td><input type="hidden" id="doc_id" name="doc_id" value="{{$current_doc_id}}"></td>
+                        </tr>
+                        @endfor
+                    </table>
+                  </div>
+                  <!--Vaccine-->
+                      <!--
                       @for ($i = 0, $j = 0; $i < count($vdetails); $i++, $j++)
-                      <!--Vaccine-->
                       <div class="form-group">
                         <p style="text-align: center; color: black">Vaccination No: {{$j}}</p>
                         <div class="form-group">
@@ -51,7 +72,6 @@
                           <label class="control-label col-md-3 col-sm-3 col-xs-12" for="vtiming">Vaccination Timing <span class="required">*</span>
                           </label>
                           <div class="col-md-6 col-sm-6 col-xs-12">
-                            <?php $i++; ?>
                             <input type="text" id="vtiming" name="vtiming[]" value="{{$vdetails[$i]}}" required="required" class="form-control col-md-7 col-xs-12">
                           </div>
                         </div>
@@ -60,13 +80,13 @@
                           <label class="control-label col-md-3 col-sm-3 col-xs-12" for="address">Vaccination Description <span class="required">*</span>
                           </label>
                           <div class="col-md-6 col-sm-6 col-xs-12">
-                            <?php $i++; ?>
                             <input type="text" id="vdescription" name="vdescription[]" value="{{$vdetails[$i]}}" required="required" class="form-control col-md-7 col-xs-12">
                           </div>
                         </div>
                       </div>
                       <hr>
                       @endfor
+                    -->
                       <input type="hidden" id="tot_length" name="tot_length" value="{{count($vdetails)/3}}">
                       <div class="ln_solid"></div>
                       <div class="form-group">

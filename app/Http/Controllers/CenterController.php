@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Center;
+use App\Doctor;
 use Session;
-
 class CenterController extends Controller
 {
     public function doctorcentersstore(Request $request) {
@@ -32,5 +32,55 @@ class CenterController extends Controller
       //} else {
       //  return view('docregform_vaccinedetails');
       //}
+    }
+
+    public function showcentersofcurdoc($id) {
+      $centers = Center::where('doc_id', $id)->get();
+      return view ('showcentersofcurdoc')->with('centers', $centers);
+    }
+
+
+    public function editingcenter($id) {
+      $center = Center::find($id);
+      return view ('editingcenter')->with('center', $center);
+    }
+
+    public function updatecenter($id, Request $request) {
+      $center = Center::find($id);
+      //$doctor = Doctor::where('id', $id);
+      $center->cname = $request->cname;
+      $center->address = $request->address;
+      $center->offdays = $request->offdays;
+      $center->timing = $request->timing;
+      $center->doc_id = $center->doc_id;
+      $center->has_receptionist = $request->has_receptionist;
+      /*
+      $current_state = $doctor->has_receptionist;
+      if ($request->has_receptionist == "TRUE") {
+      $doctor->has_receptionist = $request->has_receptionist;
+      $doctor->save();
+      //add receptionist
+        if($request->has_receptionist == $current_state) {
+          return redirect ('showdoctors');
+        } else {
+          return view ('addrecepfromupdate')->with('current_doc_id', $doctor->id);
+        }
+      } else {
+      $doctor->has_receptionist = "FALSE";
+      }
+      */
+      $center->save();
+      //return redirect ('showdoctors');
+      //return $this.showcentersofcurdoc($center->doc_id);
+      $center = Center::find($id);
+      return view ('editingcenter')->with('center', $center);
+    }
+
+    public function deletecenter($id) {
+      $center = Center::find($id);
+      $center->delete();
+      //return redirect('showcentersofcurdoc/' . $id);
+      $centers = Center::where('doc_id', $id)->get();
+      return view ('showcentersofcurdoc')->with('centers', $centers);
     }
 }
