@@ -69,19 +69,22 @@ img {
                </div>
              </div>
              <!--age-->
+             <!--
              <div class="form-group">
                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="age">Age <span class="required"></span>
                </label>
                <div class="col-md-6 col-sm-6 col-xs-12">
-                 <input type="text" id="age" name="age"  value="{{ $patient->age }}" class="form-control col-md-7 col-xs-12">
+                 <p style="margin-left: 10px; margin-top: 2px">{{ $patient->age }}</p>
+                 <input type="hidden" id="age" name="age"  value="{{ $patient->age }}" class="form-control col-md-7 col-xs-12">
                </div>
              </div>
+             -->
              <!--dob-->
              <div class="form-group">
                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="dob">DoB <span class="required"></span>
                </label>
                <div class="col-md-6 col-sm-6 col-xs-12">
-                 <input type="text" id="dob" name="dob"  value="{{ $patient->dob }}" class="form-control col-md-7 col-xs-12">
+                 <input type="date" id="dob" name="dob"  value="{{ $patient->dob}}" class="form-control col-md-7 col-xs-12">
                </div>
              </div>
              <!--father_name-->

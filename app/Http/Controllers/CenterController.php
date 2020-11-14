@@ -53,22 +53,24 @@ class CenterController extends Controller
       $center->offdays = $request->offdays;
       $center->timing = $request->timing;
       $center->doc_id = $center->doc_id;
-      $center->has_receptionist = $request->has_receptionist;
-      /*
-      $current_state = $doctor->has_receptionist;
+      //$center->has_receptionist = $request->has_receptionist;
+
+      $current_state = $center->has_receptionist;
       if ($request->has_receptionist == "TRUE") {
-      $doctor->has_receptionist = $request->has_receptionist;
-      $doctor->save();
+      $center->has_receptionist = $request->has_receptionist;
+      $center->save();
       //add receptionist
         if($request->has_receptionist == $current_state) {
-          return redirect ('showdoctors');
+          //return redirect ('showdoctors');
+          $center = Center::find($id);
+          return view ('editingcenter')->with('center', $center);
         } else {
-          return view ('addrecepfromupdate')->with('current_doc_id', $doctor->id);
+          return view ('addrecepfromupdate')->with('current_doc_id', $center->doc_id)
+          ->with('center_id', $center->id);
         }
       } else {
-      $doctor->has_receptionist = "FALSE";
+      $center->has_receptionist = "FALSE";
       }
-      */
       $center->save();
       //return redirect ('showdoctors');
       //return $this.showcentersofcurdoc($center->doc_id);

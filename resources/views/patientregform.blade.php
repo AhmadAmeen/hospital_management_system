@@ -70,6 +70,7 @@
                           <input type="text" id="gender" name="gender" required="required" class="form-control col-md-7 col-xs-12">
                         </div>
                       </div>
+                    <!--
                       <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="age">Patient Age <span class="required">*</span>
                         </label>
@@ -77,11 +78,12 @@
                           <input type="text" id="age" name="age" required="required" class="form-control col-md-7 col-xs-12">
                         </div>
                       </div>
+                    -->
                       <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="dob">Patient DoB <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="text" id="dob" name="dob" required="required" class="form-control col-md-7 col-xs-12">
+                          <input type="date" id="dob" name="dob" required="required" class="form-control col-md-7 col-xs-12">
                         </div>
                       </div>
                       <div class="form-group">

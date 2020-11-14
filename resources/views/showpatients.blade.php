@@ -44,8 +44,8 @@ img {
     <td>{{$patient->father_name}}</td>
     <td>{{$patient->guard_no}}</td>
     <td>{{$patient->pat_history}}</td>
-    <td><a href="editingpatient/{{$patient->id}}">Edit</a></td>
-    <td><a href="deletepatient/{{$patient->id}}">Delete</a></td>
+    <td><a href="{{url('editingpatient/' . $patient->id)}}">Edit</a></td>
+    <td><a href="{{url('deletepatient/' . $patient->id)}}">Delete</a></td>
   </tr>
   @endforeach
 </table>

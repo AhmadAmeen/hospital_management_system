@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Patient;
 use App\Doctor;
+use Carbon\Carbon;
 use App\Receptionist;
 
 class PatientController extends Controller
@@ -18,8 +19,9 @@ class PatientController extends Controller
       $patient->fname = $request->fname;
       $patient->lname = $request->lname;
       $patient->gender = $request->gender;
-      $patient->age = $request->age;
       $patient->dob = $request->dob;
+      $age = Carbon::parse($patient->dob)->diff(Carbon::now())->format('%y years, %m months and %d days');
+      $patient->age = $age;
       $patient->father_name = $request->father_name;
       $patient->guard_no = $request->guard_no;
       $patient->pat_history = $request->pat_history;
@@ -64,8 +66,10 @@ class PatientController extends Controller
      $patient->fname = $request->fname;
      $patient->lname = $request->lname;
      $patient->gender = $request->gender;
-     $patient->age = $request->age;
      $patient->dob = $request->dob;
+     $patient->dob = $request->dob;
+     $age = Carbon::parse($patient->dob)->age .' years';
+     $patient->age = $age;
      $patient->father_name = $request->father_name;
      $patient->guard_no = $request->guard_no;
      $patient->pat_history = $request->pat_history;
@@ -84,4 +88,8 @@ class PatientController extends Controller
      return redirect('showpatients');
    }
 
+   public function getAge(){
+       return $this->birthdate->diff(Carbon::now())
+            ->format('%y years, %m months and %d days');
+   }
 }

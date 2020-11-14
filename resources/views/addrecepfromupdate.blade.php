@@ -54,6 +54,7 @@
                       </div>
 
                       <input type="hidden" id="doc_id" name="doc_id" value="{{$current_doc_id}}">
+                      <input type="hidden" id="center_id" name="center_id" value="{{$center_id}}">
 
                       <div class="ln_solid"></div>
                       @if($errors->any())

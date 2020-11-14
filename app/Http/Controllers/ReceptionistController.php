@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Receptionist;
 use App\Doctor;
+use App\Center;
 use Validator;
 use Session;
 
@@ -40,11 +41,11 @@ class ReceptionistController extends Controller
      if ($validator->fails()) {
          return view ('docregform_recepsdetails')
          ->with('current_doc_id', $request->doc_id)
-         ->with('center_id', $request->$center->id)
+         ->with('center_id', $request->center_id)
          ->withErrors($validator);
                      //->withInput();
      }
-     
+
      $receptionist = new Receptionist;
      $receptionist->username = $request->username;
      $receptionist->password = $request->password;
@@ -61,16 +62,21 @@ class ReceptionistController extends Controller
        'password' => 'min:6',
      ]);
      if ($validator->fails()) {
-         return view ('addrecepfromupdate')->with('current_doc_id', $request->doc_id)
-                     ->withErrors($validator);
-                     //->withInput();
+         return view ('addrecepfromupdate')
+           ->with('current_doc_id', $request->doc_id)
+           ->with('center_id', $request->center_id)
+           ->withErrors($validator);
+           //->withInput();
      }
      $receptionist = new Receptionist;
      $receptionist->username = $request->username;
      $receptionist->password = $request->password;
      $receptionist->doc_id = $request->doc_id;
-     $current_doc_id = $receptionist->doc_id;
+     $current_doc_id = $request->doc_id;
+     $receptionist->center_id = $request->center_id;
      $receptionist->save();
-     return redirect ('showdoctors');
+     //return redirect ('showdoctors');
+     $center = Center::find($request->center_id);
+     return view ('editingcenter')->with('center', $center);
    }
 }
