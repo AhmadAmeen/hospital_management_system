@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCentertimingsTable extends Migration
+class CreateAdvCentersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class CreateCentertimingsTable extends Migration
      */
     public function up()
     {
-        Schema::create('centertimings', function (Blueprint $table) {
+        Schema::create('adv_centers', function (Blueprint $table) {
           $table->id();
-          $table->string('center_id');
+          $table->string('cname');
+          $table->string('address');
           $table->string('doc_id');
-          $table->string('from');
-          $table->string('to');
+          $table->string('has_receptionist');
           $table->timestamps();
         });
     }
@@ -30,6 +30,6 @@ class CreateCentertimingsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('centertimings');
+        Schema::dropIfExists('adv_centers');
     }
 }

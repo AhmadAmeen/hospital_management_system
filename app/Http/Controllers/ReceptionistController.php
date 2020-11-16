@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Receptionist;
 use App\Doctor;
-use App\Center;
+use App\AdvCenter;
 use Validator;
 use Session;
 
@@ -53,7 +53,33 @@ class ReceptionistController extends Controller
      $receptionist->center_id = $request->center_id;
      $current_doc_id = $receptionist->doc_id;
      $receptionist->save();
-     return view ('docregform_centersdetails')->with('current_doc_id', $current_doc_id);
+     $center = AdvCenter::find($request->center_id);
+     //create days array
+     return redirect('showoffdaysforcenter/' . $current_doc_id . '/' . $center->id);
+     /*
+     $week_days = array (
+       'Monday',
+       'Tuesday',
+       'Wednesday',
+       'Thrusday',
+       'Friday',
+       'Sat',
+       'Sun'
+     );
+     $db_days_names = array (
+       'mon',
+       'tues',
+       'wed',
+       'thu',
+       'fri',
+       'sat',
+       'sun'
+     );
+     return view ('docregform_adv_centeroffdays')->with('current_doc_id', $current_doc_id)
+     ->with('center', $center)
+     ->with('week_days', $week_days)
+     ->with('db_days_names', $db_days_names);
+     */
    }
 
    public function addrecepfromupdate (Request $request) {
@@ -76,7 +102,7 @@ class ReceptionistController extends Controller
      $receptionist->center_id = $request->center_id;
      $receptionist->save();
      //return redirect ('showdoctors');
-     $center = Center::find($request->center_id);
+     $center = AdvCenter::find($request->center_id);
      return view ('editingcenter')->with('center', $center);
    }
 }

@@ -39,7 +39,6 @@ class CenterController extends Controller
       return view ('showcentersofcurdoc')->with('centers', $centers);
     }
 
-
     public function editingcenter($id) {
       $center = Center::find($id);
       return view ('editingcenter')->with('center', $center);

@@ -66,7 +66,7 @@ class DoctorController extends Controller
         return view ('docregform_centersdetails')->with('current_doc_id', $doctor->id);
       }
       */
-      return view ('docregform_centersdetails')->with('current_doc_id', $doctor->id);
+      return view ('docregform_adv_centerdetails')->with('current_doc_id', $doctor->id);
     }
 
     public function showdoctors() {
@@ -78,7 +78,7 @@ class DoctorController extends Controller
       $doctor = Doctor::find($id);
       return view ('editingdoctor')->with('doctor', $doctor);
     }
-    
+
     public function updatedoctor($id, Request $request) {
       $doctor = Doctor::find($id);
       if($request->file('dimg')) {

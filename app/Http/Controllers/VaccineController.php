@@ -178,10 +178,6 @@ class VaccineController extends Controller
     }
 
     public function doctorvaccineupdate(Request $request) {
-      //print_r ($request->vname);
-      //$vaccines = Vaccine::find($request->vid[0]);
-      //echo $request->vid[0];
-      //echo $vaccines->id;
 
       for ($i = 0; $i < 31; $i++) {
         $vaccine = Vaccine::find($request->vid[$i]);

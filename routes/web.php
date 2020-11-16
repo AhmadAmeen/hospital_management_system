@@ -39,13 +39,29 @@ Route::get('editingdoctor/{id}', 'DoctorController@editingdoctor');
 Route::post('updatedoctor/{id}', 'DoctorController@updatedoctor');
 Route::get('deletedoctor/{id}', 'DoctorController@deletedoctor');
 //show centers of current doc
-Route::get('showcentersofcurdoc/{id}', 'CenterController@showcentersofcurdoc');
+//Route::get('showcentersofcurdoc/{id}', 'CenterController@showcentersofcurdoc');
+//show adv centers of current doc
+Route::get('showcentersofcurdoc/{id}', 'AdvCenterController@showcentersofcurdoc');
 //show vaccine of current doc
 Route::get('showvaccinesofcurdoc/{doc_id}', 'VaccineController@showvaccinesofcurdoc');
 //edit, update & delete center
-Route::get('editingcenter/{id}', 'CenterController@editingcenter');
-Route::post('updatecenter/{id}', 'CenterController@updatecenter');
-Route::get('deletecenter/{id}', 'CenterController@deletecenter');
+//Route::get('editingcenter/{id}', 'CenterController@editingcenter');
+//Route::post('updatecenter/{id}', 'CenterController@updatecenter');
+//Route::get('deletecenter/{id}', 'CenterController@deletecenter');
+//edit, update & delete center
+Route::get('editingcenter/{id}', 'AdvCenterController@editingcenter');
+Route::post('updatecenter/{id}', 'AdvCenterController@updatecenter');
+Route::get('deletecenter/{id}', 'AdvCenterController@deletecenter');
+//edit, update & delete center off-days
+Route::get('editingcenteroffdays/{center_id}', 'OffdaysController@editingcenteroffdays');
+Route::post('updatecenteroffdays/{center_id}', 'OffdaysController@updatecenteroffdays');
+Route::get('deletecenteroffdays/{center_id}', 'OffdaysController@deletecenteroffdays');
+//edit, update & delete center-timings
+Route::get('editingcentertimings/{center_id}', 'CentertimingController@editingcentertimings');
+Route::post('updatecentertimings/{center_id}', 'CentertimingController@updatecentertimings');
+Route::get('deletecentertimings/{center_id}', 'CentertimingController@deletecentertimings');
+Route::get('addcentertimingfromupdate/{center_id}', 'CentertimingController@addcentertimingfromupdate');
+Route::post('addingcentertimingfromupdate', 'CentertimingController@addingcentertimingfromupdate');
 //show update vaccine
 Route::post('updatevaccine/{id}', 'VaccineController@updatevaccine');
 //receptionist
@@ -80,3 +96,13 @@ Route::get('/getdoctorlogout', 'DoctorController@getdoctorlogout');
 Route::post('/isdoctorlogin', 'DoctorController@doctorloggedin');
 //doctor main page
 Route::view('doctormainpage', 'doctormainpage');
+//advance center storing
+Route::post('doctoradvcentersstore', 'AdvCenterController@doctoradvcentersstore');
+//advance center show
+Route::get('addnewcenter/{doc_id}', 'AdvCenterController@addnewcenter');
+//advance center off-days storing
+Route::post('doctoradvcenteroffdaysstore', 'OffdaysController@doctoradvcenteroffdaysstore');
+//advance center timings storing
+Route::post('doctoradvcentertimingsstore', 'CentertimingController@doctoradvcentertimingsstore');
+//show off-days page for the center and doctor
+Route::get('showoffdaysforcenter/{doc_id}/{center_id}', 'OffdaysController@showoffdaysforcenter');

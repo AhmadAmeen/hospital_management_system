@@ -33,7 +33,7 @@
                      </div>
                         <div class="x_content">
                     <br>
-                    <form action="{{url('doctorcentersstore')}}" method="post" enctype="multipart/form-data" id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
+                    <form action="{{url('doctoradvcentersstore')}}" method="post" enctype="multipart/form-data" id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
                       @csrf
                       <h1 style="text-align: center; margin-down: 20px">Add Center Details</h1>
                       <div class="form-group">
@@ -51,6 +51,7 @@
                         </div>
                       </div>
                       <!--off days-->
+                      <!--
                       <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="fname">Off-Days <span class="required">*</span>
                         </label>
@@ -58,7 +59,9 @@
                           <input type="text" id="offdays" name="offdays" required="required" class="form-control col-md-7 col-xs-12">
                         </div>
                       </div>
+                      -->
                       <!--off days-->
+                      <!--
                       <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Timing <span class="required">*</span>
                         </label>
@@ -66,7 +69,9 @@
                           <input type="text" id="timing" name="timing" class="date-picker form-control col-md-7 col-xs-12" required="required" type="number">
                         </div>
                       </div>
+                      -->
                       <input type="hidden" id="doc_id" name="doc_id" value="{{$current_doc_id}}">
+                      <!--has_rececp-->
                       <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Has Receptionist? <span class="required">*</span>
                         </label>
@@ -84,10 +89,15 @@
                         </div>
                       </div>
                     </form>
-                    <button style="float: right" id="tovaccine" class="btn btn-success"><a href="docregform_vaccinedetails/{{$current_doc_id}}" style="color: white;">Move to Add Vaccine</a></button>
+                    <button style="float: right" id="tovaccine" class="btn" onclick="addVaccines()">Move to Add Vaccines</button>
                   </div>
                 </div>
               </div>
             </div>
           </div>
+  <script>
+  function addVaccines() {
+    window.location = "{{url('docregform_vaccinedetails/' . $current_doc_id)}}";
+  }
+  </script>
 @endsection

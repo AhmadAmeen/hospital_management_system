@@ -68,7 +68,7 @@ class PatientController extends Controller
      $patient->gender = $request->gender;
      $patient->dob = $request->dob;
      $patient->dob = $request->dob;
-     $age = Carbon::parse($patient->dob)->age .' years';
+     $age = Carbon::parse($patient->dob)->diff(Carbon::now())->format('%y years, %m months and %d days');
      $patient->age = $age;
      $patient->father_name = $request->father_name;
      $patient->guard_no = $request->guard_no;

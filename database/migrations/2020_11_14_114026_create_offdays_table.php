@@ -14,8 +14,17 @@ class CreateOffdaysTable extends Migration
     public function up()
     {
         Schema::create('offdays', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+          $table->id();
+          $table->string('center_id');
+          $table->string('doc_id');
+          $table->string('mon');
+          $table->string('tues');
+          $table->string('wed');
+          $table->string('thu');
+          $table->string('fri');
+          $table->string('sat');
+          $table->string('sun');
+          $table->timestamps();
         });
     }
 
