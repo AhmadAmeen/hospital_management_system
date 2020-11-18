@@ -68,10 +68,10 @@ Route::post('updatevaccine/{id}', 'VaccineController@updatevaccine');
 Route::view('recplogin', 'recplogin');
 Route::post('/isreceplogin', 'ReceptionistController@receploggedin');
 //patient
-Route::get('patientregform', 'PatientController@show');
+Route::get('patientregform/{recep_id}', 'PatientController@show');
 Route::post('registernewpatient', 'PatientController@registernewpatient');
 //show all patients
-Route::get('showpatients', 'PatientController@showpatients');
+Route::get('showpatients/{recep_id}', 'PatientController@showpatients');
 //edit, update & delete Patient
 Route::get('editingpatient/{id}', 'PatientController@editingpatient');
 Route::post('updatepatient/{id}', 'PatientController@updatepatient');
@@ -106,3 +106,11 @@ Route::post('doctoradvcenteroffdaysstore', 'OffdaysController@doctoradvcenteroff
 Route::post('doctoradvcentertimingsstore', 'CentertimingController@doctoradvcentertimingsstore');
 //show off-days page for the center and doctor
 Route::get('showoffdaysforcenter/{doc_id}/{center_id}', 'OffdaysController@showoffdaysforcenter');
+// show main page of medical history to add
+Route::get('addmedicalhistory/{pat_id}', 'MedicalHistoryController@show');
+// show main page of edit medical history
+Route::get('editmedicalhistory/{pat_id}', 'MedicalHistoryController@editmedicalhistory');
+//store patient medical history
+Route::post('patientmedhistorystore/{pat_id}', 'MedicalHistoryController@patientmedhistorystore');
+//show patient vaccination history page
+Route::get('vaccinehistoryview/{pat_id}', 'VaccinationHistoryController@show');

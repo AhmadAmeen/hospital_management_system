@@ -7,7 +7,7 @@
 @section('content')
 <style>
 img {
- border-radius: 50%;
+ border-radius: 2%;
  display: block;
  margin: 0 auto;
  padding: 10px;
@@ -108,13 +108,22 @@ img {
                <label class="control-label col-md-3 col-sm-3 col-xs-12">Patient History<span class="required"></span>
                </label>
                <div class="col-md-6 col-sm-6 col-xs-12">
-                 <input id="pat_history" name="pat_history" class="date-picker form-control col-md-7 col-xs-12" value="{{ $patient->pat_history }}">
+                 <!--pat history image-->
+                 <img src="data:image/png;base64,{{ chunk_split(base64_encode($patient->pat_history)) }}" alt="doctor_img" style="width:500px; height:500px;"></img>
+                 <div class="form-group">
+                   <label style="widht: 100%" class="control-label col-md-3 col-sm-3 col-xs-12" for="pat_history">Change Image <span class="required"></span>
+                   </label>
+                   <div class="col-md-6 col-sm-6 col-xs-12">
+                     <input type="file" id="pat_history" name="pat_history" class="form-control col-md-7 col-xs-12">
+                   </div>
+                 </div>
+                 <!--<input id="pat_history" name="pat_history" class="date-picker form-control col-md-7 col-xs-12" value="{{ $patient->pat_history }}">-->
                </div>
              </div>
              <div class="ln_solid"></div>
              <div class="form-group">
                <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                 <button type="submit" name="submit" class="btn btn-success">Update</button>
+                 <button style="width: 100%" type="submit" name="submit" class="btn btn-success">Update</button>
                </div>
              </div>
            </form>

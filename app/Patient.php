@@ -11,10 +11,11 @@ class Patient extends Model
   'lname',
   'gender',
   'age',
-   'dob',
-   'father_name',
-   'guard_no',
-   'pat_history',
-   'doc_id'
+  'dob',
+  'father_name',
+  'guard_no',
+  'pat_history',
+  'doc_id',
+  'center_id'
  );
 }

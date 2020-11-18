@@ -26,7 +26,7 @@ class ReceptionistController extends Controller
      if ($receptionist) {
        $request->session()->put('recep_session', $receptionist[0]['id']);
        $request->session()->put('recep_name_session', $request->username);
-       return redirect('patientregform');
+       return redirect('patientregform/' . $receptionist[0]['id']);
      } else {
        session::flash('coc', 'Email or Password is incorrect!');
        return redirect('recplogin')->withinput();

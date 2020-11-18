@@ -22,8 +22,9 @@ class CreatePatientsTable extends Migration
             $table->string('dob');
             $table->string('father_name');
             $table->string('guard_no');
-            $table->string('pat_history');
+            $table->binary('pat_history');
             $table->string('doc_id');
+            $table->string('center_id');
             $table->timestamps();
         });
     }

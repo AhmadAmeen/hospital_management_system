@@ -18,6 +18,7 @@
   });
   */
   </script>
+
   <div class="right_col" role="main">
    <div class="clearfix"></div>
              <div class="row">
@@ -97,14 +98,28 @@
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="guard_no">Patient Guardian No <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="text" id="guard_no" name="guard_no" required="required" class="form-control col-md-7 col-xs-12">
+                          <input type="number" id="guard_no" name="guard_no" required="required" class="form-control col-md-7 col-xs-12">
                         </div>
                       </div>
+
+                      <div class="form-group" id="toggle_box">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="dcoordinator">Choose Center<span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <select name="patient_cid" class="form-control col-md-7 col-xs-12">
+                              <option value="">Select Center</option>
+                              @foreach($centers as $center)
+                            <option value="{{$center->id}}">{{$center->cname}}</option>
+                            @endforeach
+                          </select>
+                        </div>
+                      </div>
+
                       <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="pat_history">Patient History <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="text" id="pat_history" name="pat_history" required="required" class="form-control col-md-7 col-xs-12">
+                          <input type="file" id="pat_history" name="pat_history" required="required" class="form-control col-md-7 col-xs-12">
                         </div>
                       </div>
                       <!--<input type="hidden" id="recp_id" name="recp_id" value="Session::has('recep_name_session')">-->
