@@ -5,6 +5,21 @@
 @extends('patientlayout.default')
 
 @section('content')
+<style>
+img {
+ border-radius: 50%;
+ display: block;
+ margin: 0 auto;
+ padding: 10px;
+}
+.label_margin {
+   margin: 10px;
+}
+input.largerCheckbox {
+    transform : scale(2);
+    margin: 10px;
+}
+</style>
 
 <link rel="stylesheet" type="text/css" href="{{ asset('public/css/checkbox-etc-css.css') }}" />
 
@@ -38,7 +53,7 @@
                     <form action="{{url('patientmedhistorystore/' . $patient->id)}}" method="post" enctype="multipart/form-data" id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
                       @csrf
                       <h1 style="text-align: center; margin-down: 20px">Medical History of:</h1>
-                      <h3 style="text-align: center; margin-down: 10px">{{$patient->fname}} {{$patient->lname}}</h3>
+                      <h3 style="text-align: center; margin-down: 10px">Name: {{$patient->fname}} {{$patient->lname}}</h3>
                       <h3 style="text-align: center; margin-down: 10px">Guardian Phone No: {{$patient->guard_no}}</h3>
                       @for ($i = 0; $i < count($d_names); $i++)
                       <!--d_names-->
@@ -46,9 +61,9 @@
                         <label class="control-label col-md-3 col-sm-3 col-xs-12"><h4>{{ $d_names[$i] }} : </h4><p>{{ $d_desc[$i] }}</p></label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                           <label class="b-contain">
-                             <input type="checkbox" id="toggle" value="TRUE" name="check[]">
-                             <input type="hidden" value="{{ $d_names[$i] }}" name="dname[]">
-                             <input type="hidden" value="{{ $d_desc[$i] }}" name="disease_desc[]">
+                            <input class="largerCheckbox" type="checkbox" id="toggle" value="{{ $i }}" name="check[]">
+                            <input type="hidden" id="toggle" value="{{ $d_names[$i] }}" name="check1[]">
+                            <input type="hidden" id="toggle" value="{{ $d_desc[$i] }}" name="check2[]">
                             <div class="b-input">
                             </div>
                           </label>

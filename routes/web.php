@@ -112,5 +112,7 @@ Route::get('addmedicalhistory/{pat_id}', 'MedicalHistoryController@show');
 Route::get('editmedicalhistory/{pat_id}', 'MedicalHistoryController@editmedicalhistory');
 //store patient medical history
 Route::post('patientmedhistorystore/{pat_id}', 'MedicalHistoryController@patientmedhistorystore');
+//update medical history
+Route::post('updatemedicalhistory/{pat_id}', 'MedicalHistoryController@updatemedicalhistory');
 //show patient vaccination history page
 Route::get('vaccinehistoryview/{pat_id}', 'VaccinationHistoryController@show');

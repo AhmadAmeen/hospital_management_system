@@ -2,7 +2,7 @@
 <script>window.location = "adminlogin";</script>
 @endif
 
-@extends('layout.default')
+@extends('patientlayout.default')
 
 @section('content')
 <style>
@@ -14,6 +14,10 @@ img {
 }
 .label_margin {
    margin: 10px;
+}
+input.largerCheckbox {
+    transform : scale(2);
+    margin: 10px;
 }
 </style>
 <link rel="stylesheet" type="text/css" href="{{ asset('public/css/checkbox-etc-css.css') }}" />
@@ -35,12 +39,14 @@ img {
                 <!--offdays-->
                 <div class="form-group" style="padding: 20px">
                   <label class="control-label col-md-3 col-sm-3 col-xs-12" for="address">Medical History: <span class="required"></span></label>
-
-                  
-
                   <div class="col-md-6 col-sm-6 col-xs-12" style="text-align:center">
                     @foreach ($med_histories as $med_history)
-                      <label class="label_margin"><input type="checkbox" id="dname" name="dname"  value="TRUE" @if ($med_history->dname == 'Brachial Plexus Palsy') ? checked : '' @endif class="form-control col-md-7 col-xs-12">{{$med_history->dname}}</label>
+                    <input type="hidden" id="mid" name="mid[]" value="{{$med_history->id}}">
+                    <input type="hidden" id="status" name="prev_status[]" value="{{$med_history->id}}">
+                    <br>
+                    <label class="label_margin;"><input type="checkbox" id="status" name="status[]" value="{{$med_history->id}}" @if ($med_history->status == 'TRUE') ? checked : '' @endif class="largerCheckbox"><br>
+                    <input type="hidden" id="dname" name="dname" value="{{$med_history->dname}}" class="form-control col-md-7 col-xs-12">Name: {{$med_history->dname}} <br> </label> <br>
+                    <label class="label_margin"><input type="hidden" id="disease_desc" name="disease_desc"  value="{{$med_history->disease_desc}}" class="form-control col-md-7 col-xs-12">Description: {{$med_history->disease_desc}} <br> </label>
                     @endforeach
                   </div>
                 </div>
@@ -52,12 +58,15 @@ img {
                   </div>
                 </div>
               </form>
+              <button style="float: right" class="btn btn-success" onclick="addmorehistories()">Add More Medical Histories</button>
           </div>
         </div>
        </div>
      </div>
    </div>
 <script>
-
+function addmorehistories() {
+  window.location = "{{url('addmedicalhistory/' . $patient->id)}}";
+}
 </script>
 @endsection
