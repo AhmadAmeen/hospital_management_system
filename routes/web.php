@@ -122,3 +122,13 @@ Route::get('vaccinehistoryview/{pat_id}', 'VaccinationHistoryController@show');
 Route::get('addmanualmedhistory/{pat_id}', 'MedicalHistoryController@addmanualmedhistory');
 //add new medical history
 Route::post('addmanualmedhistorystore/{pat_id}', 'MedicalHistoryController@addmanualmedhistorystore');
+//add advance vaccine main page
+Route::get('addadvvaccine/{current_doc_id}', 'AdvVaccineController@show');
+//add adv vaccine store
+Route::post('addadvvaccinestore/{current_doc_id}', 'AdvVaccineController@store');
+//add advance vaccine main page
+Route::get('addadvvaccinetiming/{adv_vid}', 'AdvVaccineTimingController@show');
+//add adv vaccine store
+Route::post('addadvvaccinetimingstore/{adv_vid}', 'AdvVaccineTimingController@store');
+//add adv vaccine store history
+Route::post('advvaccineforpatientstore/{pat_id}', 'VaccinationHistoryController@advvaccineforpatientstore');

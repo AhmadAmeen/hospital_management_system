@@ -2,11 +2,16 @@
 <script>window.location = "welcome";</script>
 @endif
 
+<?php use App\AdvVaccineTiming ?>
+
+
 <link rel="stylesheet" type="text/css" href="{{ asset('public/css/table-css.css') }}" />
 
 @extends('patientlayout.default')
 
 @section('content')
+
+<link rel="stylesheet" type="text/css" href="{{ asset('public/css/checkbox-etc-css.css') }}" />
 
   <div class="right_col" role="main"  >
    <div class="clearfix"></div>
@@ -35,7 +40,7 @@
                      </div>
                      <div class="x_content">
                     <br>
-                    <form action="{{url('doctorvaccinestore')}}" method="post" enctype="multipart/form-data" id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
+                    <form action="{{url('advvaccineforpatientstore', $patient->id)}}" method="post" enctype="multipart/form-data" id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
                     @csrf
                     <h1 style="text-align: center; margin-down: 20px">Vaccination History Details</h1>
                     <div class="form-group">
@@ -43,19 +48,48 @@
                       <table id="vaccines_list" style="background-color: white">
                         <tr>
                           <th></th>
-                        @foreach ($vaccines as $vaccine)
-                            <th>{{ $vaccine->vtiming }}</th>
+                        @foreach ($v_timings as $key)
+                            <th>{{ $key }} Months</th>
                         @endforeach
                         </tr>
                         <tr>
-                      @foreach ($vaccines as $vaccine)
+                      @foreach ($advvaccines as $advvaccine)
                         <tr>
-                          <td>{{ $vaccine->vname }}</td>
-                          @foreach ($vaccines as $vaccine)
-                          <td><input type="checkbox" id="toggle" value="TRUE" name="check[]"></td>
-                          @endforeach
+                          <td>{{ $advvaccine->vname }}</td>
+                          <?php $advvaccinetimings = AdvVaccineTiming::where('v_id', $advvaccine->id)->get();
+                            foreach ($advvaccinetimings as $advvaccinetiming) {
+                              $j = $advvaccinetiming->vtiming;
+                              $vid = $advvaccinetiming->id;
+                              $items[] = $j;
+                              $v_ids[] = $vid;
+                              }
+                            print_r($v_ids);
+                            for ($i = 0; $i < count ($v_timings); $i++) {
+                              if(in_array ($v_timings[$i], $items)) {
+                                echo"<td> ";
+                                $j = 0;
+                                ?>
+                                  <input type="checkbox" value="{{$v_timings[$i]}}" name="vcheck[]" class="form-control col-md-7 col-xs-12">
+                                  <input type="hidden" value="{{$v_ids[$j]}}" name="v_ids[]" class="form-control col-md-7 col-xs-12">
+                                  <!--
+                                  <input type="hidden" value="{{$v_timings[$i]}}" name="vcheck" class="form-control col-md-7 col-xs-12">
+                                  -->
+                          <?php echo " </td>";
+                                $j++;
+                              } else {
+                                echo"<td> </td>";
+                              }
+                            }
+                            foreach ($v_timings as $key) {
+
+                            }
+                            unset($items);
+                            unset($v_ids);
+                          ?>
                         </tr>
                       @endforeach
+
+
                       <table>
                     </div>
                   </div>
