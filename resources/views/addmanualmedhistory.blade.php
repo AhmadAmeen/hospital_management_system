@@ -29,7 +29,7 @@ input.largerCheckbox {
                <div class="col-md-12 col-sm-12 col-xs-12">
                  <div class="x_panel">
                    <div class="x_title">
-                     <h2>Welcome <small>Patient Medical History Details</small></h2>
+                     <h2>Welcome <small>Add Medical History</small></h2>
                      <ul class="nav navbar-right panel_toolbox">
                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                        </li>
@@ -50,35 +50,36 @@ input.largerCheckbox {
                      </div>
                         <div class="x_content">
                     <br>
-                    <form action="{{url('patientmedhistorystore/' . $patient->id)}}" method="post" enctype="multipart/form-data" id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
+                    <form action="{{url('addmanualmedhistorystore/' . $patient->id)}}" method="post" enctype="multipart/form-data" id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
                       @csrf
                       <h1 style="text-align: center; margin-down: 20px">Medical History of:</h1>
                       <h3 style="text-align: center; margin-down: 10px">Name: {{$patient->fname}} {{$patient->lname}}</h3>
                       <h3 style="text-align: center; margin-down: 10px">Guardian Phone No: {{$patient->guard_no}}</h3>
-                      @for ($i = 0; $i < count($d_names); $i++)
-                      <!--d_names-->
+                      <!--dname-->
                       <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12"><h4>{{ $d_names[$i] }} : </h4><p>{{ $d_desc[$i] }}</p></label>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="dname">Disease Name <span class="required">*</span>
+                        </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <label class="b-contain">
-                            <input class="largerCheckbox" type="checkbox" id="toggle" value="{{ $i }}" name="check[]">
-                            <input type="hidden" id="toggle" value="{{ $d_names[$i] }}" name="check1[]">
-                            <input type="hidden" id="toggle" value="{{ $d_desc[$i] }}" name="check2[]">
-                            <div class="b-input">
-                            </div>
-                          </label>
+                          <input type="text" id="dname" name="dname" required="required" class="form-control col-md-7 col-xs-12">
                         </div>
                       </div>
-                      @endfor
+                      <!--disease_desc-->
+                      <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="disease_desc">Disease Description <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <input type="text" id="disease_desc" name="disease_desc" required="required" class="form-control col-md-7 col-xs-12">
+                        </div>
+                      </div>
+
                       <div class="ln_solid"></div>
                       <div class="form-group">
                         <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                          <button type="submit" name="submit" class="btn btn-success">Confirm Medical History</button>
+                          <button type="submit" name="submit" class="btn btn-success">Add this Medical History</button>
                         </div>
                       </div>
                     </form>
                     <button style="float: right" class="btn" onclick="vaccinehistoryview()">Add Vaccination History</button>
-                    <button style="float: right" class="btn" onclick="addmanualmedhistory()">Add Any Other Medical History</button>
                   </div>
                 </div>
               </div>
@@ -89,8 +90,5 @@ input.largerCheckbox {
       window.location = "{{url('vaccinehistoryview/' . $patient->id)}}";
     }
 
-   function addmanualmedhistory() {
-      window.location = "{{url('addmanualmedhistory/' . $patient->id)}}";
-    }
   </script>
 @endsection

@@ -31,7 +31,7 @@ img {
     <th>Password</th>
     <!--<th>Has a receptionist</th>-->
     <th>Edit</th>
-    <th>Delete</th>
+    <th>In-active</th>
   </tr>
   @foreach ($doctors as $doctor)
   <tr>
@@ -44,7 +44,7 @@ img {
     <td>{{$doctor->password}}</td>
     <!--<td>{{$doctor->has_receptionist}}</td>-->
     <td><a href="editingdoctor/{{$doctor->id}}">Edit</a></td>
-    <td><a href="deletedoctor/{{$doctor->id}}">Delete</a></td>
+    <td><a href="deletedoctor/{{$doctor->id}}">In-active</a></td>
   </tr>
   @endforeach
   {{$doctors->links()}}

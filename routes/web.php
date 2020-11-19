@@ -43,6 +43,8 @@ Route::get('deletedoctor/{id}', 'DoctorController@deletedoctor');
 //show adv centers of current doc
 Route::get('showcentersofcurdoc/{id}', 'AdvCenterController@showcentersofcurdoc');
 //show vaccine of current doc
+Route::get('getseachedcenters', 'AdvCenterController@getseachedcenters');
+//show vaccines of cur doc
 Route::get('showvaccinesofcurdoc/{doc_id}', 'VaccineController@showvaccinesofcurdoc');
 //edit, update & delete center
 //Route::get('editingcenter/{id}', 'CenterController@editingcenter');
@@ -116,3 +118,7 @@ Route::post('patientmedhistorystore/{pat_id}', 'MedicalHistoryController@patient
 Route::post('updatemedicalhistory/{pat_id}', 'MedicalHistoryController@updatemedicalhistory');
 //show patient vaccination history page
 Route::get('vaccinehistoryview/{pat_id}', 'VaccinationHistoryController@show');
+//show patient vaccination history page
+Route::get('addmanualmedhistory/{pat_id}', 'MedicalHistoryController@addmanualmedhistory');
+//add new medical history
+Route::post('addmanualmedhistorystore/{pat_id}', 'MedicalHistoryController@addmanualmedhistorystore');

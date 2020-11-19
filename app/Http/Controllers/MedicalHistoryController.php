@@ -68,4 +68,20 @@ class MedicalHistoryController extends Controller
       }
       return redirect ('editmedicalhistory/' . $pat_id);
    }
+
+   public function addmanualmedhistory($pat_id) {
+     $patient = Patient::find($pat_id);
+     return view ('addmanualmedhistory')->with('patient', $patient);
+   }
+
+   public function addmanualmedhistorystore($pat_id, Request $request) {
+     $med_history = new MedicalHistory;
+     $med_history->patient_id = $pat_id;
+     $med_history->dname = $request->dname;
+     $med_history->disease_desc = $request->disease_desc;
+     $med_history->status = 'TRUE';
+     $med_history->save();
+     return redirect('addmanualmedhistory/' . $pat_id);
+   }
+
 }

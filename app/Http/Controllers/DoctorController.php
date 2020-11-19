@@ -51,26 +51,13 @@ class DoctorController extends Controller
       $doctor->email = $request->email;
       $doctor->username = $request->username;
       $doctor->password = $request->password;
-      /*
-      if ($request->has_receptionist == "TRUE") {
-      $doctor->has_receptionist = $request->has_receptionist;
-      } else {
-      $doctor->has_receptionist = "FALSE";
-      }
-      */
+      $doctor->active_status = "1";
       $doctor->save();
-      /*
-      if ($request->has_receptionist == "TRUE") {
-        return view ('docregform_recepsdetails')->with('current_doc_id', $doctor->id);
-      } else {
-        return view ('docregform_centersdetails')->with('current_doc_id', $doctor->id);
-      }
-      */
       return view ('docregform_adv_centerdetails')->with('current_doc_id', $doctor->id);
     }
 
     public function showdoctors() {
-      $doctors = Doctor::paginate(5);
+      $doctors = Doctor::where('active_status', '1')->paginate(5);
       return view ('showdoctors')->with('doctors', $doctors);
     }
 
@@ -92,28 +79,16 @@ class DoctorController extends Controller
       $doctor->email = $request->email;
       $doctor->username = $request->username;
       $doctor->password = $request->password;
-      /*
-      $current_state = $doctor->has_receptionist;
-      if ($request->has_receptionist == "TRUE") {
-      $doctor->has_receptionist = $request->has_receptionist;
-      $doctor->save();
-      //add receptionist
-        if($request->has_receptionist == $current_state) {
-          return redirect ('showdoctors');
-        } else {
-          return view ('addrecepfromupdate')->with('current_doc_id', $doctor->id);
-        }
-      } else {
-      $doctor->has_receptionist = "FALSE";
-      }
-      */
+      //active status
+      //$doctor->active_status = '1';
       $doctor->save();
       return redirect ('showdoctors');
     }
 
     public function deletedoctor($id) {
       $doctor = Doctor::find($id);
-      $doctor->delete();
+      $doctor->active_status = '0';
+      $doctor->save();
       return redirect('showdoctors');
     }
 
@@ -123,7 +98,6 @@ class DoctorController extends Controller
      ->orwhere('phno' ,$request->dname)
      ->orwhere('email' ,$request->dname)
      ->orwhere('username' ,$request->dname)
-     ->orwhere('has_receptionist' ,$request->dname)
      ->paginate(5);
      return view ('showdoctors')->with('doctors', $doctors);
    }

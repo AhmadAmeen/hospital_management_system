@@ -14,6 +14,7 @@ class AdvCenterController extends Controller
     $center->address = $request->address;
     $center->doc_id = $request->doc_id;
     $current_doc_id = $center->doc_id;
+    $center->active_status = '1';
     if ($request->has_receptionist) {
       $center->has_receptionist = $request->has_receptionist;
       $center->save();
@@ -24,10 +25,6 @@ class AdvCenterController extends Controller
       $center->has_receptionist = "FALSE";
       $center->save();
       return redirect('showoffdaysforcenter/' . $current_doc_id . '/' . $center->id);
-      //return view('docregform_adv_centerdetails')->with('current_doc_id', $center->doc_id);
-      //return view('docregform_adv_centeroffdays')
-      //->with('current_doc_id', $center->doc_id)
-      //s->with('center', $center);
     }
   }
 
@@ -36,7 +33,9 @@ class AdvCenterController extends Controller
   }
 
   public function showcentersofcurdoc($id) {
-    $centers = AdvCenter::where('doc_id', $id)->get();
+    $centers = AdvCenter::where('doc_id', $id)
+    ->where('active_status', '1')
+    ->get();
     return view ('showcentersofcurdoc')->with('centers', $centers);
   }
 
@@ -44,8 +43,6 @@ class AdvCenterController extends Controller
     $center = AdvCenter::find($id);
     $center_offdays = Offdays::where('center_id', $center->id)->get();
     $center_timings = Centertiming::where('center_id', $center->id)->get();
-    //print_r($center_offdays);
-    //print_r($center_timings);
     return view ('editingcenter')->with('center', $center)
     ->with('center_offdays', $center_offdays)
     ->with('center_timings', $center_timings);
@@ -53,11 +50,9 @@ class AdvCenterController extends Controller
 
   public function updatecenter($id, Request $request) {
     $center = AdvCenter::find($id);
-    //$doctor = Doctor::where('id', $id);
     $center->cname = $request->cname;
     $center->address = $request->address;
     $center->doc_id = $center->doc_id;
-    //$center->has_receptionist = $request->has_receptionist;
     $current_state = $center->has_receptionist;
     if ($request->has_receptionist == "TRUE") {
     $center->has_receptionist = $request->has_receptionist;
@@ -75,16 +70,24 @@ class AdvCenterController extends Controller
     $center->has_receptionist = "FALSE";
     }
     $center->save();
-    //return redirect ('showdoctors');
-    //return $this.showcentersofcurdoc($center->doc_id);
     $center = AdvCenter::find($id);
     return view ('editingcenter')->with('center', $center);
   }
 
+
     public function deletecenter($id) {
       $center = AdvCenter::find($id);
-      $center->delete();
+      $center->active_status = '0';
+      $center->save();
       $centers = AdvCenter::where('doc_id', $id)->get();
+      return view ('showcentersofcurdoc')->with('centers', $centers);
+    }
+
+    public function getseachedcenters(Request $request) {
+      //echo $request;
+      $centers = AdvCenter::where('cname' ,$request->cname)
+      ->orwhere('qualification' ,$request->address)
+      ->paginate(5);
       return view ('showcentersofcurdoc')->with('centers', $centers);
     }
 }
