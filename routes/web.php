@@ -79,7 +79,7 @@ Route::get('editingpatient/{id}', 'PatientController@editingpatient');
 Route::post('updatepatient/{id}', 'PatientController@updatepatient');
 Route::get('deletepatient/{id}', 'PatientController@deletepatient');
 //patient visit history main page route
-Route::get('vh_main_patients', 'VisitHistoryController@vh_main__all_patients');
+Route::get('vh_main_patients', 'VisitHistoryController@vh_main_patients');
 //choosen patient previous history
 Route::get('vh_patient/{id}', 'VisitHistoryController@vh_patient');
 //add new patient history main page

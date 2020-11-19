@@ -4,11 +4,18 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\VisitHistory;
 use App\Patient;
+use App\Receptionist;
+Use Session;
 
 class VisitHistoryController extends Controller
 {
-  public function vh_main__all_patients () {
-    $patients = Patient::paginate(5);
+  public function vh_main_patients (Request $request) {
+
+    //find current receptionist
+    $recep_id = $request->session()->get('recep_session');
+    $receptionist = Receptionist::find($recep_id);
+    //getting all patients
+    $patients = Patient::where('doc_id', $receptionist->doc_id)->paginate(5);
     return view ('vh_main_patients')->with('patients', $patients);
   }
 
