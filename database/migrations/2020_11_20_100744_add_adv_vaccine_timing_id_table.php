@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateVaccinationHistoriesTable extends Migration
+class AddAdvVaccineTimingIdTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,17 +13,10 @@ class CreateVaccinationHistoriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('vaccination_histories', function (Blueprint $table) {
-          $table->id();
-          $table->string('pat_id');
-          $table->string('v_id');
-          $table->string('status');
-          $table->timestamps();
+        Schema::table('vaccination_histories', function (Blueprint $table) {
+          $table->string('vt_id');
         });
     }
-
-    
-
 
     /**
      * Reverse the migrations.
@@ -32,6 +25,8 @@ class CreateVaccinationHistoriesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('vaccination_histories');
+        Schema::table('vaccination_histories', function (Blueprint $table) {
+          $table->dropColumn('vt_id');
+        });
     }
 }

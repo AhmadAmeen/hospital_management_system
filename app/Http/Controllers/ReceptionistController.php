@@ -26,11 +26,19 @@ class ReceptionistController extends Controller
      if ($receptionist) {
        $request->session()->put('recep_session', $receptionist[0]['id']);
        $request->session()->put('recep_name_session', $request->username);
-       return redirect('patientregform/' . $receptionist[0]['id']);
+       //return redirect('patientregform/' . $receptionist[0]['id']);
+       $receptionist = Receptionist::find($receptionist[0]['id']);
+       $advcenters = AdvCenter::where('doc_id', $receptionist->doc_id)->get();
+       $repc_center = AdvCenter::find($receptionist->center_id);
+
+       //print_r($advcenters);
+       return view('receploginselectcenter')->with('advcenters', $advcenters)
+       ->with('receptionist', $receptionist)
+       ->with('repadvcurrentcenter', $repc_center->cname);
      } else {
        session::flash('coc', 'Email or Password is incorrect!');
        return redirect('recplogin')->withinput();
-     }
+       }
    }
 
    public function doctorrecepstore (Request $request) {
@@ -104,5 +112,14 @@ class ReceptionistController extends Controller
      //return redirect ('showdoctors');
      $center = AdvCenter::find($request->center_id);
      return view ('editingcenter')->with('center', $center);
+   }
+
+   public function storerecepcurcenter($recep_id, Request $request) {
+     $request->session()->put('rc_cid_session', $request->center_selected);
+     $rc_cname = AdvCenter::find($request->center_selected);
+     $request->session()->put('rc_cname_session', $rc_cname->cname);
+     //echo $request->center_selected . " ";
+     //echo "$recep_id";
+     return redirect('patientregform/' . $recep_id);
    }
 }

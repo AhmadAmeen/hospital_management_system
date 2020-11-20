@@ -132,3 +132,5 @@ Route::get('addadvvaccinetiming/{adv_vid}', 'AdvVaccineTimingController@show');
 Route::post('addadvvaccinetimingstore/{adv_vid}', 'AdvVaccineTimingController@store');
 //add adv vaccine store history
 Route::post('advvaccineforpatientstore/{pat_id}', 'VaccinationHistoryController@advvaccineforpatientstore');
+//store recep center at recep login
+Route::post('storerecepcurcenter/{recep_id}', 'ReceptionistController@storerecepcurcenter');

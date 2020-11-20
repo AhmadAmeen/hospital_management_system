@@ -57,34 +57,37 @@
                         <tr>
                           <td>{{ $advvaccine->vname }}</td>
                           <?php $advvaccinetimings = AdvVaccineTiming::where('v_id', $advvaccine->id)->get();
+                            $temp[] = '';
+                            $vid = '';
                             foreach ($advvaccinetimings as $advvaccinetiming) {
                               $j = $advvaccinetiming->vtiming;
-                              $vid = $advvaccinetiming->id;
-                              $items[] = $j;
-                              $v_ids[] = $vid;
-                              }
-                            print_r($v_ids);
+                              $vid = $advvaccine->id;
+                              //$vid_and_timing[] = $j . "-" . $vid;
+                              $items[] =  $j . "-" . $vid;
+                              //array_push($items, array($j, $vid));
+                            }
+                            //print_r($items);
                             for ($i = 0; $i < count ($v_timings); $i++) {
-                              if(in_array ($v_timings[$i], $items)) {
-                                echo"<td> ";
+                              foreach ($items as $item) {
+                                $timings[] = strstr($item, '-', true);
+                              }
+                              //print_r($timings);
+                              if(in_array ($v_timings[$i], $timings)) {
+                                $j = 0;
+                                $temp[] = $v_timings[$i] . "-" . $timings[$i];
+                                echo"<td>";
                                 $j = 0;
                                 ?>
-                                  <input type="checkbox" value="{{$v_timings[$i]}}" name="vcheck[]" class="form-control col-md-7 col-xs-12">
-                                  <input type="hidden" value="{{$v_ids[$j]}}" name="v_ids[]" class="form-control col-md-7 col-xs-12">
-                                  <!--
-                                  <input type="hidden" value="{{$v_timings[$i]}}" name="vcheck" class="form-control col-md-7 col-xs-12">
-                                  -->
-                          <?php echo " </td>";
+                                <input type="checkbox" value="{{$v_timings[$i]}}-{{$vid}}" name="vchecks[]" class="form-control col-md-7 col-xs-12">
+                                <?php echo " </td>";
                                 $j++;
                               } else {
                                 echo"<td> </td>";
                               }
                             }
-                            foreach ($v_timings as $key) {
-
-                            }
                             unset($items);
-                            unset($v_ids);
+                            unset($timings);
+                            unset($temp);
                           ?>
                         </tr>
                       @endforeach

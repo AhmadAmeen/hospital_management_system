@@ -107,10 +107,12 @@
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                             <select name="patient_cid" class="form-control col-md-7 col-xs-12">
-                              <option value="">Select Center</option>
-                              @foreach($centers as $center)
-                            <option value="{{$center->id}}">{{$center->cname}}</option>
-                            @endforeach
+                              <option value="{{session('rc_cid_session')}}">{{session('rc_cname_session')}}</option>
+                                @foreach($centers as $center)
+                                  @if($center->cname != session('rc_cname_session'))
+                                    <option value="{{$center->id}}">{{$center->cname}}</option>
+                                    @endif
+                                @endforeach
                           </select>
                         </div>
                       </div>

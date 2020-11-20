@@ -20,6 +20,7 @@ class PatientController extends Controller
       //get current doc id
       $cur_doc_id = $receptionist->doc_id;
       $centers = AdvCenter::where('doc_id', $cur_doc_id)->get();
+      
       return view ('patientregform')->with('centers', $centers);
     }
 
