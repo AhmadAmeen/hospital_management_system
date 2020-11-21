@@ -20,14 +20,14 @@ class VaccinationHistoryController extends Controller
     }
 
     $v_timings = array (
-      "2",
-      "4",
-      "6",
-      "8",
-      "10",
-      "12",
-      "14",
-      "16",
+      "Dosage I",
+      "Dosage II",
+      "Dosage III",
+      "Dosage IV",
+      "Dosage V",
+      "Dosage VI",
+      "Booster I",
+      "Booster II",
     );
 
     return view ('vaccinehistoryview')
