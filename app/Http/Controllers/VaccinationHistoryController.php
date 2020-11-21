@@ -44,9 +44,9 @@ class VaccinationHistoryController extends Controller
       echo $pieces[1];
       echo "<br>";
       $vtimings = AdvVaccineTiming::where('v_id', $pieces[1])->where('vtiming', $pieces[0])->get();
-      print_r($vtimings);
+      //print_r($vtimings);
       foreach ($vtimings as $vtiming) {
-        print_r($vtiming);
+        //print_r($vtiming);
         echo "<br>";
         echo "<br>";
         echo "<br>";
@@ -56,8 +56,8 @@ class VaccinationHistoryController extends Controller
         $v_history->vt_id = $vtiming->id;
         $v_history->status = "TRUE";
         $v_history->save();
-        //return redirect('patientregform/' . session('recep_session'));
       }
     }
+    return redirect('patientregform/' . session('recep_session'));
   }
 }

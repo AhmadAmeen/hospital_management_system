@@ -6,13 +6,14 @@
 
 @section('content')
 
+
   <div class="right_col" role="main">
    <div class="clearfix"></div>
              <div class="row">
                <div class="col-md-12 col-sm-12 col-xs-12">
                  <div class="x_panel">
                    <div class="x_title">
-                     <h2>Welcome <small>Add Vaccine Timings</small></h2>
+                     <h2>Welcome <small>Doctor Centers Off-Days Details</small></h2>
                      <ul class="nav navbar-right panel_toolbox">
                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                        </li>
@@ -33,12 +34,12 @@
                      </div>
                         <div class="x_content">
                     <br>
-                    <form action="{{url('addadvvaccinetimingstore', $advvacccine->id)}}" method="post" enctype="multipart/form-data" id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
+                    <form action="{{url('addingvaccinetimingfromupdate', $advvacccine->id)}}" method="post" enctype="multipart/form-data" id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
                       @csrf
-                      <h1 style="text-align: center; margin-down: 20px">Add Vaccine Timing of:</h1>
-                      <h3 style="text-align: center; margin-down: 10px">{{$advvacccine->vname}}</h3>
+                      <h1 style="text-align: center; margin-down: 20px">Add Vaccine Timing for</h1>
+                      <h4 style="text-align: center; margin-down: 10px">Vaccine Name: {{$advvacccine->vname}}</h3>
+                      <h4 style="text-align: center; margin-down: 10px">Vaccine Description: {{$advvacccine->vdescription}}</h3>
                       <!--code-->
-
                       <div class="form-group" id="toggle_box">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="dcoordinator">Choose Vaccine Time<span class="required">*</span>
                         </label>
@@ -64,15 +65,9 @@
                         </div>
                       </div>
                     </form>
-                    <button style="float: right" id="tovaccine" class="btn" onclick="addadvvaccine()">Add a new Vaccine</button>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-  <script>
-  function addadvvaccine() {
-    window.location = "{{url('addadvvaccine/' . $current_doc_id)}}";
-  }
-  </script>
 @endsection

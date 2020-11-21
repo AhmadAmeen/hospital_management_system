@@ -65,7 +65,7 @@ Route::get('deletecentertimings/{center_id}', 'CentertimingController@deletecent
 Route::get('addcentertimingfromupdate/{center_id}', 'CentertimingController@addcentertimingfromupdate');
 Route::post('addingcentertimingfromupdate', 'CentertimingController@addingcentertimingfromupdate');
 //show update vaccine
-Route::post('updatevaccine/{id}', 'VaccineController@updatevaccine');
+//Route::post('updatevaccine/{id}', 'VaccineController@updatevaccine');
 //receptionist
 Route::view('recplogin', 'recplogin');
 Route::post('/isreceplogin', 'ReceptionistController@receploggedin');
@@ -134,3 +134,15 @@ Route::post('addadvvaccinetimingstore/{adv_vid}', 'AdvVaccineTimingController@st
 Route::post('advvaccineforpatientstore/{pat_id}', 'VaccinationHistoryController@advvaccineforpatientstore');
 //store recep center at recep login
 Route::post('storerecepcurcenter/{recep_id}', 'ReceptionistController@storerecepcurcenter');
+//show adv-vaccines of current doctor
+Route::get('showadvvaccinesofcurdoc/{doc_id}', 'AdvVaccineController@showadvvaccinesofcurdoc');
+//edit, update & delete adv-vaccine
+Route::get('editingvaccine/{vid}/{doc_id}', 'AdvVaccineController@editingvaccineshow');
+Route::post('updatevaccine/{vid}/{doc_id}', 'AdvVaccineController@updatevaccine');
+Route::get('deletevaccine/{vid}/{doc_id}', 'AdvVaccineController@deletevaccine');
+//edit, update & delete center-timings
+Route::get('editvaccinetimings/{vid}', 'AdvVaccineTimingController@editvaccinetimings');
+Route::post('updatevaccinetimings/{vid}', 'AdvVaccineTimingController@updatevaccinetimings');
+Route::get('deletevaccinetiming/{vt_id}', 'AdvVaccineTimingController@deletevaccinetiming');
+Route::get('addvaccinetimingfromupdate/{vid}', 'AdvVaccineTimingController@addvaccinetimingfromupdate');
+Route::post('addingvaccinetimingfromupdate/{vid}', 'AdvVaccineTimingController@addingvaccinetiming');

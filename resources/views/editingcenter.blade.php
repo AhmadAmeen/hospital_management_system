@@ -6,7 +6,6 @@
 
 @section('content')
 
-
 <link rel="stylesheet" type="text/css" href="{{ asset('public/css/checkbox-etc-css.css') }}" />
 <link rel="stylesheet" type="text/css" href="{{ asset('public/css/beautiful-btn-css.css') }}" />
 
@@ -70,7 +69,9 @@
                  <button class="btn btn-primary label_margin" type="button" onclick="showalldoctors()">Cancel</button>
                  <button class="btn btn-primary label_margin" type="button" onclick="editcenteroffdays()">Edit Center Off-Days</button>
                  <button class="btn btn-primary label_margin" type="button" onclick="editcentertimings()">Edit Center Timings</button>
+                 <!--
                  <button class="btn btn-primary label_margin" type="button" onclick="showvaccineofcurdoc()">Edit Vaccines</button>
+               -->
                  <button type="submit" name="submit" class="btn btn-success label_margin">Update</button>
                  </div>
              </div>

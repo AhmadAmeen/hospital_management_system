@@ -14,6 +14,8 @@ img {
 }
 </style>
  <link rel="stylesheet" type="text/css" href="{{ asset('public/css/checkbox-etc-css.css') }}" />
+ <link rel="stylesheet" type="text/css" href="{{ asset('public/css/beautiful-btn-css.css') }}" />
+
  <div class="right_col" role="main">
   <div class="clearfix"></div>
     <div class="row">
@@ -114,10 +116,11 @@ img {
              <div class="ln_solid"></div>
              <div class="form-group">
                <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                 <button class="btn btn-primary" type="button" onclick="showalldoctors()">Cancel</button>
-                 <button class="btn btn-primary" type="button" onclick="showcentersofcurdoc()">Edit Centers</button>
-                 <button type="submit" name="submit" class="btn btn-success">Update</button>
-               </div>
+                 <button type="submit" name="submit" class="btn btn-success btn label_margin">Update</button>
+                 <button class="btn btn-primary label_margin" type="button" onclick="showalldoctors()">Cancel</button>
+                 <button class="btn btn-primary label_margin" type="button" onclick="showcentersofcurdoc()">Edit Centers</button>
+                 <button class="btn btn-primary label_margin" type="button" onclick="showadvvaccinesofcurdoc()">Edit Vaccines</button>
+                 </div>
              </div>
            </form>
          </div>
@@ -131,6 +134,9 @@ img {
  }
  function showcentersofcurdoc() {
    window.location = "{{url('showcentersofcurdoc/' . $doctor->id)}}";
+ }
+ function showadvvaccinesofcurdoc() {
+   window.location = "{{url('showadvvaccinesofcurdoc/' . $doctor->id)}}";
  }
  </script>
 @endsection
