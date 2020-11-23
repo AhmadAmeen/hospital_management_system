@@ -13,7 +13,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="//cdn.materialdesignicons.com/5.4.55/css/materialdesignicons.min.css">
 
-
 @foreach ($patients as $patient)
 
   <div class="container">
@@ -34,7 +33,6 @@
         </div>
        </div>
       </div>
-
       <div class="profile p-2">
        <div class="container">
         <div class="row">

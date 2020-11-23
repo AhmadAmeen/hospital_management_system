@@ -59,7 +59,7 @@
                         </div>
                       </div>
                     </form>
-                    <button style="float: right" id="tovaccine" class="btn" onclick="addadvvaccinetiming()">Move to Add Advance Vaccines</button>
+                    <button style="float: right" id="tovaccine" class="btn" onclick="docregform_docdetails()">Add New Doctor</button>
                   </div>
                 </div>
               </div>
@@ -69,8 +69,8 @@
   function addVaccines() {
     window.location = "{{url('docregform_vaccinedetails/' . $current_doc_id)}}";
   }
-  function addadvvaccinetiming() {
-    window.location = "{{url('addadvvaccinetiming/' . $current_doc_id)}}";
+  function docregform_docdetails() {
+    window.location = "{{url('docregform_docdetails')}}";
   }
   </script>
 @endsection

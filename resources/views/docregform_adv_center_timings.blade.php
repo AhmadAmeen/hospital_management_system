@@ -67,9 +67,20 @@
                     <button style="float: right" id="tovaccine" class="btn btn-success"><a href="docregform_vaccinedetails/{{$current_doc_id}}" style="color: white;">Move to Add Vaccine</a></button>
                     -->
                     <button style="float: right" id="tovaccine" class="btn btn-success"><a href="{{url('addnewcenter/' . $center->doc_id)}}" style="color: white;">Add New Center</a></button>
+                    <button style="float: right" id="tovaccine" class="btn" onclick="addadvvaccine()">Move to Add Advance Vaccines</button>
                   </div>
                 </div>
               </div>
             </div>
           </div>
+
+          <script>
+          function addVaccines() {
+            window.location = "{{url('docregform_vaccinedetails/' . $current_doc_id)}}";
+          }
+          function addadvvaccine() {
+            window.location = "{{url('addadvvaccine/' . $current_doc_id)}}";
+          }
+          </script>
+
 @endsection

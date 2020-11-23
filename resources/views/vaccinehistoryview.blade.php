@@ -9,16 +9,83 @@ use App\AdvCenter;
 use App\AdvVaccine;
 use App\Patient;
 use App\VaccinationHistory;
+$i = 0;
 ?>
 
-
+<link rel="stylesheet" type="text/css" href="{{ asset('public/css/checkbox-etc-css.css') }}" />
 <link rel="stylesheet" type="text/css" href="{{ asset('public/css/table-css.css') }}" />
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+#myDIV {
+  width: 100%;
+  padding: 50px 0;
+  text-align: center;
+  background-color: lightblue;
+  margin-top: 20px;
+}
+/* Popup container - can be anything you want */
+.popup {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
 
+/* The actual popup */
+.popup .popuptext {
+  visibility: hidden;
+  width: 160px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 8px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -80px;
+  margin-bottom: 20px;
+}
+
+/* Popup arrow */
+.popup .popuptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+/* Toggle this class - hide and show the popup */
+.popup .show {
+  visibility: visible;
+  -webkit-animation: fadeIn 1s;
+  animation: fadeIn 1s;
+}
+
+/* Add animation (fade in the popup) */
+@-webkit-keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+
+@keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity:1 ;}
+}
+</style>
+</head>
 @extends('patientlayout.default')
 
 @section('content')
-
-<link rel="stylesheet" type="text/css" href="{{ asset('public/css/checkbox-etc-css.css') }}" />
 
 <!--
   <div class="right_col" role="main"  >
@@ -167,47 +234,30 @@ use App\VaccinationHistory;
                                     $vid = '';
                                     foreach ($advvaccinetimings as $advvaccinetiming) {
                                       //getting vaccine_timing value
+                                      $i++;
+                                      $popup_id = $i;
                                       $vt = $advvaccinetiming->vtiming;
                                       $vid = $advvaccine->id;
-                                      $vtid[] = $advvaccinetiming->id;
+                                      $vtid = $advvaccinetiming->id;
                                       $items[] = $vt;
                                       $vaccine = AdvVaccine::find($vid);
                                       $cur_doctor = Doctor::find($vaccine->doc_id);
                                       ?>
                                       <td>
                                         <div>
-                                          <span id="showinfo" style="float:right;"><i>? </i>Vaccine Name: {{$vaccine->vname}} Months<br>Vaccine Timing: {{$vt}} Months<br>Doctor Name: {{$cur_doctor->dname}}<br>Patient Name: {{$patient->fname}} {{$patient->lname}}</span>
-                                          <input type="checkbox" value="$vtid" name="vchecks[]" class="form-control col-md-7 col-xs-12">
+                                          <input type="checkbox" value="{{$vtid}}" name="vchecks[]" class="form-control col-md-7 col-xs-12">
+                                          <div class="popup" onclick="myFunction({{$i}})" style="margin-top: 5px; padding-left: 5px; padding-right: 5px; background-color: gray; color: white"><i>?</i>
+                                          <span class="popuptext" id="{{$i}}"><p><i>Vaccine Name:</i><br> {{$vaccine->vname}}<br><br><i>Vaccine Timing:</i><br> {{$vt}} Months<br><br><i>Doctor Name:</i><br> {{$cur_doctor->dname}}<br><br><i>Patient Name:</i><br> {{$patient->fname}} {{$patient->lname}}</p></span>
                                         </div>
+                                      </div>
                                       </td>
                                       <?php
                                     }
-                                    for ($k = 0; $k<(count($v_timings)-count($advvaccinetimings)); $k++) {
+                                    for ($k = 0; $k<(count($v_timings)-count($advvaccinetimings)-2); $k++) {
                                       //create empty rows for all the remaining columns
                                       echo "<td></td>";
                                     }
-                                    //print_r($vtid);
                                     echo "<br>";
-                                    /*
-                                    for ($i = 0; $i < count ($v_timings); $i++) {
-                                      foreach ($items as $item) {
-                                        $timings[] = strstr($item, '-', true);
-                                      }
-                                      //print_r($timings);
-                                      if(in_array ($v_timings[$i], $timings)) {
-                                        $j = 0;
-                                        $temp[] = $v_timings[$i] . "-" . $timings[$i];
-                                        echo"<td>";
-                                        $j = 0;
-                                        ?>
-                                        <input type="checkbox" value="{{$v_timings[$i]}}-{{$vid}}" name="vchecks[]" class="form-control col-md-7 col-xs-12">
-                                        <?php echo " </td>";
-                                        $j++;
-                                      } else {
-                                        echo"<td> </td>";
-                                      }
-                                    }
-                                    */
                                     unset($items);
                                     unset($timings);
                                     unset($temp);
@@ -230,4 +280,16 @@ use App\VaccinationHistory;
                       </div>
                     </div>
                   </div>
+<script>
+// When the user clicks on div, open the popup
+  function myFunction(c_id) {
+    for ($j=0; $j<100; $j++){
+      if(c_id == $j) {
+        var popup = document.getElementById($j);
+        popup.classList.toggle("show");
+      }
+    }
+  }
+</script>
+
 @endsection

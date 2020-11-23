@@ -31,14 +31,13 @@
                        </ul>
                        <div class="clearfix"></div>
                      </div>
-                        <div class="x_content">
+                    <div class="x_content">
                     <br>
                     <form action="{{url('addadvvaccinetimingstore', $advvacccine->id)}}" method="post" enctype="multipart/form-data" id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
                       @csrf
                       <h1 style="text-align: center; margin-down: 20px">Add Vaccine Timing of:</h1>
                       <h3 style="text-align: center; margin-down: 10px">{{$advvacccine->vname}}</h3>
                       <!--code-->
-
                       <div class="form-group" id="toggle_box">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="dcoordinator">Choose Vaccine Time<span class="required">*</span>
                         </label>
@@ -56,6 +55,16 @@
                           </select>
                         </div>
                       </div>
+                      <div class="form-group" id="toggle_box">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="dcoordinator">Vaccine Type<span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <select name="vt_type" class="form-control col-md-7 col-xs-12">
+                              <option value="Dosage">Dosage</option>
+                              <option value="Booster">Booster</option>
+                            </select>
+                        </div>
+                      </div>
                       <!--footer-->
                       <div class="ln_solid"></div>
                       <div class="form-group">
@@ -64,6 +73,7 @@
                         </div>
                       </div>
                     </form>
+                    <button style="float: right" id="tovaccine" class="btn" onclick="addnewdoc()">Add a new Doctor</button>
                     <button style="float: right" id="tovaccine" class="btn" onclick="addadvvaccine()">Add a new Vaccine</button>
                   </div>
                 </div>
@@ -73,6 +83,9 @@
   <script>
   function addadvvaccine() {
     window.location = "{{url('addadvvaccine/' . $current_doc_id)}}";
+  }
+  function addnewdoc() {
+    window.location = "{{url('docregform_docdetails')}}";
   }
   </script>
 @endsection

@@ -39,6 +39,7 @@ class VaccinationHistoryController extends Controller
 
   public function advvaccineforpatientstore($pat_id ,Request $request) {
     foreach ($request->vchecks as $vcheck) {
+      /*
       $pieces = explode("-", $vcheck);
       echo $pieces[0] . " ";
       echo $pieces[1];
@@ -57,7 +58,17 @@ class VaccinationHistoryController extends Controller
         $v_history->status = "TRUE";
         $v_history->save();
       }
+      */
+      $v_history = new VaccinationHistory;
+      $v_history->pat_id = $pat_id;
+      $v_history->vt_id = $vcheck;
+      $v_history->status = "TRUE";
+      $v_history->save();
+      //echo $v_history->pat_id;
+      //echo $v_history->vt_id;
+      //echo $v_history->status;
+      //echo "<br>";
     }
-    return redirect('patientregform/' . session('recep_session'));
+    //return redirect('patientregform/' . session('recep_session'));
   }
 }

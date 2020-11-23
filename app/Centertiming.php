@@ -10,5 +10,6 @@ class Centertiming extends Model
       'doc_id',
       'from',
       'to',
+      'vt_type',
     );
 }

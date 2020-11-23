@@ -52,8 +52,10 @@ img {
                 <div class="form-group">
                   <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
                     <button class="btn btn-primary" type="button" onclick="showalldoctors()">Cancel</button>
+                    <!--
                     <button class="btn btn-primary" type="button" onclick="showvaccineofcurdoc()">Edit Vaccines</button>
                     <button class="btn btn-primary" type="button" onclick="editingcenteroffdays()">Edit Center Offdays</button>
+                    -->
                     <button type="submit" name="submit" class="btn btn-success">Update</button>
                   </div>
                 </div>

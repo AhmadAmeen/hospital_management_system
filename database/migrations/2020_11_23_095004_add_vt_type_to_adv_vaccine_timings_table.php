@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddAdvVaccineTimingIdTable extends Migration
+class AddVtTypeToAdvVaccineTimingsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AddAdvVaccineTimingIdTable extends Migration
      */
     public function up()
     {
-        Schema::table('vaccination_histories', function (Blueprint $table) {
-          $table->string('vt_id');
+        Schema::table('adv_vaccine_timings', function (Blueprint $table) {
+          $table->string('vt_type');
         });
     }
 
@@ -25,8 +25,8 @@ class AddAdvVaccineTimingIdTable extends Migration
      */
     public function down()
     {
-        Schema::table('vaccination_histories', function (Blueprint $table) {
-          $table->dropColumn('vt_id');
+        Schema::table('adv_vaccine_timings', function (Blueprint $table) {
+          $table->dropColumn('vt_type');
         });
     }
 }

@@ -8,7 +8,7 @@ class VaccinationHistory extends Model
 {
   public $fillable = array(
     'pat_id',
-    'v_id',
+    'vt_id',
     'status'
    );
 }

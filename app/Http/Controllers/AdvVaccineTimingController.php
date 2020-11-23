@@ -16,6 +16,7 @@ class AdvVaccineTimingController extends Controller
     $vaccinetiming = new AdvVaccineTiming;
     $vaccinetiming->vtiming = $request->vtiming;
     $vaccinetiming->v_id = $adv_vid;
+    $vaccinetiming->vt_type = $request->vt_type;
     $vaccinetiming->save();
     return redirect('addadvvaccinetiming/' . $adv_vid);
   }

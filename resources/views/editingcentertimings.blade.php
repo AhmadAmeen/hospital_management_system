@@ -62,7 +62,9 @@
                         </div>
                       </div>
                     </form>
+                    <!--
                     <button style="float: right" id="tovaccine" class="btn btn-success"><a href="docregform_docdetails" style="color: white;">Add New Doctor</a></button>
+                    -->
                   </div>
                 </div>
               </div>

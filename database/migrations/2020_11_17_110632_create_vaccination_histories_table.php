@@ -16,14 +16,11 @@ class CreateVaccinationHistoriesTable extends Migration
         Schema::create('vaccination_histories', function (Blueprint $table) {
           $table->id();
           $table->string('pat_id');
-          $table->string('v_id');
+          $table->string('vt_id');
           $table->string('status');
           $table->timestamps();
         });
     }
-
-    
-
 
     /**
      * Reverse the migrations.
