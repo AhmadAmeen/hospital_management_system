@@ -58,7 +58,8 @@ input.largerCheckbox {
                   </div>
                 </div>
               </form>
-              <button style="float: right" class="btn btn-success" onclick="addmorehistories()">Add More Medical Histories</button>
+              <button style="float: right" class="btn" onclick="addmorehistories()">Add More Medical Histories</button>
+              <button style="float: right" class="btn btn-success" onclick="editvaccinationhistory()">Edit Vaccination History</button>
           </div>
         </div>
        </div>
@@ -68,5 +69,12 @@ input.largerCheckbox {
 function addmorehistories() {
   window.location = "{{url('addmedicalhistory/' . $patient->id)}}";
 }
+function editvaccinationhistory() {
+  window.location = "{{url('editvaccinationhistory/' . $patient->id)}}";
+}
+
+
+vaccine_history
+
 </script>
 @endsection

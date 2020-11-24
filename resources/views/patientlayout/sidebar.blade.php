@@ -32,44 +32,12 @@
           <li><a style="border-style: outset; margin-right: 2px; border-color: #767676;"></i> Patient ↓ <span class="fa fa-chevron-down"></span></a>
              <ul class="nav child_menu">
                <li><a href="{{url('patientregform/' . session('recep_session'))}}">Add Patient</a></li>
-               <li><a href="{{url('showpatients/' . session('recep_session'))}}">Edit or Delete Patients</a></li>
-               <li><a href="{{url('vh_main_patients')}}">Patients History</a></li>
+               <li><a href="{{url('showpatients/' . session('recep_session'))}}">All Patients</a></li>
             </ul>
           </li>
-          <!--
-          <li><a></i> Courses ↓ <span class="fa fa-chevron-down"></span></a>
-             <ul class="nav child_menu">
-               <li><a href="{{url('addcourse')}}">Add Courses</a></li>
-               <li><a href="{{url('viewcourses')}}">View Courses</a></li>
-            </ul>
-          </li>
-
-          <li><a></i> Teachers ↓ <span class="fa fa-chevron-down"></span></a>
-             <ul class="nav child_menu">
-               <li><a href="{{url('addteacher')}}">Add Teacher</a></li>
-               <li><a href="{{url('viewteachers')}}">View Teachers</a></li>
-            </ul>
-          </li>
-
-            <li><a href="{{url('allclassesdetails')}}"></i> Classes <span class="fa fa-chevron-down"></span></a>
-             <ul class="nav child_menu">
-               @for ($class = 1; $class <= 10; $class++)
-                  <li><a href="classinfo/{{ $class }}">Class {{ $class }}</a></li>
-                @endfor
-              </ul>
-
-          </li>
-          <li><a></i> School Branches ↓ <span class="fa fa-chevron-down"></span></a>
-             <ul class="nav child_menu">
-               <li><a href="{{url('addbranch')}}">Add Branch</a></li>
-               <li><a href="{{url('showbranch')}}">View Branches</a></li>
-            </ul>
-          </li>
-          -->
       </li>
     </ul>
   </div>
-
 </div>
 </div>
 </div>

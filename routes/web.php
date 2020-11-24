@@ -146,3 +146,7 @@ Route::post('updatevaccinetimings/{vid}', 'AdvVaccineTimingController@updatevacc
 Route::get('deletevaccinetiming/{vt_id}', 'AdvVaccineTimingController@deletevaccinetiming');
 Route::get('addvaccinetimingfromupdate/{vid}', 'AdvVaccineTimingController@addvaccinetimingfromupdate');
 Route::post('addingvaccinetimingfromupdate/{vid}', 'AdvVaccineTimingController@addingvaccinetiming');
+// edit vaccination history
+Route::get('editvaccinationhistory/{pat_id}', 'VaccinationHistoryController@editvaccinationhistory');
+//add adv vaccine update history
+Route::post('advvaccineforpatientupdate/{pat_id}', 'VaccinationHistoryController@advvaccineforpatientupdate');

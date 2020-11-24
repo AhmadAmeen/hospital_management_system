@@ -14,9 +14,10 @@ img {
 }
 </style>
 <link rel="stylesheet" type="text/css" href="{{ asset('public/css/searchbox-css.css') }}" />
+<link rel="stylesheet" type="text/css" href="{{ asset('public/css/patientstable-css.css') }}" />
 
 <div class="right_col" role="main">
-<table class="table table-hover" style="background-color: white; color: black; padding-left: 10px">
+<table id="mytable" style="background-color: white; color: black; padding-left: 10px">
   <h2>All Patients Record</h2>
   <form action="getseachedpatients" method="get">
     <input type="text" id="pname" name="pname" required="required" placeholder="Search Patients...">
@@ -30,7 +31,8 @@ img {
     <th>DoB</th>
     <th>Father's Name</th>
     <th>Guardian No</th>
-    <th>Patient History</th>
+    <th>Previous Visit Histories</th>
+    <th>Add new Visit History</th>
     <th>Edit</th>
     <th>Delete</th>
   </tr>
@@ -43,8 +45,12 @@ img {
     <td>{{$patient->dob}}</td>
     <td>{{$patient->father_name}}</td>
     <td>{{$patient->guard_no}}</td>
+    <!--
     <td><img src="data:image/png;base64,{{ chunk_split(base64_encode($patient->pat_history)) }}" width="80" height="80" > </img></td>
-    <!--<td>{{$patient->pat_history}}</td>-->
+    <td>{{$patient->pat_history}}</td>
+    -->
+    <td><a href="{{url('vh_patient/' . $patient->id)}}">Patient Visit History</a></td>
+    <td><a href="{{url('addnewpvhhistory/' . $patient->id)}}">Add New Visit History Record</a></td>
     <td><a href="{{url('editingpatient/' . $patient->id)}}">Edit</a></td>
     <td><a href="{{url('deletepatient/' . $patient->id)}}">Delete</a></td>
   </tr>

@@ -14,42 +14,44 @@ class PatientController extends Controller
 {
     public function show ($recep_id) {
       //send centers of current doctor with it
-
       //find current receptionist
       $receptionist = Receptionist::find($recep_id);
       //get current doc id
       $cur_doc_id = $receptionist->doc_id;
       $centers = AdvCenter::where('doc_id', $cur_doc_id)->get();
-      
       return view ('patientregform')->with('centers', $centers);
     }
 
     public function registernewpatient (Request $request) {
-      $patient = new Patient;
-      $patient->fname = $request->fname;
-      $patient->lname = $request->lname;
-      $patient->gender = $request->gender;
-      $patient->dob = $request->dob;
-      $age = Carbon::parse($patient->dob)->diff(Carbon::now())->format('%y years, %m months and %d days');
-      $patient->age = $age;
-      $patient->father_name = $request->father_name;
-      $patient->guard_no = $request->guard_no;
-      //patient history image add
-      $image_file = $request->file('pat_history');
-      $image_resize = Image::make($image_file)->resize(500, 500)->encode('jpg');
-      $patient->pat_history = $image_resize;
-      //patient history image added
-      //$patient->pat_history = $request->pat_history;
-      $recp_id = $request->session()->get('recep_session');
-      $recep = Receptionist::find($recp_id);
-      $doctor = Doctor::find($recep->doc_id);
-      //echo $doctor->doc_id;
-      $patient->doc_id = $doctor->id;
-      //echo $request->patient_cid;
-      $patient->center_id = $request->patient_cid;
-      $patient->save();
-      //return redirect('showpatients/' . session('recep_session'));
-      return redirect('addmedicalhistory/' . $patient->id);
+      try {
+        $patient = new Patient;
+        $patient->fname = $request->fname;
+        $patient->lname = $request->lname;
+        $patient->gender = $request->gender;
+        $patient->dob = $request->dob;
+        $age = Carbon::parse($patient->dob)->diff(Carbon::now())->format('%y years, %m months and %d days');
+        $patient->age = $age;
+        $patient->father_name = $request->father_name;
+        $patient->guard_no = $request->guard_no;
+        //patient history image add
+        $image_file = $request->file('pat_history');
+        $image_resize = Image::make($image_file)->resize(500, 500)->encode('jpg');
+        $patient->pat_history = $image_resize;
+        //patient history image added
+        //$patient->pat_history = $request->pat_history;
+        $recp_id = $request->session()->get('recep_session');
+        $recep = Receptionist::find($recp_id);
+        $doctor = Doctor::find($recep->doc_id);
+        //echo $doctor->doc_id;
+        $patient->doc_id = $doctor->id;
+        //echo $request->patient_cid;
+        $patient->center_id = $request->patient_cid;
+        $patient->save();
+        //return redirect('showpatients/' . session('recep_session'));
+        return redirect('addmedicalhistory/' . $patient->id);
+      } catch(Exception $e) {
+          echo 'Message: ' .$e->getMessage();
+      }
     }
 
     public function getseachedpatients (Request $request) {
@@ -66,15 +68,9 @@ class PatientController extends Controller
       //find current receptionist
       $receptionist = Receptionist::find($recep_id);
       //getting all patients
-      $patients = Patient::where('doc_id', $receptionist->doc_id)->get();
+      $patients = Patient::where('doc_id', $receptionist->doc_id)->paginate(5);
       return view ('showpatients')->with('patients', $patients);
-
-      //get the patients of only this recep's doctor
-      //$recp_id = $request->session()->get('recep_session');
-      //$recep = Receptionist::find($recp_id);
-      //$patients = Patient::where('doc_id', $recep->doc_id)->get();
-      //return view ('showpatients')->with('patients', $patients);
-}
+    }
 
    public function editingpatient($id) {
      $patient = Patient::find($id);
@@ -82,6 +78,7 @@ class PatientController extends Controller
   }
 
    public function updatepatient($id, Request $request) {
+     try{
      $patient = Patient::find($id);
      $patient->fname = $request->fname;
      $patient->lname = $request->lname;
@@ -107,6 +104,9 @@ class PatientController extends Controller
      $patient->save();
      //return redirect('showpatients/' . session('recep_session'));
      return redirect('editmedicalhistory/' . $patient->id);
+     } catch(Exception $e) {
+         echo 'Message: ' .$e->getMessage();
+     }
    }
 
    public function deletepatient ($id) {

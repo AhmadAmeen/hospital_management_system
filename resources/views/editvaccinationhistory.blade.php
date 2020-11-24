@@ -87,102 +87,6 @@ $i = 0;
 
 @section('content')
 
-<!--
-  <div class="right_col" role="main"  >
-   <div class="clearfix"></div>
-             <div class="row" >
-               <div class="col-md-12 col-sm-12 col-xs-12">
-                 <div class="x_panel">
-                   <div class="x_title">
-                     <h2>Welcome <small>Vaccine History Details</small></h2>
-                     <ul class="nav navbar-right panel_toolbox">
-                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                       </li>
-                       <li class="dropdown">
-                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                           <i class="fa fa-wrench"></i></a>
-                         <ul class="dropdown-menu" role="menu">
-                           <li><a href="#">Settings 1</a>
-                           </li>
-                           <li><a href="#">Settings 2</a>
-                           </li>
-                         </ul>
-                       </li>
-                         <li><a class="close-link"><i class="fa fa-close"></i></a>
-                         </li>
-                       </ul>
-                       <div class="clearfix"></div>
-                     </div>
-                     <div class="x_content">
-                    <br>
-                    <form action="{{url('advvaccineforpatientstore', $patient->id)}}" method="post" enctype="multipart/form-data" id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
-                    @csrf
-                    <h1 style="text-align: center; margin-down: 20px">Vaccination History Details</h1>
-                    <div class="form-group">
-                      <div width="107" height="90">
-                      <table id="vaccines_list" style="background-color: white">
-                        <tr>
-                          <th></th>
-                        @foreach ($v_timings as $key)
-                            <th>{{ $key }} Months</th>
-                        @endforeach
-                        </tr>
-                        <tr>
-                      @foreach ($advvaccines as $advvaccine)
-                        <tr>
-                          <td>{{ $advvaccine->vname }}</td>
-
-                          <?php /* $advvaccinetimings = AdvVaccineTiming::where('v_id', $advvaccine->id)->get();
-                            $temp[] = '';
-                            $vid = '';
-                            foreach ($advvaccinetimings as $advvaccinetiming) {
-                              $j = $advvaccinetiming->vtiming;
-                              $vid = $advvaccine->id;
-                              //$vid_and_timing[] = $j . "-" . $vid;
-                              $items[] =  $j . "-" . $vid;
-                              //array_push($items, array($j, $vid));
-                            }
-                            //print_r($items);
-                            for ($i = 0; $i < count ($v_timings); $i++) {
-                              foreach ($items as $item) {
-                                $timings[] = strstr($item, '-', true);
-                              }
-                              //print_r($timings);
-                              if(in_array ($v_timings[$i], $timings)) {
-                                $j = 0;
-                                $temp[] = $v_timings[$i] . "-" . $timings[$i];
-                                echo"<td>";
-                                $j = 0;
-                                ?>
-                                <input type="checkbox" value="{{$v_timings[$i]}}-{{$vid}}" name="vchecks[]" class="form-control col-md-7 col-xs-12">
-                                <?php echo " </td>";
-                                $j++;
-                              } else {
-                                echo"<td> </td>";
-                              }
-                            }
-                            unset($items);
-                            unset($timings);
-                            unset($temp);
-                          */ ?>
-                        </tr>
-                      @endforeach
-                      <table>
-                    </div>
-                  </div>
-                      <div class="ln_solid"></div>
-                      <div class="form-group">
-                        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                          <button type="submit" name="submit" class="btn btn-success">Add Vaccine</button>
-                        </div>
-                      </div>
-                    </form>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          -->
           <!-- my code -->
           <div class="right_col" role="main"  >
            <div class="clearfix"></div>
@@ -190,7 +94,7 @@ $i = 0;
                        <div class="col-md-12 col-sm-12 col-xs-12">
                          <div class="x_panel">
                            <div class="x_title">
-                             <h2>Welcome <small>Vaccine History Details</small></h2>
+                             <h2>Welcome <small>Edit Vaccine History Details</small></h2>
                              <ul class="nav navbar-right panel_toolbox">
                                <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                                </li>
@@ -211,14 +115,14 @@ $i = 0;
                              </div>
                              <div class="x_content">
                             <br>
-                            <form action="{{url('advvaccineforpatientstore', $patient->id)}}" method="post" enctype="multipart/form-data" id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
+                            <form action="{{url('advvaccineforpatientupdate', $patient->id)}}" method="post" enctype="multipart/form-data" id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
                             @csrf
                             <h1 style="text-align: center; margin-down: 20px">Vaccination History Details</h1>
                             <div class="form-group">
                               <div width="107" height="90">
                               <table id="vaccines_list" style="background-color: white">
                                 <tr>
-                                  <th></th>
+                                <th></th>
                                 @foreach ($v_timings as $key)
                                     <th>{{ $key }}</th>
                                 @endforeach
@@ -233,6 +137,8 @@ $i = 0;
                                         $temp[] = '';
                                         $boosters_vtid = '';
                                         $vid = '';
+                                        $check_booster = '';
+                                        $check = '';
                                         $b_rows = 2;
                                         foreach ($advvaccinetimings as $advvaccinetiming) {
                                             //getting vaccine_timing value
@@ -246,16 +152,24 @@ $i = 0;
                                             $cur_doctor = Doctor::find($vaccine->doc_id);
                                           ?>
                                           @if ($advvaccinetiming->vt_type == 'Dosage')
-                                          <td>
-                                            <div>
-                                              <input type="checkbox" value="{{$vtid}}" name="vchecks[]" class="form-control col-md-7 col-xs-12">
-                                              <div class="popup" onclick="myFunction({{$i}})" style="margin-top: 5px; padding-left: 5px; padding-right: 5px; background-color: gray; color: white"><i>?</i>
-                                              <span class="popuptext" id="{{$i}}"><p><i>Vaccine Name:</i><br> {{$vaccine->vname}}<br><br><i>Vaccine Timing:</i><br> {{$vt}} Months<br><br><i>Doctor Name:</i><br> {{$cur_doctor->dname}}<br><br><i>Patient Name:</i><br> {{$patient->fname}} {{$patient->lname}}</p></span>
+                                            @foreach ($vaccinationhistories as $vaccinationhistory)
+                                              @if ($advvaccinetiming->id == $vaccinationhistory->vt_id && $vaccinationhistory->status == 'TRUE')
+                                                <?php $check = 'TRUE'; ?>
+                                              @endif
+                                            @endforeach
+                                            <td>
+                                              <div>
+                                                <input type="checkbox" value="{{$vtid}}" name="vchecks[]" @if ($check == 'TRUE') ? checked : '' @endif  class="form-control col-md-7 col-xs-12">
+                                                <div class="popup" onclick="myFunction({{$i}})" style="margin-top: 5px; padding-left: 5px; padding-right: 5px; background-color: gray; color: white"><i>?</i>
+                                                <span class="popuptext" id="{{$i}}"><p><i>Vaccine Timing ID: {{$advvaccinetiming->id}}</i><br><i>Vaccine Name:</i><br> {{$vaccine->vname}}<br><i>Vaccine Timing:</i><br> {{$vt}} Months<br><i>Doctor Name:</i><br> {{$cur_doctor->dname}}<br><i>Patient Name:</i><br> {{$patient->fname}} {{$patient->lname}}</p></span>
+                                              </div>
                                             </div>
-                                          </div>
-                                          </td>
+                                            </td>
+                                          <?php $check = ''; ?>
                                           @else
                                           <?php
+                                          $check = '';
+                                          $check_booster = '';
                                           $boosters_vtid = $vtid;
                                           ?>
                                           <td></td>
@@ -285,15 +199,24 @@ $i = 0;
                                             $cur_doctor = Doctor::find($vaccine->doc_id);
                                           ?>
                                           @if ($advvaccinetiming->vt_type == 'Booster')
+                                            @foreach ($vaccinationhistories as $vaccinationhistory)
+                                            <!--check if $vaccinationhistory has that id-->
+                                              @if ($advvaccinetiming->id == $vaccinationhistory->vt_id && $vaccinationhistory->status == 'TRUE')
+                                              <!--if it has change the status to TRUE-->
+                                              <?php $check_booster = 'TRUE'; ?>
+                                              @endif
+                                            @endforeach
                                           <td>
                                             <div>
-                                              <input type="checkbox" value="{{$vtid}}" name="vchecks[]" class="form-control col-md-7 col-xs-12">
+                                              <input type="checkbox" value="{{$vtid}}" name="vchecks[]" @if ($check_booster == 'TRUE') ? checked : '' @endif class="form-control col-md-7 col-xs-12">
                                               <div class="popup" onclick="myFunction({{$i}})" style="margin-top: 5px; padding-left: 5px; padding-right: 5px; background-color: gray; color: white"><i>?</i>
-                                              <span class="popuptext" id="{{$i}}"><p><i>Vaccine Type:</i><br> {{$advvaccinetiming->vt_type}}<br><br><i>Vaccine Name:</i><br> {{$vaccine->vname}}<br><br><i>Vaccine Timing:</i><br> {{$vt}} Months<br><br><i>Doctor Name:</i><br> {{$cur_doctor->dname}}<br><br><i>Patient Name:</i><br> {{$patient->fname}} {{$patient->lname}}</p></span>
+                                              <span class="popuptext" id="{{$i}}"><p><i>Vaccine Type:</i><br> {{$advvaccinetiming->vt_type}}<br><i>Vaccine Name:</i><br> {{$vaccine->vname}}<br><i>Vaccine Timing:</i><br> {{$vt}} Months<br><i>Doctor Name:</i><br> {{$cur_doctor->dname}}<br><i>Patient Name:</i><br> {{$patient->fname}} {{$patient->lname}}</p></span>
                                             </div>
                                           </div>
                                           </td>
                                           <?php
+                                          //clear the status for next iteration
+                                          $check_booster = '';
                                           $b_rows--;
                                           //booster row exists so --
                                           ?>
@@ -319,7 +242,7 @@ $i = 0;
                               <div class="ln_solid"></div>
                               <div class="form-group">
                                 <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                                  <button type="submit" name="submit" class="btn btn-success">Add Vaccine</button>
+                                  <button type="submit" name="submit" class="btn btn-success">Update</button>
                                 </div>
                               </div>
                             </form>

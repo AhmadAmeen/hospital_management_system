@@ -30,18 +30,18 @@ class ReceptionistController extends Controller
        $receptionist = Receptionist::find($receptionist[0]['id']);
        $advcenters = AdvCenter::where('doc_id', $receptionist->doc_id)->get();
        $repc_center = AdvCenter::find($receptionist->center_id);
-
        //print_r($advcenters);
        return view('receploginselectcenter')->with('advcenters', $advcenters)
        ->with('receptionist', $receptionist)
        ->with('repadvcurrentcenter', $repc_center->cname);
-     } else {
+       } else {
        session::flash('coc', 'Email or Password is incorrect!');
        return redirect('recplogin')->withinput();
        }
    }
 
    public function doctorrecepstore (Request $request) {
+     try {
      $validator = Validator::make($request->all(), [
        'username' => 'unique:receptionists,username',
        'password' => 'min:6',
@@ -64,33 +64,13 @@ class ReceptionistController extends Controller
      $center = AdvCenter::find($request->center_id);
      //create days array
      return redirect('showoffdaysforcenter/' . $current_doc_id . '/' . $center->id);
-     /*
-     $week_days = array (
-       'Monday',
-       'Tuesday',
-       'Wednesday',
-       'Thrusday',
-       'Friday',
-       'Sat',
-       'Sun'
-     );
-     $db_days_names = array (
-       'mon',
-       'tues',
-       'wed',
-       'thu',
-       'fri',
-       'sat',
-       'sun'
-     );
-     return view ('docregform_adv_centeroffdays')->with('current_doc_id', $current_doc_id)
-     ->with('center', $center)
-     ->with('week_days', $week_days)
-     ->with('db_days_names', $db_days_names);
-     */
+     } catch(Exception $e) {
+         echo 'Message: ' .$e->getMessage();
+     }
    }
 
    public function addrecepfromupdate (Request $request) {
+     try {
      $validator = Validator::make($request->all(), [
        'username' => 'unique:receptionists,username',
        'password' => 'min:6',
@@ -112,14 +92,21 @@ class ReceptionistController extends Controller
      //return redirect ('showdoctors');
      $center = AdvCenter::find($request->center_id);
      return view ('editingcenter')->with('center', $center);
+     } catch(Exception $e) {
+         echo 'Message: ' .$e->getMessage();
+     }
    }
 
    public function storerecepcurcenter($recep_id, Request $request) {
+     try{
      $request->session()->put('rc_cid_session', $request->center_selected);
      $rc_cname = AdvCenter::find($request->center_selected);
      $request->session()->put('rc_cname_session', $rc_cname->cname);
      //echo $request->center_selected . " ";
      //echo "$recep_id";
      return redirect('patientregform/' . $recep_id);
+     } catch(Exception $e) {
+         echo 'Message: ' .$e->getMessage();
+     }
    }
 }
