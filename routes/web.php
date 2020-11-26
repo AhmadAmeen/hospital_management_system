@@ -150,3 +150,9 @@ Route::post('addingvaccinetimingfromupdate/{vid}', 'AdvVaccineTimingController@a
 Route::get('editvaccinationhistory/{pat_id}', 'VaccinationHistoryController@editvaccinationhistory');
 //add adv vaccine update history
 Route::post('advvaccineforpatientupdate/{pat_id}', 'VaccinationHistoryController@advvaccineforpatientupdate');
+//schedule view
+Route::get('schedulingpatient/{pat_id}', 'ScheduleController@show');
+//testing
+Route::post('checkcenteroffdays','ScheduleController@index');
+//get c t
+Route::get('getCenterTimings/{cid}','ScheduleController@getCenterTimings');

@@ -32,6 +32,7 @@ img {
     <th>Guardian No</th>
     <th>Previous Visit Histories</th>
     <th>Add new Visit History</th>
+    <th>Schedule Patient</th>
     <th>Edit</th>
     <th>Delete</th>
   </tr>
@@ -50,6 +51,7 @@ img {
     -->
     <td><a href="{{url('vh_patient/' . $patient->id)}}">Patient Visit History</a></td>
     <td><a href="{{url('addnewpvhhistory/' . $patient->id)}}">Add New Visit History Record</a></td>
+    <td><a href="{{url('schedulingpatient/' . $patient->id)}}">Schdule Patient</a></td>
     <td><a href="{{url('editingpatient/' . $patient->id)}}">Edit</a></td>
     <td><a href="{{url('deletepatient/' . $patient->id)}}">Delete</a></td>
   </tr>
