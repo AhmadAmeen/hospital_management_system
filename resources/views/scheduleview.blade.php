@@ -65,8 +65,8 @@
                             <h5><b>Patient Age: </b> {{$patient->age}}</h5>
                             <h5><b>Patient DOB: </b> {{$patient->dob}}</h5>
                             <h5><b>Current Date: </b><a id="cur_date"></a><script>current_date();</script></h5>
-                            <h5><b>Scheduled Date: <a id="pur_date"></a></b></h5>
-                            <h5><b>Day: <a id="pur_dayname"></a></b></h5>
+                            <h5 style="display: none"><b>Scheduled Date: <a id="pur_date"></a></b></h5>
+                            <h5 style="display: none"><b>Day: <a id="pur_dayname"></a></b></h5>
                           </div>
                         </div>
                         <!--centers-->
@@ -84,35 +84,22 @@
                             </select>
                           </div>
                         </div>
-
                         <!--center-timing-->
                       <div class="card" id='center_timing' style="display: none">
                         <div id = 'msg' style="margin: auto" class="container"></div>
                           <div class="form-group">
-                            <!--
-                            <div class="col-md-6 col-sm-6 col-xs-12" id="ct_select" style="padding: 20px; width: 100%; margin: auto">
-                              <div>
-                                <select name="ct_select" class="form-control col-md-7 col-xs-12">
-                                  <option value="{{session('rc_cid_session')}}">{{session('rc_cname_session')}}</option>
-                                    @foreach($centers as $center)
-                                      @if($center->cname != session('rc_cname_session'))
-                                        <option value="{{$center->id}}">{{$center->cname}}</option>
-                                        @endif
-                                    @endforeach
-                             </select>
-                             </div>
-                             -->
                             <table border='1' id='userTable' style='width: 80%; border-collapse: collapse; margin: auto; margin-top: 10px; margin-bottom: 10px'>
                               <thead>
                               <tr>
                               <th>From</th>
                               <th>To</th>
+                              <th>Type</th>
                               <th>Select</th>
                               </tr>
                               </thead>
-                              <tbody></tbody>
+                              <tbody>
+                              </tbody>
                              </table>
-
                             </div>
                           </div>
                         </div>
@@ -122,7 +109,6 @@
                           <a onclick="addDays(14)" id="14days" name="14days" class='ph-button ph-btn-blue'>14 Days</a>
                           <a onclick="addDays(21)" id="21days" name="21days" class='ph-button ph-btn-blue'>21 Days</a>
                           <a onclick="addDays(30)" id="30days" name="30days" class='ph-button ph-btn-blue'>30 Days</a>
-                          <a onclick="addDays(60)" id="60days" name="60days" class='ph-button ph-btn-blue'>2 Months</a>
                       </div>
                       <!--result from ajax-->
                       <?php
@@ -174,6 +160,36 @@
      });
    }
 
+       function schedulepatientstore(from, to, type) {
+         $.ajaxSetup({
+           headers: {
+             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+           }
+         });
+         var type = document.getElementById(type).value;
+         var status = 0;
+         var time = from;
+         var center_id = document.getElementById("center_select").value;
+         var date = document.getElementById("pur_date").value;
+         var pat_id = {{$patient->id}};
+         console.log(type + " " + status  + " " + time + " " + center_id + " " + date + " " + pat_id);
+         $.ajax({
+           type:'POST',
+           url:"{{url('schedulepatientstore')}}",
+           data: {
+             pat_id: pat_id,
+             center_id: center_id,
+             date: date,
+             time: time,
+             type: type,
+             status: staus,
+          },
+             success:function(data) {
+               alert("Patient scheduled successfully!");
+             }
+         });
+       }
+
    function getCenterTimings(center_id) {
      $.ajaxSetup({
        headers: {
@@ -192,19 +208,27 @@
        len = response['data'].length;
        json = response['data'];
      }
-     if(len > 0)  {
-
+     if(len > 0) {
        $("#userTable tbody").empty();
        for(var i = 0; i < len; i++) {
            var obj = json[i];
-           console.log (obj);
-          var tr_str = "<tr>" +
-          "<td align='center'>" + obj.from + "</td>" +
-          "<td align='center'>" + obj.to + "</td>" +
-          "<td align='center'>" + "<button class='btn btn-success'>Select</button>" + "</td>" +
-          "</tr>";
-          $("#userTable tbody").append(tr_str);
-       }
+           var tr_str = tr_str +
+            "<tr>"
+            + "<td align='center'>" + "<input type='time' value=" + obj.from + ">" + "</td>"
+            + "<td align='center'>" + "<input type='time' value=" + obj.to + ">" + "</td>"
+            + "<div class='col-md-6 col-sm-6 col-xs-12'>"
+            + "<td align='center'>"
+            + "<select id='"+i+"' class='form-control col-md-7 col-xs-12'>"
+            +  "<option value='Physical Checkup'>Physical Checkup</option>"
+            +  "<option value='Vaccination'>Vaccination</option>"
+            +  "<option value='Video Consultation'>Video Consultation</option>"
+            + "</select> </td>"
+            + "</div>"
+            + "<td align='center'>"  + "<a class='btn btn-success' onclick=\"(schedulepatientstore('" + obj.from + "','" + obj.to +  "','" + i + "'))\">Schedule</a>"
+            + "</td>"
+            + "</tr>";
+          }
+       $("#userTable tbody").html(tr_str);
       }
      }
      });
@@ -212,14 +236,12 @@
 
     function addDays(days) {
       var result = new Date();
-
       result.setDate(result.getDate() + days);
       document.getElementById("pur_date").text =formatedate(result);
       document.getElementById("pur_date").value = formatedate(result);
       var daydate = formatedate(result);
       document.getElementById("pur_dayname").text =getDayOfWeek(daydate);
       document.getElementById("pur_dayname").value = getDayOfWeek(daydate);
-
     }
 
     // Accepts a Date object or date string that is recognized by the Date.parse() method
@@ -229,6 +251,16 @@
         ['sun', 'mon', 'tues', 'wed', 'thu', 'fri', 'sat'][dayOfWeek];
     }
 
+    function tConvert (time) {
+      // Check correct time format and split into components
+      time = time.toString ().match (/^([01]\d|2[0-3])(:)([0-5]\d)(:[0-5]\d)?$/) || [time];
+      if (time.length > 1) { // If time format correct
+        time = time.slice (1);  // Remove full string match value
+        time[5] = +time[0] < 12 ? ' AM' : ' PM'; // Set AM/PM
+        time[0] = +time[0] % 12 || 12; // Adjust hours
+      }
+      return time.join (''); // return adjusted time or original string
+    }
   </script>
 
 @endsection

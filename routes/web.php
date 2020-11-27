@@ -156,3 +156,5 @@ Route::get('schedulingpatient/{pat_id}', 'ScheduleController@show');
 Route::post('checkcenteroffdays','ScheduleController@index');
 //get c t
 Route::get('getCenterTimings/{cid}','ScheduleController@getCenterTimings');
+//schedulepatientstore
+Route::post('schedulepatientstore','ScheduleController@schedulepatientstore');
