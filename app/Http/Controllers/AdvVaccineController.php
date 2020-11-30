@@ -27,28 +27,27 @@ class AdvVaccineController extends Controller
       ->with('doc_id', $doc_id);
     }
 
-      public function editingvaccineshow($vid, $doc_id) {
-        $advvaccine = AdvVaccine::find($vid);
-        $advvaccine_timings = AdvVaccineTiming::where('v_id', $vid)->get();
-        return view ('editingvaccine')
-        ->with('advvaccine', $advvaccine)
-        ->with('$advvaccine_timings', $advvaccine_timings)
-        ->with('doc_id', $doc_id);
-      }
+    public function editingvaccineshow($vid, $doc_id) {
+      $advvaccine = AdvVaccine::find($vid);
+      $advvaccine_timings = AdvVaccineTiming::where('v_id', $vid)->get();
+      return view ('editingvaccine')
+      ->with('advvaccine', $advvaccine)
+      ->with('$advvaccine_timings', $advvaccine_timings)
+      ->with('doc_id', $doc_id);
+    }
 
-      public function updatevaccine($vid, $doc_id, Request $request) {
-        $advvaccine = AdvVaccine::find($vid);
-        $advvaccine->vname = $request->vname;
-        $advvaccine->vdescription = $request->vdescription;
-        $advvaccine->save();
-        return redirect('editingvaccine/' . $vid . '/' . $doc_id);
-      }
+    public function updatevaccine($vid, $doc_id, Request $request) {
+      $advvaccine = AdvVaccine::find($vid);
+      $advvaccine->vname = $request->vname;
+      $advvaccine->vdescription = $request->vdescription;
+      $advvaccine->save();
+      return redirect('editingvaccine/' . $vid . '/' . $doc_id);
+    }
 
-      public function deletevaccine($vid, $doc_id) {
-        $advvaccine = AdvVaccine::find($vid);
-        echo "delete commented";
-        //$center->delete();
-        return redirect('showadvvaccinesofcurdoc/' . $doc_id);
-      }
-
+    public function deletevaccine($vid, $doc_id) {
+      $advvaccine = AdvVaccine::find($vid);
+      echo "delete commented";
+      //$center->delete();
+      return redirect('showadvvaccinesofcurdoc/' . $doc_id);
+    }
 }

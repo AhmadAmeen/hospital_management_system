@@ -5,7 +5,7 @@
 <div class="alert alert-danger">{{ session('error') }}</div>
 @endif
 
-@extends('layout.default')
+@extends('patientlayout.default')
 
 @section('content')
 <script>
@@ -54,7 +54,7 @@
                      </div>
                         <div class="x_content">
                     <br>
-                    <form action="{{url('schedulepatientstore')}}" method="post" enctype="multipart/form-data" id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
+                    <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
                       @csrf
                       <h1 style="text-align: center;">Add Patient Schedule</h1>
                       <!--7 days-->
@@ -65,9 +65,10 @@
                             <h5><b>Patient Age: </b> {{$patient->age}}</h5>
                             <h5><b>Patient DOB: </b> {{$patient->dob}}</h5>
                             <h5><b>Current Date: </b><a id="cur_date"></a><script>current_date();</script></h5>
-                            <h5 style="display: none"><b>Scheduled Date: <a id="pur_date"></a></b></h5>
-                            <h5 style="display: none"><b>Day: <a id="pur_dayname"></a></b></h5>
-                          </div>
+                            <h5 style="display: block"><b>Scheduled Date: <a id="pur_date"></a></b></h5>
+                            <h5 style="display: block"><b>Day: <a id="pur_dayname"></a></b></h5>
+                            <h5 style="display: none"><b>Type: <a id="v_type"></a></b></h5>
+                         </div>
                         </div>
                         <!--centers-->
                         <div class="form-group" id="toggle_box">
@@ -85,26 +86,31 @@
                           </div>
                         </div>
                         <!--center-timing-->
-                      <div class="card" id='center_timing' style="display: none">
-                        <div id = 'msg' style="margin: auto" class="container"></div>
-                          <div class="form-group">
-                            <table border='1' id='userTable' style='width: 80%; border-collapse: collapse; margin: auto; margin-top: 10px; margin-bottom: 10px'>
-                              <thead>
-                              <tr>
-                              <th>From</th>
-                              <th>To</th>
-                              <th>Type</th>
-                              <th>Select</th>
-                              </tr>
-                              </thead>
-                              <tbody>
-                              </tbody>
-                             </table>
+                        <div class="card" id='center_timing_div' style="display: none;">
+                          <div id = 'msg' style="margin: auto" class="container"></div>
+                            <div class="form-group">
+                              <div class="card" id="ct_slots_div" style="display: none; margin: 10px; margin: auto; width: 50%; padding: 10px;">
+                                <h5><b>Please Choose the Slot* </b></h5>
+                                <select id="ct_slots" name="ct_slot_selected" class="form-control col-md-7 col-xs-12"></select>
+                                <a class='btn btn-success' onclick="schedulepatientstore1()">Confirm</a>
+                              </div>
+                              <table border='1' id='userTable' style='width: 80%; border-collapse: collapse; margin: auto; margin-top: 10px; margin-bottom: 10px'>
+                                <thead>
+                                <tr>
+                                <th>From</th>
+                                <th>To</th>
+                                <th>Type</th>
+                                <th>Select</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                               </table>
+                              </div>
                             </div>
                           </div>
-                        </div>
-                      <!--select day-->
-                      <div class="form-group" style="margin-top: 25px; margin-bottom: 30px;">
+                        <!--center slot-->
+                        <div class="form-group" style="margin-top: 25px; margin-bottom: 30px;">
                           <a onclick="addDays(7)" id="7days" name="7days" class='ph-button ph-btn-blue'>07 Days</a>
                           <a onclick="addDays(14)" id="14days" name="14days" class='ph-button ph-btn-blue'>14 Days</a>
                           <a onclick="addDays(21)" id="21days" name="21days" class='ph-button ph-btn-blue'>21 Days</a>
@@ -132,63 +138,102 @@
   <script src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
   <script>
 
-    function getMessages() {
-      $.ajaxSetup({
-        headers: {
-          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-      });
-     var c_id = document.getElementById("center_select").value;
-     var cur_date = document.getElementById("cur_date").value;
-     var pur_date = document.getElementById("pur_date").value;
-     var pur_dayname = document.getElementById("pur_dayname").value;
+   function schedulepatientstore1() {
+     $.ajaxSetup({
+       headers: {
+         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+       }
+     });
+     var ct_slot_id = $('#ct_slots :selected').val();
+     var type = document.getElementById("v_type").text;
+     console.log(type);
+     var status = 0;
+     var time = ct_slot_id;
+     var center_id = document.getElementById("center_select").value;
+     var date = document.getElementById("pur_date").value;
+     var pat_id = {{$patient->id}};
+     //console.log (type + " " + status  + " " + time + " " + center_id + " " + date + " " + pat_id);
      $.ajax({
-        type:'POST',
-        url:"{{url('checkcenteroffdays')}}",
-        data: {
-          c_id: c_id,
-          cur_date: cur_date,
-          pur_date: pur_date,
-          pur_dayname: pur_dayname,
-        },
-          success:function(data) {
-           $("#msg").html(data.result);
-           var center_timing = document.getElementById("center_timing");
-           center_timing.style.display = "block";
-           getCenterTimings(data.center_id);
+       type:'POST',
+       url:"{{url('schedulepatientstore')}}",
+       data: {
+         pat_id: pat_id,
+         center_id: center_id,
+         date: date,
+         time: time,
+         type: type,
+         status: status,
+      },
+         success:function(data) {
+           alert("Patient scheduled successfully!");
+           location.reload();
          }
      });
    }
 
-       function schedulepatientstore(from, to, type) {
-         $.ajaxSetup({
-           headers: {
-             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-           }
-         });
-         var type = document.getElementById(type).value;
-         var status = 0;
-         var time = from;
-         var center_id = document.getElementById("center_select").value;
-         var date = document.getElementById("pur_date").value;
-         var pat_id = {{$patient->id}};
-         console.log(type + " " + status  + " " + time + " " + center_id + " " + date + " " + pat_id);
-         $.ajax({
-           type:'POST',
-           url:"{{url('schedulepatientstore')}}",
-           data: {
-             pat_id: pat_id,
-             center_id: center_id,
-             date: date,
-             time: time,
-             type: type,
-             status: staus,
-          },
-             success:function(data) {
-               alert("Patient scheduled successfully!");
-             }
-         });
+   function schedulepatientstore(from, to, type) {
+     $.ajaxSetup({
+       headers: {
+         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
        }
+     });
+     var type = document.getElementById(type).value;
+     var status = 0;
+     var time = from;
+     var center_id = document.getElementById("center_select").value;
+     var date = document.getElementById("pur_date").value;
+     var pat_id = {{$patient->id}};
+     console.log(type + " " + status  + " " + time + " " + center_id + " " + date + " " + pat_id);
+     $.ajax({
+       type:'POST',
+       url:"{{url('schedulepatientstore')}}",
+       data: {
+         pat_id: pat_id,
+         center_id: center_id,
+         date: date,
+         time: time,
+         type: type,
+         status: status,
+      },
+         success:function(data) {
+           alert("Patient scheduled successfully!");
+         }
+     });
+   }
+
+      function getMessages() {
+        $.ajaxSetup({
+          headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          }
+        });
+       var c_id = document.getElementById("center_select").value;
+       var cur_date = document.getElementById("cur_date").value;
+       var pur_date = document.getElementById("pur_date").value;
+       var pur_dayname = document.getElementById("pur_dayname").value;
+       $.ajax({
+          type:'POST',
+          url:"{{url('checkcenteroffdays')}}",
+          data: {
+            c_id: c_id,
+            cur_date: cur_date,
+            pur_date: pur_date,
+            pur_dayname: pur_dayname,
+          },
+            success:function(data) {
+             $("#msg").html(data.result);
+             console.log(data.pur_date + " ");
+             console.log(data.pur_dayname);
+             document.getElementById("pur_date").text = data.pur_date;
+             document.getElementById("pur_dayname").text = data.pur_dayname;
+             document.getElementById("pur_date").value = data.pur_date;
+             document.getElementById("pur_dayname").value = data.pur_dayname;
+             var center_timing_div = document.getElementById("center_timing_div");
+             center_timing_div.style.display = "block";
+             getCenterTimings(data.center_id);
+           }
+       });
+     }
 
    function getCenterTimings(center_id) {
      $.ajaxSetup({
@@ -214,8 +259,8 @@
            var obj = json[i];
            var tr_str = tr_str +
             "<tr>"
-            + "<td align='center'>" + "<input type='time' value=" + obj.from + ">" + "</td>"
-            + "<td align='center'>" + "<input type='time' value=" + obj.to + ">" + "</td>"
+            + "<td align='center'>" + "<h5>" + tConvert(obj.from) + "</h5>" + "</td>"
+            + "<td align='center'>" + "<h5>" + tConvert(obj.to) + "</h5>" + "</td>"
             + "<div class='col-md-6 col-sm-6 col-xs-12'>"
             + "<td align='center'>"
             + "<select id='"+i+"' class='form-control col-md-7 col-xs-12'>"
@@ -224,11 +269,51 @@
             +  "<option value='Video Consultation'>Video Consultation</option>"
             + "</select> </td>"
             + "</div>"
-            + "<td align='center'>"  + "<a class='btn btn-success' onclick=\"(schedulepatientstore('" + obj.from + "','" + obj.to +  "','" + i + "'))\">Schedule</a>"
-            + "</td>"
+            //+ "<td align='center'>"  + "<a class='btn btn-success' onclick=\"(schedulepatientstore('" + obj.from + "','" + obj.to +  "','" + i + "'))\">Select Slot</a> </td>"
+            + "<td align='center'>"  + "<a class='btn btn-primary' onclick=\"(get_ct_slots('" + obj.id + "','" + i +  "'))\">Select Timing</a> </td>"
             + "</tr>";
           }
        $("#userTable tbody").html(tr_str);
+      }
+     }
+     });
+    }
+
+   function get_ct_slots(centertiming_id, vtype_id) {
+     var type = document.getElementById(vtype_id);
+     var ct_slots_div = document.getElementById("ct_slots_div");
+
+     document.getElementById("v_type").text = document.getElementById(vtype_id).value;
+     var purposed_date = document.getElementById("pur_date").text;
+     ct_slots_div.style.display = "block";
+
+     $.ajaxSetup({
+       headers: {
+         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+       }
+     });
+     //var c_id = document.getElementById("center_select").value;
+     $.ajax({
+     url: '../get_ct_slots/'+centertiming_id,
+     type: 'get',
+     data: {
+       purposed_date: purposed_date,
+     },
+     dataType: 'json',
+     success: function(response) {
+     var len = 0;
+     var json = '';
+     if (response['data'] != null) {
+       len = response['data'].length;
+       json = response['data'];
+     }
+     if(len > 0) {
+        let dropdown = $('#ct_slots');
+        dropdown.empty();
+        dropdown.prop('selectedIndex', 0);
+        $.each(json, function (key, entry) {
+          dropdown.append($('<option></option>').attr('value', entry.id).text("From: " + entry.from + " To: " + entry.to));
+          })
       }
      }
      });

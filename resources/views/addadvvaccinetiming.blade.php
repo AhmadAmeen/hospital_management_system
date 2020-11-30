@@ -39,9 +39,9 @@
                       <h3 style="text-align: center; margin-down: 10px">{{$advvacccine->vname}}</h3>
                       <!--code-->
                       <div class="form-group" id="toggle_box">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="dcoordinator">Choose Vaccine Time<span class="required">*</span>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="dcoordinator">Choose Vaccine Time (*in Days)<span class="required">*</span>
                         </label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
+                        <!--<div class="col-md-6 col-sm-6 col-xs-12">
                             <select name="vtiming" class="form-control col-md-7 col-xs-12">
                               <option value="">Select Timing (in months)</option>
                               <option value="2">2</option>
@@ -54,6 +54,10 @@
                               <option value="16">16</option>
                           </select>
                         </div>
+                      -->
+                      <div class="col-md-6 col-sm-6 col-xs-12">
+                        <input type="number" id="vtiming" name="vtiming" required="required" class="form-control col-md-7 col-xs-12">
+                      </div>
                       </div>
                       <div class="form-group" id="toggle_box">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="dcoordinator">Vaccine Type<span class="required">*</span>
