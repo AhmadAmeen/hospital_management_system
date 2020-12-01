@@ -118,7 +118,7 @@
                       </div>
                       <!--result from ajax-->
                       <?php
-                         echo Form::button('Schedule Center Timing', ['onClick'=>'getMessages()', 'class'=>'ph-button ph-btn-red']);
+                         echo Form::button('Schedule Center Timing', ['onClick'=>'schedule_center_timing()', 'class'=>'ph-button ph-btn-red']);
                       ?>
                       <!--footer-->
                       <div class="ln_solid"></div>
@@ -201,7 +201,7 @@
      });
    }
 
-      function getMessages() {
+      function schedule_center_timing() {
         $.ajaxSetup({
           headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -284,7 +284,7 @@
      var ct_slots_div = document.getElementById("ct_slots_div");
 
      document.getElementById("v_type").text = document.getElementById(vtype_id).value;
-     var purposed_date = document.getElementById("pur_date").text;
+     var final_purposed_date = document.getElementById("pur_date").text;
      ct_slots_div.style.display = "block";
 
      $.ajaxSetup({
@@ -297,7 +297,7 @@
      url: '../get_ct_slots/'+centertiming_id,
      type: 'get',
      data: {
-       purposed_date: purposed_date,
+       final_purposed_date: final_purposed_date,
      },
      dataType: 'json',
      success: function(response) {

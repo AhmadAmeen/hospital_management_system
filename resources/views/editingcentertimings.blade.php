@@ -42,14 +42,14 @@
                           <th></th>
                           <th>FROM</th>
                           <th>TO</th>
-                          <th>Delete</th>
+                        <!--<th>Delete</th>-->
                         </tr>
                         @foreach ($center_timings as $center_timing)
                          <tr style="padding: 5">
                            <td><input type="hidden" id="tid" name="tid[]" value="{{$center_timing->id}}" required="required" class="form-control col-md-7 col-xs-12"></td>
                            <td><input type="time" id="from" name="from[]" value="{{$center_timing->from}}" required="required" class="form-control col-md-7 col-xs-12"></td>
                            <td><input type="time" id="to" name="to[]" value="{{$center_timing->to}}" required="required" class="form-control col-md-7 col-xs-12"></td>
-                           <td><a href="{{ url('deletecentertimings/' . $center_timing->id) }}">Delete</a></td>
+                           <!--<td><a href="{{ url('deletecentertimings/' . $center_timing->id) }}">Delete</a></td>-->
                          </tr>
                         @endforeach
                     </table>

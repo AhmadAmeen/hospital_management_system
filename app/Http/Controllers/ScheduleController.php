@@ -49,15 +49,21 @@ class ScheduleController extends Controller
 
     public function get_ct_slots($ct_id, Request $request) {
       //$arr['data'] = CentertimingSlot::where('ct_id', $ct_id)->where('status', '0')->get();
-      $x = $request->input('purposed_date');
-      $already_scheduled = Schedule::where('date', $x)->get();
+      $x = $request->input('final_purposed_date');
 
-      foreach ($already_scheduled as $key) {
-        // code...
-        $scheduled_ids[] = $key->time;
+      $already_scheduled = Schedule::where('date', $x)->get();
+      $scheduled_ids[] = "";
+      if(!is_null($already_scheduled)) {
+        foreach ($already_scheduled as $key) {
+          // code...
+          $scheduled_ids[] = $key->time;
+        }
+      } else {
+        $scheduled_ids[] = "";
       }
 
       $arr['data'] = CentertimingSlot::where('ct_id', $ct_id)
+      ->where('status', 0)
       ->whereNotIn('id', $scheduled_ids)
       ->get();
       echo json_encode($arr);
@@ -85,9 +91,9 @@ class ScheduleController extends Controller
       $schedule->center_id = $request->input('center_id');
       $schedule->date = $request->input('date');
       $schedule->time = $request->input('time');
-      $ct_slot = CentertimingSlot::find($schedule->time);
-      $ct_slot->status = '1';
-      $ct_slot->save();
+      //$ct_slot = CentertimingSlot::find($schedule->time);
+      //$ct_slot->status = '1';
+      //$ct_slot->save();
       $schedule->type = $request->input('type');
       $schedule->status = $request->input('status');
       $schedule->save();
