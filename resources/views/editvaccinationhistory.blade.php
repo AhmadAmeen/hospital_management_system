@@ -88,7 +88,7 @@ $i = 0;
 @section('content')
 
           <!-- my code -->
-          <div class="right_col" role="main"  >
+          <div class="right_col" role="main">
            <div class="clearfix"></div>
                      <div class="row" >
                        <div class="col-md-12 col-sm-12 col-xs-12">
@@ -239,6 +239,8 @@ $i = 0;
                               <table>
                             </div>
                           </div>
+                        </div>
+                      </div>
                               <div class="ln_solid"></div>
                               <div class="form-group">
                                 <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">

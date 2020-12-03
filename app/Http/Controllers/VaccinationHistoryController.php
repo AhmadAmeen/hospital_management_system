@@ -90,24 +90,52 @@ class VaccinationHistoryController extends Controller
   }
 
   public function advvaccineforpatientupdate($pat_id, Request $request) {
-    try {
     $vaccinationhistories = VaccinationHistory::where('pat_id', $pat_id)->get();
+    $vid_to_dlt[]="";
+    $vh[]="";
     foreach ($vaccinationhistories as $vaccinationhistory) {
       $vh[] = $vaccinationhistory->vt_id;
       $vid_to_dlt[] = $vaccinationhistory->id;
     }
     foreach ($vid_to_dlt as $vid) {
       $cur_vh = VaccinationHistory::find($vid);
-      $cur_vh->delete();
+      if($cur_vh) {
+        $cur_vh->delete();
+      }
     }
-    $diff = array_diff($vh, $request->vchecks);
-    foreach ($request->vchecks as $vcheck) {
-      $v_history = VaccinationHistory::firstOrNew(['pat_id' => $pat_id, 'vt_id' => $vcheck, 'status' => "TRUE"]);
-      $v_history->save();
+    //$diff = array_diff($vh, $request->vchecks);
+    if($request->vchecks) {
+      foreach ($request->vchecks as $vcheck) {
+        $v_history = VaccinationHistory::firstOrNew(['pat_id' => $pat_id, 'vt_id' => $vcheck, 'status' => "TRUE"]);
+        $v_history->save();
+      }
     }
     return redirect('editvaccinationhistory/' . $pat_id);
-    } catch(Exception $e) {
-        echo 'Message: ' .$e->getMessage();
+  }
+
+  public function recep_advvaccineforpatientupdate($pat_id, Request $request) {
+    $vaccinationhistories = VaccinationHistory::where('pat_id', $pat_id)->get();
+    $vid_to_dlt[]="";
+    $vh[]="";
+    foreach ($vaccinationhistories as $vaccinationhistory) {
+      $vh[] = $vaccinationhistory->vt_id;
+      $vid_to_dlt[] = $vaccinationhistory->id;
     }
+    foreach ($vid_to_dlt as $vid) {
+      $cur_vh = VaccinationHistory::find($vid);
+      if($cur_vh) {
+        $cur_vh->delete();
+      }
+    }
+    //$diff = array_diff($vh, $request->vchecks);
+    if($request->vchecks) {
+      foreach ($request->vchecks as $vcheck) {
+        $v_history = VaccinationHistory::firstOrNew(['pat_id' => $pat_id, 'vt_id' => $vcheck, 'status' => "TRUE"]);
+        $v_history->save();
+      }
+    }
+
+    return redirect ('recep_main_p_visit/' . $pat_id);
+
   }
 }

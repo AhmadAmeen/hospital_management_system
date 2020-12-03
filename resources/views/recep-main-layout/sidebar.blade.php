@@ -32,8 +32,7 @@
           <li><a style="border-style: outset; margin-right: 2px; border-color: #767676;"></i> Patient ↓ <span class="fa fa-chevron-down"></span></a>
              <ul class="nav child_menu">
                <li><a href="{{url('patientregform/' . session('recep_session'))}}">Add Patient</a></li>
-               <li><a href="{{url('recep_main_p_visit/' . session('recep_session'))}}">Edit or Delete Patients</a></li>
-               <li><a href="{{url('vh_main_patients')}}">Patients History</a></li>
+               <li><a href="{{url('showpatients/' . session('recep_session'))}}">All Patients</a></li>
             </ul>
           </li>
       </li>

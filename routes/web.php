@@ -82,6 +82,8 @@ Route::get('deletepatient/{id}', 'PatientController@deletepatient');
 Route::get('vh_main_patients', 'VisitHistoryController@vh_main_patients');
 //choosen patient previous history
 Route::get('vh_patient/{id}', 'VisitHistoryController@vh_patient');
+//choosen patient previous history
+Route::get('specific_vh_patient/{vh_id}', 'VisitHistoryController@specific_vh_patient');
 //add new patient history main page
 Route::get('addnewpvhhistory/{id}', 'VisitHistoryController@addnewpvhhistory');
 //adding patient route
@@ -116,6 +118,8 @@ Route::get('editmedicalhistory/{pat_id}', 'MedicalHistoryController@editmedicalh
 Route::post('patientmedhistorystore/{pat_id}', 'MedicalHistoryController@patientmedhistorystore');
 //update medical history
 Route::post('updatemedicalhistory/{pat_id}', 'MedicalHistoryController@updatemedicalhistory');
+//update medical history
+Route::post('recep_updatemedicalhistory/{pat_id}', 'MedicalHistoryController@recep_updatemedicalhistory');
 //show patient vaccination history page
 Route::get('vaccinehistoryview/{pat_id}', 'VaccinationHistoryController@show');
 //show patient vaccination history page
@@ -150,6 +154,8 @@ Route::post('addingvaccinetimingfromupdate/{vid}', 'AdvVaccineTimingController@a
 Route::get('editvaccinationhistory/{pat_id}', 'VaccinationHistoryController@editvaccinationhistory');
 //add adv vaccine update history
 Route::post('advvaccineforpatientupdate/{pat_id}', 'VaccinationHistoryController@advvaccineforpatientupdate');
+//add adv vaccine update history
+Route::post('recep_advvaccineforpatientupdate/{pat_id}', 'VaccinationHistoryController@recep_advvaccineforpatientupdate');
 //schedule view
 Route::get('schedulingpatient/{pat_id}', 'ScheduleController@show');
 //testing
@@ -160,3 +166,5 @@ Route::get('getCenterTimings/{cid}','ScheduleController@getCenterTimings');
 Route::post('schedulepatientstore','ScheduleController@schedulepatientstore');
 //get c t slots
 Route::get('get_ct_slots/{ct_id}','ScheduleController@get_ct_slots');
+//show all patients
+Route::get('recep_main_p_visit/{pat_id}', 'ReceptionistController@show');

@@ -55,11 +55,13 @@ class PatientController extends Controller
     }
 
     public function getseachedpatients (Request $request) {
-       $patients = Patient::where('fname' ,$request->pname)
-       ->orwhere('lname' ,$request->pname)
-       ->orwhere('gender' ,$request->pname)
-       ->orwhere('father_name' ,$request->pname)
-       ->orwhere('guard_no' ,$request->pname)
+      $recep_id = $request->session()->get('recep_session');
+      $receptionist = Receptionist::find($recep_id);
+       $patients = Patient::where('fname' ,$request->pname)->where('doc_id', $receptionist->doc_id)
+       ->orwhere('lname' ,$request->pname)->where('doc_id', $receptionist->doc_id)
+       ->orwhere('gender' ,$request->pname)->where('doc_id', $receptionist->doc_id)
+       ->orwhere('father_name' ,$request->pname)->where('doc_id', $receptionist->doc_id)
+       ->orwhere('guard_no' ,$request->pname)->where('doc_id', $receptionist->doc_id)
        ->paginate(5);
        return view ('showsearchedpatients')->with('patients', $patients);
     }

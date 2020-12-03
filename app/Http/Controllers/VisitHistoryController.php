@@ -20,13 +20,29 @@ class VisitHistoryController extends Controller
   }
 
   public function vh_patient ($id) {
-    $pvhistories = VisitHistory::where('patient_id', $id)->get();
-    if (!$pvhistories) {
-      return view ('addnewpatienthistory');
-    } else {
-      $patient = Patient::find($id);
-      return view ('vh_patient')->with('pvhistories', $pvhistories)
-      ->with('patient', $patient);
+    try{
+      $arr['data'] = VisitHistory::where('patient_id', $id)->get();
+      //if (!$pvhistories) {
+      //  return view ('addnewpatienthistory');
+      //} else {
+        //$patient = Patient::find($id);
+        //return view ('vh_patient')->with('pvhistories', $pvhistories)
+        //->with('patient', $patient);
+        echo json_encode($arr);
+        exit;
+      //}
+    }  catch(Exception $e) {
+        echo 'Message: ' .$e->getMessage();
+    }
+  }
+
+  public function specific_vh_patient ($vh_id) {
+    try{
+      $arr['data'] = VisitHistory::find($vh_id);
+      echo json_encode($arr);
+      exit;
+    }  catch(Exception $e) {
+        echo 'Message: ' .$e->getMessage();
     }
   }
 
@@ -37,16 +53,15 @@ class VisitHistoryController extends Controller
   public function addingpatientvh ($id, Request $request) {
     $visit_history = new VisitHistory;
     $visit_history->patient_id = $id;
-    $visit_history->date = $request->date;
-    $visit_history->head_size = $request->head_size;
-    $visit_history->length = $request->length;
-    $visit_history->weight = $request->weight;
-    $visit_history->temperature = $request->temperature;
-    $visit_history->other = $request->other;
+    $visit_history->date = $request->input('date');
+    $visit_history->head_size = $request->input('head_size');
+    $visit_history->length = $request->input('length');
+    $visit_history->weight = $request->input('weight');
+    $visit_history->temperature = $request->input('temperature');
+    $visit_history->other = $request->input('other');
     $visit_history->save();
-    return $this->vh_patient($id);
+    //return $this->vh_patient($id);
   }
-
 
   public function vh_getseachedpatients (Request $request) {
    $patients = Patient::where('fname' ,$request->pname)

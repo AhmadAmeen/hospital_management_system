@@ -3,16 +3,12 @@
 <body>
 
     <!-- top navigation -->
-    @include('patientlayout/header')
+    @include('recep-main-layout/header')
    <!-- /top navigation -->
 
   <!-- sidebar menu -->
   @include('patientlayout/sidebar')
   <!-- /sidebar menu -->
-
-  <!-- /menu footer buttons -->
-  @include('patientlayout/footer')
-  <!-- /menu footer buttons -->
 
   <!-- page content -->
   @yield('content')
@@ -21,12 +17,6 @@
 
         <!-- footer content -->
 
-        <footer>
-          <div class="pull-right">
-            Hospital Management System <a href="#">Visit Our Site</a>
-          </div>
-          <div class="clearfix"></div>
-        </footer>
         <!-- /footer content -->
         </div>
           </div>

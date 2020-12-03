@@ -56,6 +56,7 @@ class MedicalHistoryController extends Controller
      return view ('editmedicalhistory')->with('patient', $patient)->with('med_histories', $med_histories);
    }
 
+
    public function updatemedicalhistory($pat_id, Request $request) {
      $med_histories = MedicalHistory::where('patient_id', $pat_id)->get();
      $output = array_merge(array_diff($request->status, $request->prev_status), array_diff($request->prev_status, $request->status));
@@ -68,6 +69,20 @@ class MedicalHistoryController extends Controller
       }
       return redirect ('editmedicalhistory/' . $pat_id);
    }
+
+
+    public function recep_updatemedicalhistory($pat_id, Request $request) {
+    $med_histories = MedicalHistory::where('patient_id', $pat_id)->get();
+    $output = array_merge(array_diff($request->status, $request->prev_status), array_diff($request->prev_status, $request->status));
+    if($output) {
+     for ($i = 0; $i < count($output); $i++) {
+           $med_history = MedicalHistory::find($output[$i]);
+           $med_history->status = 'FALSE';
+           $med_history->save();
+        }
+       }
+       return redirect ('recep_main_p_visit/' . $pat_id);
+    }
 
    public function addmanualmedhistory($pat_id) {
      $patient = Patient::find($pat_id);
@@ -83,5 +98,15 @@ class MedicalHistoryController extends Controller
      $med_history->save();
      return redirect('addmanualmedhistory/' . $pat_id);
    }
+
+    public function recep_addmanualmedhistorystore($pat_id, Request $request) {
+      $med_history = new MedicalHistory;
+      $med_history->patient_id = $pat_id;
+      $med_history->dname = $request->dname;
+      $med_history->disease_desc = $request->disease_desc;
+      $med_history->status = 'TRUE';
+      $med_history->save();
+      return redirect('addmanualmedhistory/' . $pat_id);
+    }
 
 }

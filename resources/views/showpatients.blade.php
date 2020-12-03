@@ -16,12 +16,15 @@ img {
 <link rel="stylesheet" type="text/css" href="{{ asset('public/css/patientstable-css.css') }}" />
 
 <div class="right_col" role="main">
-<table id="mytable" style="background-color: white; color: black; padding-left: 10px">
+<!--
+  <table id="mytable" style="background-color: white; color: black; padding-left: 10px">
   <h2>All Patients Record</h2>
+-->
   <form action="{{url('getseachedpatients')}}" method="get">
     <input type="text" id="pname" name="pname" required="required" placeholder="Search Patients...">
     <!--<button type="submit" name="submit" class="btn btn-success" style="margin-left: 10px">Search Patients</button>-->
   </form>
+  <!--
   <tr>
     <th>Patient First Name</th>
     <th>Patient Last Name</th>
@@ -49,6 +52,7 @@ img {
     <td><img src="data:image/png;base64,{{ chunk_split(base64_encode($patient->pat_history)) }}" width="80" height="80" > </img></td>
     <td>{{$patient->pat_history}}</td>
     -->
+    <!--
     <td><a href="{{url('vh_patient/' . $patient->id)}}">Patient Visit History</a></td>
     <td><a href="{{url('addnewpvhhistory/' . $patient->id)}}">Add New Visit History Record</a></td>
     <td><a href="{{url('schedulingpatient/' . $patient->id)}}">Schdule Patient</a></td>
@@ -59,5 +63,6 @@ img {
   {{$patients->links()}}
 </table>
 <hr>
+-->
 </div>
 @endsection

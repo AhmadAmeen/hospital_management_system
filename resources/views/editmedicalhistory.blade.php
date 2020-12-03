@@ -5,6 +5,7 @@
 @extends('patientlayout.default')
 
 @section('content')
+
 <style>
 img {
  border-radius: 50%;
@@ -20,6 +21,7 @@ input.largerCheckbox {
     margin: 10px;
 }
 </style>
+
 <link rel="stylesheet" type="text/css" href="{{ asset('public/css/checkbox-etc-css.css') }}" />
 <div class="right_col" role="main"  style="background-color: white">
 <div class="clearfix"></div>
@@ -72,9 +74,5 @@ function addmorehistories() {
 function editvaccinationhistory() {
   window.location = "{{url('editvaccinationhistory/' . $patient->id)}}";
 }
-
-
-vaccine_history
-
 </script>
 @endsection

@@ -111,9 +111,9 @@
                           </div>
                         <!--center slot-->
                         <div class="form-group" style="margin-top: 25px; margin-bottom: 30px;">
+                          <a onclick="addDays(1)" id="1days" name="1days" class='ph-button ph-btn-blue'>Next Available</a>
                           <a onclick="addDays(7)" id="7days" name="7days" class='ph-button ph-btn-blue'>07 Days</a>
-                          <a onclick="addDays(14)" id="14days" name="14days" class='ph-button ph-btn-blue'>14 Days</a>
-                          <a onclick="addDays(21)" id="21days" name="21days" class='ph-button ph-btn-blue'>21 Days</a>
+                          <a onclick="addDays(15)" id="15days" name="15days" class='ph-button ph-btn-blue'>15 Days</a>
                           <a onclick="addDays(30)" id="30days" name="30days" class='ph-button ph-btn-blue'>30 Days</a>
                       </div>
                       <!--result from ajax-->
