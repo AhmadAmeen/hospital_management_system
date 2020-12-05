@@ -32,7 +32,7 @@
           <li><a style="border-style: outset; margin-right: 2px; border-color: #767676;"></i> Patient ↓ <span class="fa fa-chevron-down"></span></a>
              <ul class="nav child_menu">
                <li><a href="{{url('patientregform/' . session('recep_session'))}}">Add Patient</a></li>
-               <li><a href="{{url('showpatients/' . session('recep_session'))}}">All Patients</a></li>
+               <li><a href="{{url('showpatients/' . session('recep_session'))}}">Search Patient</a></li>
             </ul>
           </li>
       </li>

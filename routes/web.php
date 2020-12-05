@@ -83,6 +83,8 @@ Route::get('vh_main_patients', 'VisitHistoryController@vh_main_patients');
 //choosen patient previous history
 Route::get('vh_patient/{id}', 'VisitHistoryController@vh_patient');
 //choosen patient previous history
+Route::get('vh_and_patient/{pid}', 'VisitHistoryController@vh_and_patient');
+//choosen patient previous history
 Route::get('specific_vh_patient/{vh_id}', 'VisitHistoryController@specific_vh_patient');
 //add new patient history main page
 Route::get('addnewpvhhistory/{id}', 'VisitHistoryController@addnewpvhhistory');

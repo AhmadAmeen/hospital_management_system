@@ -6,10 +6,6 @@
     @include('doctorlayout/header')
    <!-- /top navigation -->
 
-  <!-- sidebar menu -->
-  @include('doctorlayout/sidebar')
-  <!-- /sidebar menu -->
-
   <!-- /menu footer buttons -->
   @include('layout/footer')
   <!-- /menu footer buttons -->

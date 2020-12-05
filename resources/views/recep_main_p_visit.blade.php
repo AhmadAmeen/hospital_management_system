@@ -119,6 +119,7 @@ img {
 <link rel="stylesheet" type="text/css" href="{{ asset('public/css/checkbox-etc-css.css') }}" />
 <link rel="stylesheet" type="text/css" href="{{ asset('public/css/searchbox-for-recep-css.css') }}" />
 <link rel="stylesheet" type="text/css" href="{{ asset('public/css/table-for-recep-vacc-css.css') }}" />
+<link rel="stylesheet" type="text/css" href="{{ asset('public/css/recep-popup-vacc-history-css.css') }}" />
 <meta name="csrf-token" content="{{ csrf_token() }}">
 <link rel="stylesheet" href="//cdn.materialdesignicons.com/5.4.55/css/materialdesignicons.min.css">
 <link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet">
@@ -138,6 +139,136 @@ img {
          <b>{{$schedule->type}}: </b>{{$schedule->date}}&nbsp;&nbsp;&nbsp;
        @endforeach
   </div>
+  <!-- The Modal -->
+    <div id="myModal" class="modal">
+      <!-- Modal content -->
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <div id="pat_vacc_histories1">
+        <form action="{{url('recep_advvaccineforpatientupdate', $patient->id)}}" method="post" enctype="multipart/form-data" id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
+          @csrf
+          <table id="vaccines_list_recep"  style="width: 100%; height: 100%;">
+            <tr>
+            <th>Vaccines</th>
+            @foreach ($v_timings as $key)
+                <th>{{ $key }}</th>
+            @endforeach
+            </tr>
+            @foreach ($advvaccines as $advvaccine)
+              <tr>
+                <td>{{ $advvaccine->vname }}</td>
+                <?php
+                //finding all vaccines_timings of current vaccine i.e $advvaccine
+                $advvaccinetimings = AdvVaccineTiming::where('v_id', $advvaccine->id)->get();
+                  $temp[] = '';
+                  $boosters_vtid = '';
+                  $vid = '';
+                  $check_booster = '';
+                  $check = '';
+                  $b_rows = 2;
+                  foreach ($advvaccinetimings as $advvaccinetiming) {
+                      //getting vaccine_timing value
+                      $i++;
+                      $popup_id = $i;
+                      $vt = $advvaccinetiming->vtiming;
+                      $vid = $advvaccine->id;
+                      $vtid = $advvaccinetiming->id;
+                      $items[] = $vt;
+                      $vaccine = AdvVaccine::find($vid);
+                      $cur_doctor = Doctor::find($vaccine->doc_id);
+                    ?>
+                    @if ($advvaccinetiming->vt_type == 'Dosage')
+                      @foreach ($vaccinationhistories as $vaccinationhistory)
+                        @if ($advvaccinetiming->id == $vaccinationhistory->vt_id && $vaccinationhistory->status == 'TRUE')
+                          <?php $check = 'TRUE'; ?>
+                        @endif
+                      @endforeach
+                      <td>
+                        <div>
+                          <input type="checkbox" value="{{$vtid}}" name="vchecks[]" @if ($check == 'TRUE') ? checked : '' @endif  class="form-control col-md-7 col-xs-12">
+                          <div class="popup" onclick="myFunction({{$i}})" style="margin-top: 5px; padding-left: 5px; padding-right: 5px; background-color: gray; color: white"><i>?</i>
+                          <span class="popuptext" id="{{$i}}"><p><i>Vaccine Timing ID: {{$advvaccinetiming->id}}</i><br><i>Vaccine Name:</i><br> {{$vaccine->vname}}<br><i>Vaccine Timing:</i><br> {{$vt}} Months<br><i>Doctor Name:</i><br> {{$cur_doctor->dname}}<br><i>Patient Name:</i><br> {{$patient->fname}} {{$patient->lname}}</p></span>
+                        </div>
+                      </div>
+                      </td>
+                    <?php $check = ''; ?>
+                    @else
+                    <?php
+                    $check = '';
+                    $check_booster = '';
+                    $boosters_vtid = $vtid;
+                    ?>
+                    <td></td>
+                    @endif
+                  <?php
+                  }
+                  for ($k = 0; $k<(count($v_timings)-count($advvaccinetimings)-2); $k++) {
+                    //create empty rows for all the remaining columns
+                    echo "<td></td>";
+                  }
+                  echo "<br>";
+                  unset($items);
+                  unset($timings);
+                  unset($temp);
+                  unset($vtid);
+                  unset($boosters_vtid);
+                  //foreach for boosters
+                  foreach ($advvaccinetimings as $advvaccinetiming) {
+                      //getting vaccine_timing value for boosters
+                      $i++;
+                      $popup_id = $i;
+                      $vt = $advvaccinetiming->vtiming;
+                      $vid = $advvaccine->id;
+                      $vtid = $advvaccinetiming->id;
+                      $items[] = $vt;
+                      $vaccine = AdvVaccine::find($vid);
+                      $cur_doctor = Doctor::find($vaccine->doc_id);
+                    ?>
+                    @if ($advvaccinetiming->vt_type == 'Booster')
+                      @foreach ($vaccinationhistories as $vaccinationhistory)
+                      <!--check if $vaccinationhistory has that id-->
+                        @if ($advvaccinetiming->id == $vaccinationhistory->vt_id && $vaccinationhistory->status == 'TRUE')
+                        <!--if it has change the status to TRUE-->
+                        <?php $check_booster = 'TRUE'; ?>
+                        @endif
+                      @endforeach
+                    <td>
+                      <div>
+                        <input type="checkbox" value="{{$vtid}}" name="vchecks[]" @if ($check_booster == 'TRUE') ? checked : '' @endif class="form-control col-md-7 col-xs-12">
+                        <div class="popup" onclick="myFunction({{$i}})" style="margin-top: 5px; padding-left: 5px; padding-right: 5px; background-color: gray; color: white"><i>?</i>
+                        <span class="popuptext" id="{{$i}}"><p><i>Vaccine Type:</i><br> {{$advvaccinetiming->vt_type}}<br><i>Vaccine Name:</i><br> {{$vaccine->vname}}<br><i>Vaccine Timing:</i><br> {{$vt}} Months<br><i>Doctor Name:</i><br> {{$cur_doctor->dname}}<br><i>Patient Name:</i><br> {{$patient->fname}} {{$patient->lname}}</p></span>
+                      </div>
+                    </div>
+                    </td>
+                    <?php
+                    //clear the status for next iteration
+                    $check_booster = '';
+                    $b_rows--;
+                    //booster row exists so --
+                    ?>
+                    @endif
+                  <?php
+                  }
+                  for ($t = 0; $t<$b_rows; $t++) {
+                    //create empty rows for all the remaining booster columns
+                    echo "<td></td>";
+                  }
+                  echo "<br>";
+                  unset($items);
+                  unset($timings);
+                  unset($temp);
+                  unset($vtid);
+                  unset($boosters_vtid);
+                ?>
+              </tr>
+            @endforeach
+          </table>
+          <br>
+            <button type="submit" name="submit" class="btn btn-success">Update</button>
+        </form>
+      </div>
+    </div>
+</div>
 
    <div class="split left card-left" style="width: 69.3%;">
      <div class="clearfix"></div>
@@ -150,7 +281,7 @@ img {
                        <div class="clearfix"></div>
                     </div>
                      <h2 class='btn btn-success' onclick="ShowVisitHistories()">Visit Histories</h2>
-                     <h2 class='btn btn-success' onclick="ShowVaccinationHistories()">Vaccinations</h2>
+                     <h2 class='btn btn-success' id="myBtn" onclick="ShowVaccinationHistories()">Vaccinations</h2>
                      <h2 class='btn btn-success' onclick="ShowMedicalHistories()">Medical History</h2>
                     </div>
                   </div>
@@ -165,131 +296,6 @@ img {
                  </div>
                </div>
               <div class="col-md-6 col-sm-6 col-xs-1" style="text-align:left; font-size: 13px;">
-                <div id="pat_vacc_histories" style="display: none;  margin-left: 30%">
-                  <form action="{{url('recep_advvaccineforpatientupdate', $patient->id)}}" method="post" enctype="multipart/form-data" id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
-                    @csrf
-                    <div>
-                    <table id="vaccines_list_recep" style="background-color: white;">
-                      <tr>
-                      <th></th>
-                      @foreach ($v_timings as $key)
-                          <th>{{ $key }}</th>
-                      @endforeach
-                      </tr>
-                      @foreach ($advvaccines as $advvaccine)
-                        <tr>
-                          <td>{{ $advvaccine->vname }}</td>
-                          <?php
-                          //finding all vaccines_timings of current vaccine i.e $advvaccine
-                          $advvaccinetimings = AdvVaccineTiming::where('v_id', $advvaccine->id)->get();
-                            $temp[] = '';
-                            $boosters_vtid = '';
-                            $vid = '';
-                            $check_booster = '';
-                            $check = '';
-                            $b_rows = 2;
-                            foreach ($advvaccinetimings as $advvaccinetiming) {
-                                //getting vaccine_timing value
-                                $i++;
-                                $popup_id = $i;
-                                $vt = $advvaccinetiming->vtiming;
-                                $vid = $advvaccine->id;
-                                $vtid = $advvaccinetiming->id;
-                                $items[] = $vt;
-                                $vaccine = AdvVaccine::find($vid);
-                                $cur_doctor = Doctor::find($vaccine->doc_id);
-                              ?>
-                              @if ($advvaccinetiming->vt_type == 'Dosage')
-                                @foreach ($vaccinationhistories as $vaccinationhistory)
-                                  @if ($advvaccinetiming->id == $vaccinationhistory->vt_id && $vaccinationhistory->status == 'TRUE')
-                                    <?php $check = 'TRUE'; ?>
-                                  @endif
-                                @endforeach
-                                <td>
-                                  <div>
-                                    <input type="checkbox" value="{{$vtid}}" name="vchecks[]" @if ($check == 'TRUE') ? checked : '' @endif  class="form-control col-md-7 col-xs-12">
-                                    <div class="popup" onclick="myFunction({{$i}})" style="margin-top: 5px; padding-left: 5px; padding-right: 5px; background-color: gray; color: white"><i>?</i>
-                                    <span class="popuptext" id="{{$i}}"><p><i>Vaccine Timing ID: {{$advvaccinetiming->id}}</i><br><i>Vaccine Name:</i><br> {{$vaccine->vname}}<br><i>Vaccine Timing:</i><br> {{$vt}} Months<br><i>Doctor Name:</i><br> {{$cur_doctor->dname}}<br><i>Patient Name:</i><br> {{$patient->fname}} {{$patient->lname}}</p></span>
-                                  </div>
-                                </div>
-                                </td>
-                              <?php $check = ''; ?>
-                              @else
-                              <?php
-                              $check = '';
-                              $check_booster = '';
-                              $boosters_vtid = $vtid;
-                              ?>
-                              <td></td>
-                              @endif
-                            <?php
-                            }
-                            for ($k = 0; $k<(count($v_timings)-count($advvaccinetimings)-2); $k++) {
-                              //create empty rows for all the remaining columns
-                              echo "<td></td>";
-                            }
-                            echo "<br>";
-                            unset($items);
-                            unset($timings);
-                            unset($temp);
-                            unset($vtid);
-                            unset($boosters_vtid);
-                            //foreach for boosters
-                            foreach ($advvaccinetimings as $advvaccinetiming) {
-                                //getting vaccine_timing value for boosters
-                                $i++;
-                                $popup_id = $i;
-                                $vt = $advvaccinetiming->vtiming;
-                                $vid = $advvaccine->id;
-                                $vtid = $advvaccinetiming->id;
-                                $items[] = $vt;
-                                $vaccine = AdvVaccine::find($vid);
-                                $cur_doctor = Doctor::find($vaccine->doc_id);
-                              ?>
-                              @if ($advvaccinetiming->vt_type == 'Booster')
-                                @foreach ($vaccinationhistories as $vaccinationhistory)
-                                <!--check if $vaccinationhistory has that id-->
-                                  @if ($advvaccinetiming->id == $vaccinationhistory->vt_id && $vaccinationhistory->status == 'TRUE')
-                                  <!--if it has change the status to TRUE-->
-                                  <?php $check_booster = 'TRUE'; ?>
-                                  @endif
-                                @endforeach
-                              <td>
-                                <div>
-                                  <input type="checkbox" value="{{$vtid}}" name="vchecks[]" @if ($check_booster == 'TRUE') ? checked : '' @endif class="form-control col-md-7 col-xs-12">
-                                  <div class="popup" onclick="myFunction({{$i}})" style="margin-top: 5px; padding-left: 5px; padding-right: 5px; background-color: gray; color: white"><i>?</i>
-                                  <span class="popuptext" id="{{$i}}"><p><i>Vaccine Type:</i><br> {{$advvaccinetiming->vt_type}}<br><i>Vaccine Name:</i><br> {{$vaccine->vname}}<br><i>Vaccine Timing:</i><br> {{$vt}} Months<br><i>Doctor Name:</i><br> {{$cur_doctor->dname}}<br><i>Patient Name:</i><br> {{$patient->fname}} {{$patient->lname}}</p></span>
-                                </div>
-                              </div>
-                              </td>
-                              <?php
-                              //clear the status for next iteration
-                              $check_booster = '';
-                              $b_rows--;
-                              //booster row exists so --
-                              ?>
-                              @endif
-                            <?php
-                            }
-                            for ($t = 0; $t<$b_rows; $t++) {
-                              //create empty rows for all the remaining booster columns
-                              echo "<td></td>";
-                            }
-                            echo "<br>";
-                            unset($items);
-                            unset($timings);
-                            unset($temp);
-                            unset($vtid);
-                            unset($boosters_vtid);
-                          ?>
-                        </tr>
-                      @endforeach
-                    </table>
-                    </div>
-                    <br>
-                      <button type="submit" name="submit" class="btn btn-success">Update</button>
-                  </form>
-                </div>
 
                 <!--medical histories-->
                   <div class="row" id="med_histories" style="display: none; background-color: white; padding: 5px">
@@ -543,6 +549,7 @@ function ShowVisitHistories() {
 function ShowMedicalHistories() {
   $('#pat_v_histories').css("display","none");
   $('#pat_v_history_detail_left').css("display","none");
+  $('#pat_v_history_detail_right').css("display","none");
   $('#med_histories').css("display","block");
   $('#pat_vacc_histories').css("display","none");
   $('#footer').css("display","block");
@@ -551,10 +558,37 @@ function ShowMedicalHistories() {
 function ShowVaccinationHistories() {
   $('#pat_v_histories').css("display","none");
   $('#pat_v_history_detail_left').css("display","none");
+  $('#pat_v_history_detail_right').css("display","none");
   $('#med_histories').css("display","none");
   $('#pat_vacc_histories').css("display","block");
   $('#footer').css("display","none");
 }
 
+// Get the modal
+var modal = document.getElementById("myModal");
+
+// Get the button that opens the modal
+var btn = document.getElementById("myBtn");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks the button, open the modal
+btn.onclick = function() {
+  modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+  modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
 </script>
+
 @endsection

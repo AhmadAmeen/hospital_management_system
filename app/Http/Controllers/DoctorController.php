@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Doctor;
+use App\Patient;
+use App\Medicine;
+use App\VisitHistory;
 use Illuminate\Facades\Response;
 use Image;
 use Session;
@@ -25,7 +28,23 @@ class DoctorController extends Controller
     if ($doctor) {
       $request->session()->put('doctor_session', $doctor[0]['id']);
       $request->session()->put('doctor_name_session', $request->username);
-      return redirect('doctormainpage');
+      //find all visit histories
+      $v_histories = VisitHistory::get();
+      //$incoming_patients = "";
+      foreach ($v_histories as $v_history) {
+        //find patient with each of that visit history
+        $patient = Patient::find($v_history->patient_id);
+        $doc_id = $doctor[0]['id'];
+        // check if he's the patient of current doc
+        if($patient->doc_id == $doc_id) {
+          //if so send him and his history to the doc
+          $patients[] = $patient;
+          //$visit_details = $v_history;
+        }
+      }
+      $medicines = Medicine::get();
+      //echo '<pre>'; print_r($incoming_patients); echo '</pre>';
+      return view('doctormainpage')->with('patients', $patients)->with('medicines', $medicines);//->with('visit_details', $visit_details);
     } else {
       session::flash('coc', 'Email or Password is incorrect!');
       return redirect('doctorlogin')->withinput();

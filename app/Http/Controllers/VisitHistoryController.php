@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\VisitHistory;
 use App\Patient;
+use App\Doctor;
 use App\Receptionist;
 Use Session;
 
@@ -34,6 +35,15 @@ class VisitHistoryController extends Controller
     }  catch(Exception $e) {
         echo 'Message: ' .$e->getMessage();
     }
+  }
+
+  public function vh_and_patient ($id) {
+        //$arr['data']  = Patient::find($id);
+        $arr['data'] = VisitHistory::where('patient_id', $id)->latest()->first();
+        //return response()->json(['arr1' => json_encode($arr1), 'arr2' => json_encode($arr2)]);
+        echo json_encode($arr);
+        exit;
+      //}
   }
 
   public function specific_vh_patient ($vh_id) {
