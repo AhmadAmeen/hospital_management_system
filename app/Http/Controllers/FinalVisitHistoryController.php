@@ -20,5 +20,5 @@ class FinalVisitHistoryController extends Controller
       $visit_history->dosage = $request->input('dosage');
       $visit_history->note = $request->input('note');
       $visit_history->save();
-}
+    }
 }

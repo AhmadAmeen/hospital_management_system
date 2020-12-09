@@ -37,11 +37,10 @@ $i = 0;
     bottom: 10px;
 }
 #list-item {
-  border: 1px solid white;
+  border: 1px solid gray;
   line-height: normal;
   border: none;
   margin: auto;
-  color: white;
   margin-bottom: 7px;
   padding: 5px 5px;
   vertical-align: middle;
@@ -192,12 +191,6 @@ function showResult(str) {
    <span>Welcome,</span>
     <h2>Dear {{session('doctor_name_session')}}</h2>
   </div>
-  <div class="menu_section">
-    <div style="margin-bottom: 30px"><h3>Patients</h3></div>
-      @foreach ($patients as $patient)
-        <span id="list-item"><i class="material-icons video_call">video_call</i><a style="margin-left: 10px; color: white; " onclick="patientselected('{{$patient->id}}','{{$patient->fname}}','{{$patient->lname}}','{{$patient->age}}','{{$patient->dob}}','{{$patient->guard_no}}')">{{$patient->fname}} {{$patient->lname}}</a></span>
-      @endforeach
-  </div>
 </div>
     <!-- /menu profile quick info -->
   <br/>
@@ -231,8 +224,116 @@ function showResult(str) {
        <b>Temperature: </b> <a id="temp">@if (empty($cur_pat_vh->temp))@else{{$cur_pat_vh->temp}}@endif</a>&nbsp;&nbsp;&nbsp;&nbsp;
        <b>Visit Type: </b> <a id="v_type">@if (empty($cur_pat_vh->other))@else{{$cur_pat_vh->other}}@endif</a>&nbsp;&nbsp;&nbsp;&nbsp;
        <b>Date: </b> <a id="date">@if (empty($cur_pat_vh->date))@else{{$cur_pat_vh->date}}@endif</a>&nbsp;&nbsp;&nbsp;&nbsp;
-
     </div>
+
+    <div class="split left card-left" style="width: 30%;">
+      <div class="clearfix"></div>
+               <div class="row">
+                <div class="row" style="font-size: 11px">
+                  <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="x_panel">
+                      <div class="x_title">
+                        <b><small>PATIENTS LIST</small></b>
+                      <div class="clearfix"></div>
+                     </div>
+                     <b><small><i class="material-icons refresh"><a href="{{url('TodocMainPage/' . $patient->id)}}" >refresh</a></i></small></b>
+                       <div>
+                          @foreach ($patients as $patient)
+                           <span id="list-item"><i class="material-icons video_call">video_call</i><a style="margin-left: 10px;" onclick="patientselected('{{$patient->id}}','{{$patient->fname}}','{{$patient->lname}}','{{$patient->age}}','{{$patient->dob}}','{{$patient->guard_no}}')">{{$patient->fname}} {{$patient->lname}}</a></span>
+                         @endforeach
+                       </div>
+                     </div>
+                   </div>
+                  </div>
+
+                  <div id="pat_v_histories"></div>
+                  <div id="pat_v_history_details" class="">
+                    <div id="pat_v_history_detail_left">
+                      <div id="pat_v_history_icons"></div>
+                   </div>
+                   <div id="pat_v_history_detail_right">
+                     <div id="pat_v_history_icons_right"></div>
+                  </div>
+                </div>
+
+               <div class="col-md-6 col-sm-6 col-xs-1" style="text-align:left; font-size: 13px;">
+
+                 <!--medical histories-->
+                               <div class="row" id="med_histories" style="display: none; background-color: white; padding: 5px">
+                                 <!--offdays-->
+                                 <div class="form-group">
+                                   <div class="col-md-6 col-sm-6 col-xs-12" style="text-align:left; font-size: 13px; padding-left: 30px">
+
+                                   </div>
+                                 </div>
+                               </div>
+                           <!--med his end-->
+                         </div>
+                       </div>
+                     </div>
+
+    <div class="split right card-right" style="width: 69.3%;">
+      <div class="clearfix"></div>
+                <div class="row" style="font-size: 12px">
+                  <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="x_panel">
+                      <div class="x_title">
+                        <b><small>Add Patient's Visit</small></b>
+                           <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content">
+                       <!--
+                       <form action="{{url('addingpatientvh/' . $patient->id)}}" method="post" enctype="multipart/form-data" id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
+                       -->
+                       <div id="demo-form2" data-parsley-validate class="form-horizontal vform">
+                         @csrf
+                         <!--pat-visit-details-->
+                         <div class="form-group">
+                           <div class="">
+                             <input type="number" id="head_size" name="head_size" required="required" placeholder="Head Size *" class=" ">
+                           </div>
+                         </div>
+                         <div class="form-group">
+                           <div class="">
+                             <input type="number" id="length" name="length" required="required" placeholder="Length in m *" class=" ">
+                           </div>
+                         </div>
+                         <div class="form-group">
+                           <div class="">
+                             <input type="number" id="weight" name="weight" required="required" placeholder="Weight in kg *" class=" ">
+                           </div>
+                         </div>
+                         <div class="form-group">
+                           <div class="">
+                             <input type="number" id="temperature" name="temperature" placeholder="Temperature in C" class=" ">
+                           </div>
+                         </div>
+                         <div class="form-group">
+                           <div>
+                               <select id="v_type" class=" ">
+                                 <option value="Checkup">Checkup</option>
+                                 <option value="Vaccination">Vaccination</option>
+                                 <option value="Checkup & Vaccination">Checkup & Vaccination</option>
+                                 <option value="Video Consultation">Video Consultation</option>
+                               </select>
+                           </div>
+                         </div>
+                         <div class="form-group">
+                           <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                             <button type="submit" name="submit" class="btn btn-success" onclick="SchedulePatVisitStore()">Submit</button>
+                           </div>
+                         </div>
+                       <!--
+                       </form>
+                       -->
+                   </div>
+                 </div>
+               </div>
+             </div>
+           </div>
+         </div>
+       </div>
+
 <div style="margin: 20px">
       <!--<label>Search Medicine: </label>
       <input id="med_name" style="border-color: gray; border-radius: 25px; padding: 12px" type="text" size="30" onkeyup="showResult(this.value)">-->
@@ -283,8 +384,6 @@ function showResult(str) {
   </div>
   <div class="clearfix"></div>
 </footer>
-
-
 <script>
 
   function searchmedicine() {
@@ -365,10 +464,10 @@ function showResult(str) {
        });
   }
 
-function displayBlockVisitHistories() {
-  $('#pat_v_histories').css("display","block");
-  $('#pat_v_history_detail_left').css("display","block");
-}
+  function displayBlockVisitHistories() {
+    $('#pat_v_histories').css("display","block");
+    $('#pat_v_history_detail_left').css("display","block");
+  }
 
   function ShowVisitHistories(pid) {
     //$('#pat_v_histories').css("display","block");
@@ -449,12 +548,6 @@ function displayBlockVisitHistories() {
           }
         });
       });
-
-
-  //window.setInterval(function(){
-    /// call your function here
-  //  patientsdatajson();
-  //}, 5000);
 
     function patientsdatajson() {
        $.ajaxSetup({
@@ -649,7 +742,6 @@ function FinalVisitHistoryStore() {
       }
   });
 }
-
 
 </script>
 
