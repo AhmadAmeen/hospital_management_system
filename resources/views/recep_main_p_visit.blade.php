@@ -397,13 +397,12 @@ img {
       </div>
   </div>
 </div>
-
-<footer>
-  <div class="pull-right" id="footer">
-    Hospital Management System <a href="#">Visit Our Site</a>
-  </div>
-  <div class="clearfix"></div>
-</footer>
+  <footer>
+    <div class="pull-right" id="footer">
+      Hospital Management System <a href="#">Visit Our Site</a>
+    </div>
+    <div class="clearfix"></div>
+  </footer>
 <script>
 function addmorehistories() {
   window.location = "{{url('addmedicalhistory/' . $patient->id)}}";
@@ -421,7 +420,6 @@ function myFunction(c_id) {
     }
   }
 </script>
-
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
 function schedulingpatient() {
@@ -565,7 +563,7 @@ function ShowVaccinationHistories() {
 }
 
 // Get the modal
-var modal = document.getElementById("myModal");
+var modal = document.getElementById("\myModal");
 
 // Get the button that opens the modal
 var btn = document.getElementById("myBtn");

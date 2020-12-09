@@ -23,18 +23,4 @@
   <!-- Custom Theme Style -->
   <link href="{{ asset('public/gentelella-master/build/css/custom.min.css') }}" rel="stylesheet">
 
-<div class="top_nav">
-  <div class="nav_menu">
-    <nav>
-      <div class="nav toggle">
-        <a id="menu_toggle"><i class="fa fa-bars"></i></a>
-      </div>
-      <ul class="nav navbar-nav navbar-right">
-        <li class="">
-          <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-            <li><a href="{{ url ('getlogout') }}"><i class="fa fa-sign-out pull-right"></i> Log Out </a></li>
-        </li>
-      </ul>
-  </div>
-</div>
 </head>

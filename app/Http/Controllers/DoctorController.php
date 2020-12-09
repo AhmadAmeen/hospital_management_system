@@ -1,12 +1,21 @@
 <?php
 
 namespace App\Http\Controllers;
-use Illuminate\Http\Request;
-use App\Doctor;
-use App\Patient;
-use App\Medicine;
-use App\VisitHistory;
 use Illuminate\Facades\Response;
+use Illuminate\Http\Request;
+use App\Receptionist;
+use App\Patient;
+use App\Doctor;
+use App\AdvCenter;
+use App\Schedule;
+use App\MedicalHistory;
+use App\VaccinationHistory;
+use App\AdvVaccine;
+use App\VisitHistory;
+use App\Medicine;
+use App\AdvVaccineTiming;
+
+use Validator;
 use Image;
 use Session;
 
@@ -21,20 +30,16 @@ class DoctorController extends Controller
     return redirect('/');
   }
 
-  public function doctorloggedin(Request $request) {
-    $doctor = Doctor::where('username',$request->username)->where('password',$request->password)
-    ->get()
-    ->toArray();
-    if ($doctor) {
-      $request->session()->put('doctor_session', $doctor[0]['id']);
-      $request->session()->put('doctor_name_session', $request->username);
+    public function docMainPage($pat_id, Request $request) {
+
+      $cur_pat_vh = VisitHistory::where('patient_id', $pat_id)->latest()->first();
       //find all visit histories
       $v_histories = VisitHistory::get();
       //$incoming_patients = "";
       foreach ($v_histories as $v_history) {
         //find patient with each of that visit history
         $patient = Patient::find($v_history->patient_id);
-        $doc_id = $doctor[0]['id'];
+        $doc_id = $request->session()->get('doctor_session');
         // check if he's the patient of current doc
         if($patient->doc_id == $doc_id) {
           //if so send him and his history to the doc
@@ -44,12 +49,95 @@ class DoctorController extends Controller
       }
       $medicines = Medicine::get();
       //echo '<pre>'; print_r($incoming_patients); echo '</pre>';
-      return view('doctormainpage')->with('patients', $patients)->with('medicines', $medicines);//->with('visit_details', $visit_details);
-    } else {
-      session::flash('coc', 'Email or Password is incorrect!');
-      return redirect('doctorlogin')->withinput();
+      //echo json_encode($arr);
+      //exit;
+
+      $v_timings = array (
+        "Dosage I",
+        "Dosage II",
+        "Dosage III",
+        "Dosage IV",
+        "Dosage V",
+        "Dosage VI",
+        "Booster I",
+        "Booster II",
+      );
+
+      $patient = Patient::find($pat_id);
+      $advvaccines = AdvVaccine::where ('doc_id', $patient->doc_id)->get();
+      //print_r($advvaccines);
+      foreach ($advvaccines as $advvaccine) {
+        $advvaccinetimings = AdvVaccineTiming::where('v_id', $advvaccine->id)->get();
+        //echo $advvaccinetimings[0];
+      }
+
+      $vaccinationhistories = VaccinationHistory::where('pat_id', $pat_id)->get();
+      return view('doctormainpage')->with('patients', $patients)
+      ->with('medicines', $medicines)
+      ->with('v_timings', $v_timings)
+      ->with('advvaccines', $advvaccines)
+      ->with('currentpatient', $patient)
+      ->with('vaccinationhistories', $vaccinationhistories)
+      ->with('cur_pat_vh', $cur_pat_vh);
     }
-  }
+
+    public function doctorloggedin(Request $request) {
+        $doctor = Doctor::where('username',$request->username)->where('password',$request->password)
+        ->get()
+        ->toArray();
+        if ($doctor) {
+          $request->session()->put('doctor_session', $doctor[0]['id']);
+          $request->session()->put('doctor_name_session', $request->username);
+          //find all visit histories
+          $v_histories = VisitHistory::get();
+          //$incoming_patients = "";
+          foreach ($v_histories as $v_history) {
+            //find patient with each of that visit history
+            $patient = Patient::find($v_history->patient_id);
+            $doc_id = $doctor[0]['id'];
+            // check if he's the patient of current doc
+            if($patient->doc_id == $doc_id) {
+              //if so send him and his history to the doc
+              $patients[] = $patient;
+              //$visit_details = $v_history;
+            }
+          }
+          $medicines = Medicine::get();
+          //echo '<pre>'; print_r($incoming_patients); echo '</pre>';
+          //echo json_encode($arr);
+          //exit;
+
+          $v_timings = array (
+            "Dosage I",
+            "Dosage II",
+            "Dosage III",
+            "Dosage IV",
+            "Dosage V",
+            "Dosage VI",
+            "Booster I",
+            "Booster II",
+          );
+
+          $patient = Patient::find(6);
+          $advvaccines = AdvVaccine::where ('doc_id', $patient->doc_id)->get();
+          //print_r($advvaccines);
+          foreach ($advvaccines as $advvaccine) {
+            $advvaccinetimings = AdvVaccineTiming::where('v_id', $advvaccine->id)->get();
+            //echo $advvaccinetimings[0];
+          }
+
+          $vaccinationhistories = VaccinationHistory::where('pat_id', 6)->get();
+          return view('doctormainpage')->with('patients', $patients)
+          ->with('medicines', $medicines)
+          ->with('v_timings', $v_timings)
+          ->with('advvaccines', $advvaccines)
+          ->with('patient', $patient)
+          ->with('vaccinationhistories', $vaccinationhistories);//->with('visit_details', $visit_details);
+        } else {
+          session::flash('coc', 'Email or Password is incorrect!');
+          return redirect('doctorlogin')->withinput();
+        }
+      }
 
     public function show() {
       return view ('docregform_docdetails');

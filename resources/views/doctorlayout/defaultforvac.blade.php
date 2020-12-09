@@ -3,7 +3,7 @@
 <body>
 
     <!-- top navigation -->
-    @include('doctorlayout/header')
+    @include('doctorlayout/headerforvac')
    <!-- /top navigation -->
 
   <!-- page content -->
