@@ -113,9 +113,10 @@ function showResult(str) {
        <b>Visit Type: </b> <a id="v_type"></a>&nbsp;&nbsp;&nbsp;&nbsp;
     </div>
 
-    <form style="margin: 20px">
-    <input type="text" size="30" onkeyup="showResult(this.value)">
-    <div id="livesearch"></div>
+    <form style="margin: 20px;">
+      <label>Search Medicine: </label>
+      <input style="border-color: gray; border-radius: 25px; padding: 6px" type="text" size="30" onkeyup="showResult(this.value)">
+      <div id="livesearch"></div>
     </form>
 
     <div id="note">
@@ -136,7 +137,6 @@ function showResult(str) {
       <a onclick="addDays(30)" id="30days" name="30days" class='ph-button ph-btn-blue'>Medical Guideline</a>
       <a onclick="addDays(30)" id="30days" name="30days" class='ph-button ph-btn-green'>Save</a>
   </div>
-
 </div>
 
 <script>
