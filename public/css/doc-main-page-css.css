@@ -1,0 +1,107 @@
+<style>
+  #buttons {
+    width:1000%;
+    bottom: 0px;
+  }
+  #note {
+    width:100%;
+    bottom: 10px;
+}
+.list-item {
+  border: 1px solid gray;
+  line-height: normal;
+  border: none;
+  margin: auto;
+  margin-bottom: 7px;
+  padding: 5px 5px;
+  vertical-align: middle;
+  display: flex;
+  display: inline-block;
+  width: 100%;
+  text-decoration: none;
+  text-align: left;
+  font-size: 13px;
+  align-items: center;
+}
+#myDIV {
+  width: 100%;
+  padding: 50px 0;
+  text-align: center;
+  background-color: lightblue;
+  margin-top: 20px;
+}
+/* Popup container - can be anything you want */
+.popup {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* The actual popup */
+.popup .popuptext {
+  visibility: hidden;
+  width: 160px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 8px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -80px;
+  margin-bottom: 20px;
+}
+
+/* Popup arrow */
+.popup .popuptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+/* Toggle this class - hide and show the popup */
+.popup .show {
+  visibility: visible;
+  -webkit-animation: fadeIn 1s;
+  animation: fadeIn 1s;
+}
+
+/* Add animation (fade in the popup) */
+@-webkit-keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+
+@keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity:1 ;}
+}
+img {
+  border-radius: 50%;
+  display: block;
+  margin: 0 auto;
+}
+.vform input[type=number], select {
+  width: 100%;
+  padding: 8px 20px;
+  margin: 0px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+.test {
+  float: right;
+}
+</style>

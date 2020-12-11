@@ -109,4 +109,10 @@ class MedicalHistoryController extends Controller
       return redirect('addmanualmedhistory/' . $pat_id);
     }
 
+    public function mh_patient($pat_id) {
+      $arr['data'] = MedicalHistory::where('patient_id', $pat_id)->get();
+      echo json_encode($arr);
+      exit;
+    }
+
 }

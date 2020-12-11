@@ -280,9 +280,9 @@ img {
                         <b><small>PATIENT'S DETAILS</small></b>
                        <div class="clearfix"></div>
                     </div>
-                     <h2 class='btn btn-success' onclick="ShowVisitHistories()">Visit Histories</h2>
-                     <h2 class='btn btn-success' id="myBtn" onclick="ShowVaccinationHistories()">Vaccinations</h2>
-                     <h2 class='btn btn-success' onclick="ShowMedicalHistories()">Medical History</h2>
+                       <h2 class='btn btn-success' onclick="ShowVisitHistories()">Visit Histories</h2>
+                       <h2 class='btn btn-success' id="myBtn" onclick="ShowVaccinationHistories()">Vaccinations</h2>
+                       <h2 class='btn btn-success' onclick="ShowMedicalHistories()">Medical History</h2>
                     </div>
                   </div>
                  </div>
@@ -296,14 +296,12 @@ img {
                  </div>
                </div>
               <div class="col-md-6 col-sm-6 col-xs-1" style="text-align:left; font-size: 13px;">
-
                 <!--medical histories-->
                   <div class="row" id="med_histories" style="display: none; background-color: white; padding: 5px">
                        <!--OFF-DAYS FORM
                                <form action="{{ url ('recep_updatemedicalhistory', $patient->id) }}" method="post" enctype="multipart/form-data" id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
                                 @csrf
                                 -->
-                                <!--offdays-->
                                 <div class="form-group">
                                   <div class="col-md-6 col-sm-6 col-xs-12" style="text-align:left; font-size: 13px; padding-left: 30px">
                                       @foreach ($med_histories as $med_history)
@@ -397,13 +395,12 @@ img {
       </div>
   </div>
 </div>
-
-<footer>
-  <div class="pull-right" id="footer">
-    Hospital Management System <a href="#">Visit Our Site</a>
-  </div>
-  <div class="clearfix"></div>
-</footer>
+  <footer>
+    <div class="pull-right" id="footer">
+      Hospital Management System <a href="#">Visit Our Site</a>
+    </div>
+    <div class="clearfix"></div>
+  </footer>
 <script>
 function addmorehistories() {
   window.location = "{{url('addmedicalhistory/' . $patient->id)}}";
@@ -421,7 +418,6 @@ function myFunction(c_id) {
     }
   }
 </script>
-
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
 function schedulingpatient() {
@@ -565,7 +561,7 @@ function ShowVaccinationHistories() {
 }
 
 // Get the modal
-var modal = document.getElementById("myModal");
+var modal = document.getElementById("\myModal");
 
 // Get the button that opens the modal
 var btn = document.getElementById("myBtn");

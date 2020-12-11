@@ -3,21 +3,17 @@
 <body>
 
     <!-- top navigation -->
-    @include('doctorlayout/header')
+    @include('doctorlayout/headerforvac')
    <!-- /top navigation -->
 
-   <!-- sidebar menu -->
-   @include('doctorlayout/sidebar')
-   <!-- /sidebar menu -->
+  <!-- page content -->
+  @yield('content')
+  <!-- /page content -->
 
-    <!-- page content -->
-    @yield('content')
-    <!-- /page content -->
 
-    <!-- footer content -->
+      <!-- footer content -->
 
-    <!-- /footer content -->
-
+      <!-- /footer content -->
       </div>
         </div>
 
