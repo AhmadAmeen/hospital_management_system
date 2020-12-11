@@ -16,6 +16,13 @@ class CreateVisitHistoriesTable extends Migration
         Schema::create('visit_histories', function (Blueprint $table) {
             $table->id();
             $table->string('patient_id');
+            $table->string('fname');
+            $table->string('lname');
+            $table->string('gender');
+            $table->string('age');
+            $table->string('dob');
+            $table->string('father_name');
+            $table->string('guard_no');
             $table->string('date');
             $table->string('head_size');
             $table->string('length');
