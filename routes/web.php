@@ -170,6 +170,8 @@ Route::get('TodocMainPage/{pat_id}', 'DoctorController@docMainPage');
 Route::post('recep_advvaccineforpatientupdate/{pat_id}', 'VaccinationHistoryController@recep_advvaccineforpatientupdate');
 //schedule view
 Route::get('schedulingpatient/{pat_id}', 'ScheduleController@show');
+//schedule view
+Route::get('docschedulingpatient/{pat_id}', 'ScheduleController@showfordoc');
 //testing
 Route::post('checkcenteroffdays','ScheduleController@index');
 //get c t
@@ -190,3 +192,5 @@ Route::get('getmedicinename/{med_id}', 'MedicineController@getmedicine');
 Route::get('fetch_tvh_records', 'DoctorController@fetch_tvh_records');
 //tvh => temporary visit history record from recep
 Route::get('getTypeOfVisit/{pat_id}', 'DoctorController@getTypeOfVisit');
+//fvh => final visit history record from recep
+Route::get('patient_fvh_record/{pat_id}', 'FinalVisitHistoryController@patient_fvh_record');

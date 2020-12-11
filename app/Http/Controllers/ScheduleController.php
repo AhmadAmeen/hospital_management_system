@@ -85,6 +85,21 @@ class ScheduleController extends Controller
       }
     }
 
+    public function showfordoc ($pat_id) {
+      try {
+      $patient = Patient::find($pat_id);
+      $current_doc_id = $patient->doc_id;
+      $current_center_id = $patient->center_id;
+      $doctor = Doctor::find($current_doc_id);
+      $centers = AdvCenter::where('doc_id', $current_doc_id)->get();
+      return view ('docscheduleview')->with('patient', $patient)
+      ->with('doctor', $doctor)
+      ->with('centers', $centers);
+      } catch (Exception $exception) {
+        return back()->withError($exception->getMessage())->withInput();
+      }
+    }
+
     public function schedulepatientstore(Request $request) {
       $schedule = new Schedule;
       $schedule->pat_id = $request->input('pat_id');

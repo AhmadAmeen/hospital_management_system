@@ -7,6 +7,16 @@
     width:100%;
     bottom: 10px;
 }
+
+.medicine_info input[type=text], select {
+  width: 100%;
+  padding: 8px 20px;
+  margin: 0px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
 .list-item {
   border: 1px solid gray;
   line-height: normal;

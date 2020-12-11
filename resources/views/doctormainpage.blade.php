@@ -22,13 +22,14 @@ $i = 0;
 
 $(document).ready(function(){
   fetch_tvh_records();
+  patient_fvh_record();
 });
 
 
 setInterval(function() {
     // do stuff
     fetch_tvh_records();
-}, 10000);
+}, 1000);
 
   function current_date () {
     var result = new Date();
@@ -58,6 +59,7 @@ setInterval(function() {
 }
 </script>
 <link rel="stylesheet" type="text/css" href="{{ asset('public/css/doc-main-page-css.css') }}" />
+<link rel="stylesheet" type="text/css" href="{{ asset('public/css/final-vh-table-css.css') }}" />
 <link rel="stylesheet" type="text/css" href="{{ asset('public/css/card-doc-css.css') }}" />
 <link rel="stylesheet" type="text/css" href="{{ asset('public/css/textarea-css.css') }}" />
 <link rel="stylesheet" type="text/css" href="{{ asset('public/css/schedule-btn-css.css') }}" />
@@ -65,6 +67,7 @@ setInterval(function() {
 <link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" type="text/css" href="{{ asset('public/css/schedule-btn-css.css') }}" />
+<link rel="stylesheet" type="text/css" href="{{ asset('public/css/med-input-css.css') }}" />
 <link rel="stylesheet" type="text/css" href="{{ asset('public/css/searchbox-for-recep-css.css') }}" />
 <link rel="stylesheet" type="text/css" href="{{ asset('public/css/card-for-recep-css.css') }}" />
 <link rel="stylesheet" type="text/css" href="{{ asset('public/css/card-for-recep-pvh-details-css.css') }}" />
@@ -72,7 +75,7 @@ setInterval(function() {
 <link rel="stylesheet" type="text/css" href="{{ asset('public/css/checkbox-etc-css.css') }}" />
 <link rel="stylesheet" type="text/css" href="{{ asset('public/css/searchbox-for-recep-css.css') }}" />
 <link rel="stylesheet" type="text/css" href="{{ asset('public/css/table-for-recep-vacc-css.css') }}" />
-<link rel="stylesheet" type="text/css" href="{{ asset('public/css/recep-popup-vacc-history-css.css') }}" />
+<link rel="stylesheet" type="text/css" href="{{ asset('public/css/doc-popup-growth-history-css.css') }}" />
 <meta name="csrf-token" content="{{ csrf_token() }}">
 <link rel="stylesheet" href="//cdn.materialdesignicons.com/5.4.55/css/materialdesignicons.min.css">
 <link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet">
@@ -88,6 +91,7 @@ setInterval(function() {
        <b>Name: </b> <a id="pfn">@if (empty($currentpatient->fname))@else{{$currentpatient->fname}}@endif</a> <a id="pln">@if (empty($currentpatient->lname))@else{{$currentpatient->lname}}@endif</a>&nbsp;&nbsp;&nbsp;&nbsp;
        <a id="p_age" style="display:none"><b>Age: </b> @if (empty($currentpatient->age))@else{{$currentpatient->age}}@endif</a> &nbsp;&nbsp;&nbsp;&nbsp;
        <b>DOB: </b> <a id="pdob">@if (empty($currentpatient->dob))@else{{$currentpatient->dob}}@endif</a>&nbsp;&nbsp;&nbsp;&nbsp;
+       <b>Gender: </b> <a id="pgender">@if (empty($currentpatient->gender))@else{{$currentpatient->gender}}@endif</a>&nbsp;&nbsp;&nbsp;&nbsp;
        <a id="pguard_no" style="display:none"><b>Guard No: </b> @if (empty($currentpatient->guard_no))@else{{$currentpatient->guard_no}}@endif</a>&nbsp;&nbsp;&nbsp;&nbsp;
        <b>Head Size: </b> <a id="head_size">@if (empty($cur_pat_vh->head_size))@else{{$cur_pat_vh->head_size}}@endif</a>&nbsp;&nbsp;&nbsp;&nbsp;
        <b>Weight: </b> <a id="weight">@if (empty($cur_pat_vh->weight))@else{{$cur_pat_vh->weight}}@endif</a>&nbsp;&nbsp;&nbsp;&nbsp;
@@ -105,19 +109,12 @@ setInterval(function() {
                     <div class="x_panel">
                       <div class="x_title">
                         <b><small>PATIENTS LIST</small></b>
-                      <div class="clearfix"></div>
-                     </div>
-                     <!--
-                     <b><small><i class="material-icons refresh"><a onclick="refreshpage()" >refresh</a></i></small></b>
-                     -->
-                      <div id="pat_list"></div>
-                       <div>
+                        <div class="clearfix"></div>
+                        </div>
                          <!--
-                          @foreach ($patients as $patient)
-                           <span id="list-item"><i class="material-icons video_call">video_call</i><a style="margin-left: 10px;" onclick="patientselected('{{$patient->id}}','{{$patient->fname}}','{{$patient->lname}}','{{$patient->age}}','{{$patient->dob}}','{{$patient->guard_no}}')">{{$patient->fname}} {{$patient->lname}}</a></span>
-                         @endforeach
-                        -->
-                      </div>
+                         <b><small><i class="material-icons refresh"><a onclick="refreshpage()" >refresh</a></i></small></b>
+                         -->
+                        <div id="pat_list"></div>
                      </div>
                    </div>
                   </div>
@@ -130,10 +127,13 @@ setInterval(function() {
                   <div class="col-md-12 col-sm-12 col-xs-12">
                     <div class="x_panel">
                       <div class="x_title">
-                        <b><small>Add Patient's Visit</small></b>
+                        <b><small>PRESCRIPTION</small></b>
                            <div class="clearfix"></div>
                         </div>
                         <div class="x_content">
+                            <input type="text" id="med" name="med" placeholder="Medicine" class="med-input" style="width: 40%; padding: 7px; border-radius: 3px">
+                            <input type="text" id="med" name="med" placeholder="--/--/--" class="med-input" style="width: 40%; padding: 7px; border-radius: 3px">
+                          <!--
                           <select id="selectmed" name="selectmed" style="margin: 10px">
                             @foreach($medicines as $med)
                               <option value="{{$med->id}}">{{$med->name}}</option>
@@ -146,6 +146,7 @@ setInterval(function() {
                              <a onclick="searchmedicinepot()" name="" class='btn btn-main' style="background-color: gray; color: white">Search</a>
                              <a id="addMed" onclick="addmedicine()" name="" class='btn btn-success' style="display: none; margin-top: 10px;">Add Medicne</a>
                            </div>
+                         -->
                          </div>
                        </div>
                      </div>
@@ -155,10 +156,11 @@ setInterval(function() {
                      <textarea style="width: 30%; height: 10px; font-size: 12px" placeholder="Note..."></textarea>
                      <br><br>
                      <div class="form-group">
-                       <a onclick="patientsdatajson()" id="1days" name="1days" class='btn btn-success'>Growth</a>
-                       <a onclick="editvaccinationhistory()" name="7days" class='btn btn-success'>Vaccination</a>
-                       <a onclick="displayBlockVisitHistories()" id="15days" name="15days" class='btn btn-success'>Visit History</a>
-                       <a onclick="ShowMedicalHistories()" id="30days" name="30days" class='btn btn-success'>Medical History</a>
+                       <a onclick="patient_fvh_record()" id="myBtn" name="1days" class='btn btn-primary'>Growth</a>
+                       <a onclick="editvaccinationhistory()" name="7days" class='btn btn-primary'>Vaccination</a>
+                       <a onclick="displayBlockVisitHistories()" id="15days" name="15days" class='btn btn-primary'>Visit History</a>
+                       <a onclick="ShowMedicalHistories()" id="30days" name="30days" class='btn btn-primary'>Medical History</a>
+                       <input type="button" class='btn btn-primary' onclick="docschedulingpatient()" value="Reschedule">
                        <a onclick="FinalVisitHistoryStore()" id="30days" name="30days" class='btn btn-success'>Save</a>
                      </div>
                      <hr>
@@ -175,12 +177,25 @@ setInterval(function() {
                      </div>
                    </div>
                    <!--med histories-->
-                     <div class="form-group">
-                       <!--medical histories-->
-                         <div class="row" id="med_histories" style="display: none; background-color: white; padding: 5px; text-align: left; margin-left: 30px;">
-                         </div>
-                       <!--med his end-->
-                     </div>
+                   <div class="form-group">
+                     <!--medical histories-->
+                       <div class="row" id="med_histories" style="display: none; background-color: white; padding: 5px; text-align: left; margin-left: 30px;">
+                       </div>
+                     <!--med his end-->
+                   </div>
+                   <div id="myModal" class="modal">
+                     <!-- Modal content -->
+                     <div class="modal-content">
+                       <span class="close">&times;</span>
+                      <!--growth histories-->
+                          <!--growth histories-->
+                          <div>
+                            <table id="records_table" class="records_table", style="margin: auto;">
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                     <!--growth his end-->
                    </div>
                   </div>
                  </div>
@@ -198,6 +213,82 @@ setInterval(function() {
          </div>
        </div>
 <script>
+  function patient_fvh_record() {
+    $("#records_table").css("display", "block");
+    $('#pat_v_histories').css("display","none");
+    $('#pat_v_history_detail_left').css("display","none");
+    $('#pat_v_history_detail_right').css("display","none");
+    $('#med_histories').css("display","none");
+    $('#pat_vacc_histories').css("display","none");
+    var pid = $("#pid").text();
+    console.log(pid);
+    $.ajaxSetup({
+          headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          }
+        });
+        $.ajax({
+        url: "{{url('patient_fvh_record')}}"+'/'+pid,
+        type: 'get',
+        dataType: 'json',
+        success: function(response) {
+        var len = 0;
+        var json = '';
+        console.log(response);
+        var trHTML = '';
+        if (response['data'] != null) {
+          len = response['data'].length;
+          json = response['data'];
+        }
+        //$.each(response, function (i, item) {
+            //trHTML += '<tr><td>' + item.date + '</td><td>' + item.length + '</td><td>' + item.weight + '</td><td>' + item.head_size + '</td></tr>';
+        //});
+        $('#records_table').empty();
+        trHTML += '<table style="margin: auto">';
+        trHTML += '<tr><th>' + "Month" + '</th><th>' + "Length" + '</th><th>' + "Weight" + '</th><th>' + "Head Size" + '</th></tr>';
+        var dob = $("#pdob").text();
+        var pat_dob = new Date(dob);
+        console.log(dob);
+        var i = 1;
+        var months_arr = [];
+        $.each(json, function (key, entry) {
+          var visit_date = new Date(entry.date);
+          var m = pat_dob.getMonth() - visit_date.getMonth();
+          months_arr.push(m);
+        })
+        console.log(months_arr);
+        var months_added = [];
+        $.each(json, function (key, entry) {
+          for (var i = 1; i <= 6; i++) {
+            var visit_date = new Date(entry.date);
+            var m = pat_dob.getMonth() - visit_date.getMonth();
+            if (!months_arr.includes(i) && !months_added.includes(i)) {
+              trHTML += '<tr><td>' + "Month " + i + '</td><td>' + "_" + '</td><td>' + "_" + '</td><td>' + "_" + '</td></tr>';
+              months_added.push(i);
+            }
+            if (m == i && length < 0.5) {
+              trHTML += '<tr style="color: green"><td>' + "Month " + i + '</td><td>' + entry.length + '</td><td>' + entry.weight + '</td><td>' + entry.head_size + '</td></tr>';
+            } else if (m == i && length < 0.9) {
+              trHTML += '<tr style="color: green"><td>' + "Month " + i + '</td><td>' + entry.length + '</td><td>' + entry.weight + '</td><td>' + entry.head_size + '</td></tr>';
+            } else if (m == i && length < 0.9) {
+              trHTML += '<tr style="color: green"><td>' + "Month " + i + '</td><td>' + entry.length + '</td><td>' + entry.weight + '</td><td>' + entry.head_size + '</td></tr>';
+            } else if (m == i && length < 1.2) {
+              trHTML += '<tr style="color: green"><td>' + "Month " + i + '</td><td>' + entry.length + '</td><td>' + entry.weight + '</td><td>' + entry.head_size + '</td></tr>';
+            } else if (m == i && length < 1.5) {
+              trHTML += '<tr style="color: green"><td>' + "Month " + i + '</td><td>' + entry.length + '</td><td>' + entry.weight + '</td><td>' + entry.head_size + '</td></tr>';
+            } else if (m == i && length < 1.9) {
+              trHTML += '<tr style="color: green"><td>' + "Month " + i + '</td><td>' + entry.length + '</td><td>' + entry.weight + '</td><td>' + entry.head_size + '</td></tr>';
+            } else {
+              //trHTML += '<tr style="color: red"><td>' + "Month " + i + '</td><td>' + entry.length + '</td><td>' + entry.weight + '</td><td>' + entry.head_size + '</td></tr>';
+            }
+          }
+        })
+        trHTML += '</table>';
+        $('#records_table').append(trHTML);
+      }
+    });
+  }
+
   function fetch_tvh_records() {
     $.ajaxSetup({
           headers: {
@@ -211,21 +302,30 @@ setInterval(function() {
         success: function(response) {
         var len = 0;
         var json = '';
-        console.log(response);
+        //console.log(response);
         if (response['data'] != null) {
           len = response['data'].length;
           json = response['data'];
         }
         if(len > 0) {
-          console.log(json);
+          //console.log(json);
           let pat_list = $("#pat_list");
           pat_list.empty();
           var html;
           $.each(json, function (key, entry) {
             //pat_list = pat_list.html("<span style='font-weight:bold;'>" + entry.fname + "</span>");
-            pat_list = pat_list.append($('<i></i>').css("display", "flex").css("float", "right").attr("class", "material-icons video_call").text("video_call"))
-            pat_list = pat_list.append($('<br><br>'))
-            pat_list = pat_list.append($('<h5></h5>').css("float", "left").click(function(){ patientselected(entry.id,entry.fname,entry.lname,entry.age,entry.dob,entry.guard_no); }).attr('id', entry.id).text(entry.fname + " " + entry.lname))
+            if(entry.other == "Video Consultation") {
+              pat_list = pat_list.append($('<i></i>').css("display", "inline-block").css("float", "right").attr("class", "material-icons videocam").text("videocam"))
+            } else if(entry.other == "Checkup") {
+              pat_list = pat_list.append($('<i></i>').css("display", "flex").css("float", "right").attr("class", "material-icons local_hospital").text("local_hospital"))
+            }  else if(entry.other == "Vaccination") {
+              pat_list = pat_list.append($('<i></i>').css("display", "flex").css("float", "right").attr("class", "material-icons coronavirus").text("coronavirus"))
+            }  else if(entry.other == "Checkup & Vaccination") {
+              pat_list = pat_list.append($('<i></i>').css("display", "flex").css("float", "right").attr("class", "material-icons local_hospital coronavirus").text("local_hospital coronavirus"))
+            } else {
+
+            }
+            pat_list = pat_list.append($('<h5></h5>').css("display", "inline-block").css("float", "left").click(function(){ patientselected(entry.id,entry.fname,entry.lname,entry.age,entry.dob,entry.guard_no); }).attr('id', entry.id).text(entry.fname + " " + entry.lname))
             //now getting type of this patient
             //pat_list = pat_list.append($('<hr>').css("height", 0))
             pat_list = pat_list.append($('<br>'))
@@ -253,7 +353,7 @@ setInterval(function() {
         var json = '';
         if (response['data'] != null) {
             json=response['data'];
-            console.log(json.other);
+            //console.log(json.other);
             return json.other;
           }
         }
@@ -304,7 +404,8 @@ setInterval(function() {
              $("#date").text(json.date);
              ShowVisitHistories(pid);
              getMedicalHistories(pid);
-           }
+             patient_fvh_record();
+          }
          }
        });
   }
@@ -471,7 +572,7 @@ setInterval(function() {
                json = response['data'];
                }
              if(len > 0) {
-               console.log(json);
+               //console.log(json);
                let med_histories = $("#med_histories");
                med_histories.empty();
                $.each(json, function (key, entry) {
@@ -541,7 +642,7 @@ setInterval(function() {
                 var len = 0;
                 //console.log(len);
                 var json = '';
-                console.log(response);
+                //console.log(response);
                 if (response['data'] != null) {
                   len = response['data'].length;
                   //console.log(len);
@@ -618,8 +719,10 @@ setInterval(function() {
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
 
-function schedulingpatient() {
-  window.location = "{{url('schedulingpatient')}}"+'/'+$('#pid').text();
+function docschedulingpatient() {
+  if ($('#pid').text()) {
+    window.location = "{{url('docschedulingpatient')}}"+'/'+$('#pid').text();
+  }
 }
 
 function editingpatient() {
@@ -660,9 +763,10 @@ function SchedulePatVisitStore() {
 }
 
 function displayBlockVisitHistories() {
-    //console.log($('#pid').text());
     ShowVisitHistories($('#pid').text());
     getMedicalHistories($('#pid').text());
+    patient_fvh_record();
+    $("#records_table").css("display", "none");
     $('#pat_v_histories').css("display","block");
     $('#pat_v_history_detail_left').css("display","block");
     $('#pat_v_history_detail_right').css("display","block");
@@ -673,6 +777,8 @@ function displayBlockVisitHistories() {
 function ShowMedicalHistories() {
   ShowVisitHistories($('#pid').text());
   getMedicalHistories($('#pid').text());
+  patient_fvh_record();
+  $("#records_table").css("display", "none");
   $('#pat_v_histories').css("display","none");
   $('#pat_v_history_detail_left').css("display","none");
   $('#pat_v_history_detail_right').css("display","none");
@@ -682,6 +788,7 @@ function ShowMedicalHistories() {
 }
 
 function ShowVaccinationHistories() {
+  $("#records_table").css("display", "none");
   $('#pat_v_histories').css("display","none");
   $('#pat_v_history_detail_left').css("display","none");
   $('#pat_v_history_detail_right').css("display","none");
@@ -722,6 +829,7 @@ function FinalVisitHistoryStore() {
       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     }
   });
+
   var pid = $('#pid').text();
   var head_size = $('#head_size').text();
   var length = $('#length').text();

@@ -63,11 +63,24 @@ class VisitHistoryController extends Controller
   public function addingpatientvh ($id, Request $request) {
     $visit_history = new VisitHistory;
     $visit_history->patient_id = $id;
+    $patient = Patient::find($id);
+    $visit_history->doc_id = $patient->doc_id;
+    $visit_history->fname = $patient->fname;
+    $visit_history->lname = $patient->lname;
+    $visit_history->gender = $patient->lname;
+    $visit_history->age = $patient->age;
+    $visit_history->dob = $patient->dob;
+    $visit_history->father_name = $patient->father_name;
+    $visit_history->guard_no = $patient->guard_no;
     $visit_history->date = $request->input('date');
     $visit_history->head_size = $request->input('head_size');
     $visit_history->length = $request->input('length');
     $visit_history->weight = $request->input('weight');
-    $visit_history->temperature = $request->input('temperature');
+    if ($request->input('temperature')) {
+      $visit_history->temperature = $request->input('temperature');
+    } else {
+      $visit_history->temperature = "_";
+    }
     $visit_history->other = $request->input('other');
     $visit_history->save();
     //return $this->vh_patient($id);

@@ -32,10 +32,11 @@ class DoctorController extends Controller
     public function fetch_tvh_records(Request $request) {
       $vhPatIds = VisitHistory::pluck('patient_id')->all();
       $doc_id = $request->session()->get('doctor_session');
-      $arr['data'] = Patient::select('id', 'fname', 'lname', 'gender', 'age', 'dob', 'father_name', 'guard_no')
-      ->where('doc_id', $doc_id)
-      ->whereIn('id', $vhPatIds)
-      ->get();
+      //$arr['data'] = Patient::select('id', 'fname', 'lname', 'gender', 'age', 'dob', 'father_name', 'guard_no')
+      //->where('doc_id', $doc_id)
+      //->whereIn('id', $vhPatIds)
+      //->get();
+      $arr['data'] = VisitHistory::where('doc_id', $doc_id)->get();
       echo json_encode($arr);
       exit;
     }
