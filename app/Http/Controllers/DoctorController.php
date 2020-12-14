@@ -62,7 +62,7 @@ class DoctorController extends Controller
           ->get();
           //$incoming_patients = "";
           $v_histories = VisitHistory::get();
-          $medicines = Medicine::get();
+          $medicines = Medicine::pluck('name')->all();
           //echo '<pre>'; print_r($incoming_patients); echo '</pre>';
           //echo json_encode($arr);
           //exit;
@@ -95,7 +95,7 @@ class DoctorController extends Controller
         }
       }
 
-    public function docMainPage($pat_id, Request $request) {
+    public function TodocMainPage($pat_id, Request $request) {
       $med_histories = MedicalHistory::where('patient_id', $pat_id)->get();
       $cur_pat_vh = VisitHistory::where('patient_id', $pat_id)->latest()->first();
       //find all visit histories
@@ -147,6 +147,10 @@ class DoctorController extends Controller
       ->with('med_histories', $med_histories);
     }
 
+    public function prescribeMed(Request $request) {
+      return view('doctormainpage');
+    }
+
     public function show() {
       return view ('docregform_docdetails');
     }
@@ -169,6 +173,10 @@ class DoctorController extends Controller
       $doctor->active_status = "1";
       $doctor->save();
       return view ('docregform_adv_centerdetails')->with('current_doc_id', $doctor->id);
+    }
+
+    public function doc_adv_center_add($doc_id, Request $request) {
+      return view ('doc_adv_center_add')->with('current_doc_id', $doc_id);
     }
 
     public function showdoctors() {
@@ -215,5 +223,10 @@ class DoctorController extends Controller
      ->orwhere('username' ,$request->dname)
      ->paginate(5);
      return view ('showdoctors')->with('doctors', $doctors);
+   }
+
+   public function docunavailable ($doc_id, Request $request) {
+     $centers = AdvCenter::where("doc_id", $doc_id)->get();
+     return view ('docunavailable')->with('centers', $centers);
    }
 }

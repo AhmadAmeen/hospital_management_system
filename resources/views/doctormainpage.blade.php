@@ -16,20 +16,40 @@ use App\VaccinationHistory;
 $i = 0;
 ?>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script src="https://code.jquery.com/jquery-1.11.3.js"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="/resources/demos/style.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="jquery.js" type="text/javascript"></script>
+<script src="jquery.maskedinput.js" type="text/javascript"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
+<script src="http://robinherbots.github.io/jquery.inputmask/javascripts/jquery.catcher.js" type="text/javascript"></script>
+<script src="http://robinherbots.github.io/jquery.inputmask/javascripts/jquery.catcher.js"></script>
+<script src="https://rawgit.com/RobinHerbots/jquery.inputmask/3.x/dist/jquery.inputmask.bundle.js"></script>
+<link href="/css/print.css" rel="stylesheet" media="print" type="text/css">
+
 <script>
-
-
 $(document).ready(function(){
   fetch_tvh_records();
   patient_fvh_record();
 });
 
-
 setInterval(function() {
     // do stuff
     fetch_tvh_records();
 }, 1000);
+
+setInterval(function() {
+    // do stuff
+    if ($('input[name="search_value"]').val().toLowerCase().length == 0) {
+      $('.select-data').empty();
+    }
+}, 10);
 
   function current_date () {
     var result = new Date();
@@ -79,6 +99,8 @@ setInterval(function() {
 <meta name="csrf-token" content="{{ csrf_token() }}">
 <link rel="stylesheet" href="//cdn.materialdesignicons.com/5.4.55/css/materialdesignicons.min.css">
 <link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet">
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 <div class="right_col" role="main" style="background-color: white;">
     <br><br><br>
@@ -91,7 +113,7 @@ setInterval(function() {
        <b>Name: </b> <a id="pfn">@if (empty($currentpatient->fname))@else{{$currentpatient->fname}}@endif</a> <a id="pln">@if (empty($currentpatient->lname))@else{{$currentpatient->lname}}@endif</a>&nbsp;&nbsp;&nbsp;&nbsp;
        <a id="p_age" style="display:none"><b>Age: </b> @if (empty($currentpatient->age))@else{{$currentpatient->age}}@endif</a> &nbsp;&nbsp;&nbsp;&nbsp;
        <b>DOB: </b> <a id="pdob">@if (empty($currentpatient->dob))@else{{$currentpatient->dob}}@endif</a>&nbsp;&nbsp;&nbsp;&nbsp;
-       <b>Gender: </b> <a id="pgender">@if (empty($currentpatient->gender))@else{{$currentpatient->gender}}@endif</a>&nbsp;&nbsp;&nbsp;&nbsp;
+       <a style="display: none"><b>Gender: </b> <a id="pgender">@if (empty($currentpatient->gender))@else{{$currentpatient->gender}}@endif</a>&nbsp;&nbsp;&nbsp;&nbsp;</a>
        <a id="pguard_no" style="display:none"><b>Guard No: </b> @if (empty($currentpatient->guard_no))@else{{$currentpatient->guard_no}}@endif</a>&nbsp;&nbsp;&nbsp;&nbsp;
        <b>Head Size: </b> <a id="head_size">@if (empty($cur_pat_vh->head_size))@else{{$cur_pat_vh->head_size}}@endif</a>&nbsp;&nbsp;&nbsp;&nbsp;
        <b>Weight: </b> <a id="weight">@if (empty($cur_pat_vh->weight))@else{{$cur_pat_vh->weight}}@endif</a>&nbsp;&nbsp;&nbsp;&nbsp;
@@ -100,7 +122,6 @@ setInterval(function() {
        <a id="v_type" style="display:none"><b>Visit Type: </b> @if (empty($cur_pat_vh->other))@else{{$cur_pat_vh->other}}@endif</a>&nbsp;&nbsp;&nbsp;&nbsp;
        <a id="date" style="display:none"><b>Date: </b> @if (empty($cur_pat_vh->date))@else{{$cur_pat_vh->date}}@endif</a>&nbsp;&nbsp;&nbsp;&nbsp;
     </div>
-
     <div class="split left card-left" style="width: 30%;">
       <div class="clearfix"></div>
                <div class="row">
@@ -120,9 +141,8 @@ setInterval(function() {
                   </div>
                  </div>
                 </div>
-
-    <div class="split right card-right" style="width: 69.3%;">
-      <div class="clearfix"></div>
+            <div class="split right card-right" style="width: 69.3%;">
+              <div class="clearfix"></div>
                 <div class="row" style="font-size: 12px;">
                   <div class="col-md-12 col-sm-12 col-xs-12">
                     <div class="x_panel">
@@ -131,27 +151,26 @@ setInterval(function() {
                            <div class="clearfix"></div>
                         </div>
                         <div class="x_content">
-                            <input type="text" id="med" name="med" placeholder="Medicine" class="med-input" style="width: 40%; padding: 7px; border-radius: 3px">
-                            <input type="text" id="med" name="med" placeholder="--/--/--" class="med-input" style="width: 40%; padding: 7px; border-radius: 3px">
                           <!--
-                          <select id="selectmed" name="selectmed" style="margin: 10px">
-                            @foreach($medicines as $med)
-                              <option value="{{$med->id}}">{{$med->name}}</option>
-                            @endforeach
-                          </select>
-                          <select id="system" style="display: none; margin: 10px"></select>
-                          <div id="livesearch"></div>
-                          <div class="form-group">
-                           <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                             <a onclick="searchmedicinepot()" name="" class='btn btn-main' style="background-color: gray; color: white">Search</a>
-                             <a id="addMed" onclick="addmedicine()" name="" class='btn btn-success' style="display: none; margin-top: 10px;">Add Medicne</a>
-                           </div>
-                         -->
+                          <input type="text" id="med" name="search_value" placeholder="Medicine..." class="med-input" style="width: 50%; padding: 7px; border-radius: 3px">
+                            <input type="text" id="med" name="med" placeholder="Medicine" class="med-input" style="width: 40%; padding: 7px; border-radius: 3px">
+                          -->
+                              <div class="table-data">
+                                <table>
+                                  <tbody>
+                                  </tbody>
+                                </table>
+                              </div>
+                            <input id="autocomplete"  placeholder="Medicine..." class="med-input" style="width: 40%; padding: 9px; border-radius: 3px">
+                            <input type="text" id="med" name="med" placeholder="--/--/--" class="med-input" style="width: 40%; padding: 9px; border-radius: 3px; margin-top: 10px;">
+                            <a onclick="addmedicine()" class="btn btn-primary">Add</a>
                          </div>
+                         <div></div>
+                         <textarea  rows="8" id="med_added" style="margin:auto; width: 50%; margin-top: 10px"></textarea>
                        </div>
                      </div>
                      <div class="form-group" style="font-size: 12px">
-                      <div id="added_med"></div>
+                      <div id="added_med0"></div>
                      </div>
                      <textarea style="width: 30%; height: 10px; font-size: 12px" placeholder="Note..."></textarea>
                      <br><br>
@@ -161,8 +180,10 @@ setInterval(function() {
                        <a onclick="displayBlockVisitHistories()" id="15days" name="15days" class='btn btn-primary'>Visit History</a>
                        <a onclick="ShowMedicalHistories()" id="30days" name="30days" class='btn btn-primary'>Medical History</a>
                        <input type="button" class='btn btn-primary' onclick="docschedulingpatient()" value="Reschedule">
+                       <a onclick="viewprint()" id="30days" name="30days" class='btn btn-primary'>Print</a>
                        <a onclick="FinalVisitHistoryStore()" id="30days" name="30days" class='btn btn-success'>Save</a>
                      </div>
+
                      <hr>
                      <!--visit histories-->
                      <div class="form-group" style="font-size: 12px;">
@@ -187,7 +208,7 @@ setInterval(function() {
                      <!-- Modal content -->
                      <div class="modal-content">
                        <span class="close">&times;</span>
-                      <!--growth histories-->
+                        <!--growth histories-->
                           <!--growth histories-->
                           <div>
                             <table id="records_table" class="records_table", style="margin: auto;">
@@ -200,19 +221,29 @@ setInterval(function() {
                   </div>
                  </div>
                 </div>
-               <footer style="padding-top: 35px;">
-                   <!--<form action="/action_page.php">-->
-                   <div class="clearfix"></div>
-                   <div class="pull-right">
-                     Hospital Management System <a href="#">Visit Our Site</a>
-                   </div>
-                   <div class="clearfix"></div>
-               </footer>
              <!--ending right-->
+             </div>
            </div>
          </div>
-       </div>
+
 <script>
+
+  function viewprint() {
+    window.print();
+  }
+
+  $("#autocomplete" ).autocomplete({
+    source: [ "Panadol 500", "Panadol 250", "Brofin", "Albuterol", "Cefdinir", "Cephalexin", "Fluticasone" ]
+  });
+</script>
+
+<script>
+
+//$("#ssn").mask("999-999-999");
+  jQuery(function($){
+     $("#med").mask("9/9/9/9/9/9/9/9/9",{placeholder:"-/-/-"});
+});
+
   function patient_fvh_record() {
     $("#records_table").css("display", "block");
     $('#pat_v_histories').css("display","none");
@@ -263,14 +294,14 @@ setInterval(function() {
             var visit_date = new Date(entry.date);
             var m = pat_dob.getMonth() - visit_date.getMonth();
             if (!months_arr.includes(i) && !months_added.includes(i)) {
-              trHTML += '<tr><td>' + "Month " + i + '</td><td>' + "_" + '</td><td>' + "_" + '</td><td>' + "_" + '</td></tr>';
+              //trHTML += '<tr><td>' + "Month " + i + '</td><td>' + "_" + '</td><td>' + "_" + '</td><td>' + "_" + '</td></tr>';
               months_added.push(i);
             }
             if (m == i && length < 0.5) {
               trHTML += '<tr style="color: green"><td>' + "Month " + i + '</td><td>' + entry.length + '</td><td>' + entry.weight + '</td><td>' + entry.head_size + '</td></tr>';
             } else if (m == i && length < 0.9) {
               trHTML += '<tr style="color: green"><td>' + "Month " + i + '</td><td>' + entry.length + '</td><td>' + entry.weight + '</td><td>' + entry.head_size + '</td></tr>';
-            } else if (m == i && length < 0.9) {
+            } else if (m == i && length < 1.1) {
               trHTML += '<tr style="color: green"><td>' + "Month " + i + '</td><td>' + entry.length + '</td><td>' + entry.weight + '</td><td>' + entry.head_size + '</td></tr>';
             } else if (m == i && length < 1.2) {
               trHTML += '<tr style="color: green"><td>' + "Month " + i + '</td><td>' + entry.length + '</td><td>' + entry.weight + '</td><td>' + entry.head_size + '</td></tr>';
@@ -313,6 +344,7 @@ setInterval(function() {
           pat_list.empty();
           var html;
           $.each(json, function (key, entry) {
+            //console.log(json);
             //pat_list = pat_list.html("<span style='font-weight:bold;'>" + entry.fname + "</span>");
             if(entry.other == "Video Consultation") {
               pat_list = pat_list.append($('<i></i>').css("display", "inline-block").css("float", "right").attr("class", "material-icons videocam").text("videocam"))
@@ -325,7 +357,7 @@ setInterval(function() {
             } else {
 
             }
-            pat_list = pat_list.append($('<h5></h5>').css("display", "inline-block").css("float", "left").click(function(){ patientselected(entry.id,entry.fname,entry.lname,entry.age,entry.dob,entry.guard_no); }).attr('id', entry.id).text(entry.fname + " " + entry.lname))
+            pat_list = pat_list.append($('<h5></h5>').css("display", "inline-block").css("float", "left").click(function(){ patientselected(entry.patient_id,entry.fname,entry.lname,entry.age,entry.gender,entry.dob,entry.guard_no); }).attr('id', entry.id).text(entry.fname + " " + entry.lname))
             //now getting type of this patient
             //pat_list = pat_list.append($('<hr>').css("height", 0))
             pat_list = pat_list.append($('<br>'))
@@ -360,7 +392,7 @@ setInterval(function() {
       });
   }
 
-  function patientselected(pid, pfn, pln, p_age, pdob, pguard_no) {
+  function patientselected(pid, pfn, pln, p_age, gender, pdob, pguard_no) {
     let added_med = $("#added_med");
     added_med.empty();
     $('#pat_v_histories').css("display","none");
@@ -375,6 +407,7 @@ setInterval(function() {
     $("#pfn").text(pfn);
     $("#pln").text(pln);
     $("#p_age").text(p_age);
+    $("#gender").text(gender);
     $("#pdob").text(pdob);
     $("#pguard_no").text(pguard_no);
      $.ajaxSetup({
@@ -411,9 +444,12 @@ setInterval(function() {
   }
 
   function addmedicine() {
-    var med_id = $('#selectmed').val();
-    var dosage = $('#system').val();
-    //added_med.empty();
+    var med = $('#autocomplete').val();
+    var dosage = $('#med').val();
+    var meds = $("#med_added").text();
+    let med_added = $("#med_added").text(meds + " "+ med+" "+dosage + "\n");
+    //med_added = med_added.append($('<h5></h5>').attr('id', med_added).attr('value', med).text("Name: "+med+" Dosage: "+dosage))
+    /*added_med.empty();
     $.ajaxSetup({
           headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -434,6 +470,7 @@ setInterval(function() {
           }
         }
       });
+      */
   }
 
   function searchmedicinepot() {
@@ -547,7 +584,6 @@ setInterval(function() {
           }
         });
       });
-
 
   function getMedicalHistories(pid) {
         $('#pat_v_histories').css("display","none");

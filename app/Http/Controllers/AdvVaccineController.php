@@ -50,4 +50,9 @@ class AdvVaccineController extends Controller
       //$center->delete();
       return redirect('showadvvaccinesofcurdoc/' . $doc_id);
     }
+
+    public function vaccinationmsg($doc_id, Request $request) {
+      $vaccines = AdvVaccine::where('doc_id', $doc_id)->get();
+      return view ('vaccinationmsg')->with('vaccines', $vaccines);
+    }
 }

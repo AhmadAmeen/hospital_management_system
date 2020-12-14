@@ -4,7 +4,7 @@
    display: none; /* Hidden by default */
    position: fixed; /* Stay in place */
    z-index: 1; /* Sit on top */
-   padding-top: 100px; /* Location of the box */
+   padding-top: 150px; /* Location of the box */
    left: 0;
    top: 0;
    overflow: auto; /* Enable scroll if needed */
@@ -14,10 +14,10 @@
 
 /* Modal Content */
 .modal-content {
-  background-color: #fefefe;
+  background-color: #f0fffe;
   margin-left: auto;
   margin-right: auto;
-  padding: 20px;
+  padding: 5px;
   border: 1px solid #888;
   width: 50%;
 }

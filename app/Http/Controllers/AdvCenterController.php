@@ -90,4 +90,9 @@ class AdvCenterController extends Controller
       ->paginate(5);
       return view ('showcentersofcurdoc')->with('centers', $centers);
     }
+
+    public function doc_updatecenter($doc_id, Request $request) {
+      $centers = AdvCenter::where('doc_id' , $doc_id)->get();
+      return view ('doc_updatecenter')->with('centers', $centers);
+    }
 }

@@ -11,6 +11,16 @@
 <link rel="stylesheet" href="//cdn.materialdesignicons.com/5.4.55/css/materialdesignicons.min.css">
 <link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+.advcard {
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.5s;
+  width: 100%;
+  margin: auto;
+  margin-bottom: 50px;
+  font-size: 10px;
+}
+</style>
 
 <script>
   function current_date () {
@@ -61,17 +71,16 @@
                     <br>
                     <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
                       @csrf
-                      <h1 style="text-align: center;">Add Patient Schedule</h1>
                       <!--7 days-->
-                        <div class="card">
+                        <div class="advcard">
                           <!--<img src="img_avatar.png" alt="Avatar" style="width:100%">-->
-                          <div class="container">
-                            <h5><b>Patient Name: </b> {{$patient->fname}} {{$patient->lname}}</h5>
-                            <h5><b>Patient Age: </b> {{$patient->age}}</h5>
-                            <h5><b>Patient DOB: </b> {{$patient->dob}}</h5>
-                            <h5><b>Current Date: </b><a id="cur_date"></a><script>current_date();</script></h5>
-                            <h5 style="display: block"><b>Scheduled Date: <a id="pur_date"></a></b></h5>
-                            <h5 style="display: block"><b>Day: <a id="pur_dayname"></a></b></h5>
+                          <div class="container" style="font-size: 12px">
+                            <h5><b>Patient Name: </b> {{$patient->fname}} {{$patient->lname}}&nbsp;&nbsp;&nbsp;
+                            <b>Patient Age: </b> {{$patient->age}}&nbsp;&nbsp;&nbsp;
+                            <b>Patient DOB: </b> {{$patient->dob}}&nbsp;&nbsp;&nbsp;
+                            <b>Current Date: </b><a id="cur_date"></a><script>current_date();</script>&nbsp;&nbsp;&nbsp;
+                            <h5 style="display:inline-block"><b>Scheduled Date: <a id="pur_date"></a></b></h5>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <h5 style="display:inline-block"><b>Day: <a id="pur_dayname"></a></b></h5>
                             <h5 style="display: none"><b>Type: <a id="v_type"></a></b></h5>
                          </div>
                         </div>

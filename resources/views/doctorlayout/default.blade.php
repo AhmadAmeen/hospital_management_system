@@ -15,7 +15,14 @@
     <!-- /page content -->
 
     <!-- footer content -->
-
+    <footer style="padding-top: 35px;">
+       <!--<form action="/action_page.php">-->
+       <div class="clearfix"></div>
+       <div class="pull-right">
+         Hospital Management System <a href="#">Visit Our Site</a>
+       </div>
+       <div class="clearfix"></div>
+    </footer>
     <!-- /footer content -->
 
       </div>

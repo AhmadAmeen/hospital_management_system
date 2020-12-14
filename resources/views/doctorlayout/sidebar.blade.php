@@ -26,14 +26,35 @@
 
 <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
   <div class="menu_section" style="margin-top: 5px">
-    <h3>General</h3>
+    <h3 style="margin-top: 15px">Dashboard</h3>
+    <h3 style="margin-top: 15px"><a href="{{url('TodocMainPage/' . session('doctor_session'))}}" style="color: white">Prescribe Medicine</a></h3>
     <ul class="nav side-menu">
       <li>
-          <li><a style="border-style: outset; margin-right: 2px; border-color: #767676;"></i> Patient ↓ <span class="fa fa-chevron-down"></span></a>
+          <li><a style="border-style: outset; margin-top: 7px; margin-right: 2px; border-color: #767676;"></i> Patient ↓ <span class="fa fa-chevron-down"></span></a>
              <ul class="nav child_menu">
-               <li><a href="{{url('patientregform')}}">Register New Patient</a></li>
-               <li><a href="{{url('showpatients')}}">Edit or Delete Patients</a></li>
-               <li><a href="{{url('vh_main_patients')}}">Visit History Patients</a></li>
+               <li><a href="{{url('docpatientregform/' . session('doctor_session'))}}">Register New Patient</a></li>
+            </ul>
+          </li>
+      </li>
+      <li>
+          <li><a style="border-style: outset; margin-right: 2px; border-color: #767676;"></i> Leave ↓ <span class="fa fa-chevron-down"></span></a>
+             <ul class="nav child_menu">
+               <li><a href="{{url('docunavailable/' . session('doctor_session'))}}">Leave</a></li>
+            </ul>
+          </li>
+      </li>
+      <li>
+          <li><a style="border-style: outset; margin-right: 2px; border-color: #767676;"></i> Center Setting ↓ <span class="fa fa-chevron-down"></span></a>
+             <ul class="nav child_menu">
+               <li><a href="{{url('doc_adv_center_add/' . session('doctor_session'))}}">Add new Center</a></li>
+               <li><a href="{{url('doc_updatecenter/' . session('doctor_session'))}}">Update Center</a></li>
+            </ul>
+          </li>
+      </li>
+      <li>
+          <li><a style="border-style: outset; margin-right: 2px; border-color: #767676;"></i> Broadcast SMS ↓ <span class="fa fa-chevron-down"></span></a>
+             <ul class="nav child_menu">
+               <li><a href="{{url('vaccinationmsg/' . session('doctor_session'))}}">Vaccination Message</a></li>
             </ul>
           </li>
       </li>
