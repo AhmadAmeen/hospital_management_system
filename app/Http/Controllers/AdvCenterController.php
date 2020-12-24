@@ -95,4 +95,12 @@ class AdvCenterController extends Controller
       $centers = AdvCenter::where('doc_id' , $doc_id)->get();
       return view ('doc_updatecenter')->with('centers', $centers);
     }
+
+    public function doc_updatingcenter(Request $request) {
+      $center = AdvCenter::find($request->center_id);
+      $center->cname = $request->cname;
+      $center->address = $request->cloc;
+      $center->save();
+      return redirect('doc_updatecenter/' . $center->doc_id);
+    }
 }

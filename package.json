@@ -22,6 +22,10 @@
         "vue-template-compiler": "^2.6.12"
     },
     "dependencies": {
-        "jquery-autocomplete": "^1.2.8"
+        "gentelella": "^1.4.0",
+        "jquery-autocomplete": "^1.2.8",
+        "jquery-colorbox": "^1.6.4",
+        "jquery-mask-plugin": "^1.14.16",
+        "number-to-words": "^1.2.4"
     }
 }

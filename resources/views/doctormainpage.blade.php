@@ -15,12 +15,22 @@ use App\Patient;
 use App\VaccinationHistory;
 $i = 0;
 ?>
+<script src="https://cdn.jsdelivr.net/npm/jquery-mask-plugin@1.14.16/dist/jquery.mask.min.js"></script>
+<!-- Jquery Library 2.1 JavaScript-->
+<script src="js/jquery-2.1.4.min.js"></script>
+  <!-- Popper JavaScript-->
+  <script src="js/popper.min.js"></script>
+<!-- Bootstrap Core JavaScript-->
+<script src="js/bootstrap.min.js"></script>
+<!-- Material Design Lite JavaScript-->
+<script src="js/material.min.js"></script>
+<!-- main invoice JavaScript-->
+<script src="js/invoice.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
 <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <link rel="stylesheet" href="/resources/demos/style.css">
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
@@ -31,9 +41,9 @@ $i = 0;
 <script src="http://robinherbots.github.io/jquery.inputmask/javascripts/jquery.catcher.js" type="text/javascript"></script>
 <script src="http://robinherbots.github.io/jquery.inputmask/javascripts/jquery.catcher.js"></script>
 <script src="https://rawgit.com/RobinHerbots/jquery.inputmask/3.x/dist/jquery.inputmask.bundle.js"></script>
-<link href="/css/print.css" rel="stylesheet" media="print" type="text/css">
 
 <script>
+
 $(document).ready(function(){
   fetch_tvh_records();
   patient_fvh_record();
@@ -42,7 +52,9 @@ $(document).ready(function(){
 setInterval(function() {
     // do stuff
     fetch_tvh_records();
-}, 1000);
+    //getdiagnosis();
+    //getmedicines();
+ }, 1000);
 
 setInterval(function() {
     // do stuff
@@ -55,12 +67,14 @@ setInterval(function() {
     var result = new Date();
     return formatedate(result);
   }
+
   function formatedate(result) {
     var dd = result.getDate();
     var mm = result.getMonth() + 1;
     var y = result.getFullYear();
     return (mm + '-'+ dd + '-'+ y);
   }
+
   function showResult(str) {
   if (str.length==0) {
     document.getElementById("livesearch").innerHTML="";
@@ -78,13 +92,14 @@ setInterval(function() {
   xmlhttp.send();
 }
 </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.2.0/knockout-min.js"></script>
+<link rel="stylesheet" href="//cdn.materialdesignicons.com/5.4.55/css/materialdesignicons.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="{{ asset('public/css/doc-main-page-css.css') }}" />
 <link rel="stylesheet" type="text/css" href="{{ asset('public/css/final-vh-table-css.css') }}" />
 <link rel="stylesheet" type="text/css" href="{{ asset('public/css/card-doc-css.css') }}" />
 <link rel="stylesheet" type="text/css" href="{{ asset('public/css/textarea-css.css') }}" />
 <link rel="stylesheet" type="text/css" href="{{ asset('public/css/schedule-btn-css.css') }}" />
-<link rel="stylesheet" href="//cdn.materialdesignicons.com/5.4.55/css/materialdesignicons.min.css">
-<link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" type="text/css" href="{{ asset('public/css/schedule-btn-css.css') }}" />
 <link rel="stylesheet" type="text/css" href="{{ asset('public/css/med-input-css.css') }}" />
@@ -98,13 +113,13 @@ setInterval(function() {
 <link rel="stylesheet" type="text/css" href="{{ asset('public/css/doc-popup-growth-history-css.css') }}" />
 <meta name="csrf-token" content="{{ csrf_token() }}">
 <link rel="stylesheet" href="//cdn.materialdesignicons.com/5.4.55/css/materialdesignicons.min.css">
-<link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet">
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 <div class="right_col" role="main" style="background-color: white;">
     <br><br><br>
     <div class="card" style="width: 100%; padding-left: 15px; text-align: left; display: inline-block">
+      <a style="display: none"><b>Visit History ID: </b> <a id="vh_id" style="display: none"> </a></a>
       @if (empty($currentpatient->id))
       <b>Patient-ID: </b> <a id="pid"></a>&nbsp;&nbsp;&nbsp;&nbsp;
       @else
@@ -122,7 +137,8 @@ setInterval(function() {
        <a id="v_type" style="display:none"><b>Visit Type: </b> @if (empty($cur_pat_vh->other))@else{{$cur_pat_vh->other}}@endif</a>&nbsp;&nbsp;&nbsp;&nbsp;
        <a id="date" style="display:none"><b>Date: </b> @if (empty($cur_pat_vh->date))@else{{$cur_pat_vh->date}}@endif</a>&nbsp;&nbsp;&nbsp;&nbsp;
     </div>
-    <div class="split left card-left" style="width: 30%;">
+
+    <div class="split left card-left" style="width: 20%;">
       <div class="clearfix"></div>
                <div class="row">
                 <div class="row" style="font-size: 11px">
@@ -141,8 +157,9 @@ setInterval(function() {
                   </div>
                  </div>
                 </div>
-            <div class="split right card-right" style="width: 69.3%;">
-              <div class="clearfix"></div>
+
+    <div class="split right card-right" style="width: 79.3%;">
+      <div class="clearfix"></div>
                 <div class="row" style="font-size: 12px;">
                   <div class="col-md-12 col-sm-12 col-xs-12">
                     <div class="x_panel">
@@ -161,29 +178,74 @@ setInterval(function() {
                                   </tbody>
                                 </table>
                               </div>
-                            <input id="autocomplete"  placeholder="Medicine..." class="med-input" style="width: 40%; padding: 9px; border-radius: 3px">
-                            <input type="text" id="med" name="med" placeholder="--/--/--" class="med-input" style="width: 40%; padding: 9px; border-radius: 3px; margin-top: 10px;">
-                            <a onclick="addmedicine()" class="btn btn-primary">Add</a>
+                            <input id="autocomplete_disease" placeholder="Disease..." class="med-input" style="width: 30%; padding: 9px; border-radius: 3px">
+                            <input id="autocomplete_med"  placeholder="Medicine..." class="med-input" style="width: 30%; padding: 9px; border-radius: 3px">
+                            <!--
+                            <input type="text" id="med" name="med" placeholder="--/--/--" class="med-input" style="width: 20%; padding: 9px; border-radius: 3px; margin-top: 10px;">
+                            -->
+                            <input type="text" id="med0" name="med" placeholder="-  -" class="med-input" style="width: 6%; padding: 9px 5px 9px 5px; border-radius: 3px; margin-top: 10px; text-align: center">
+                            <input type="text" id="med1" name="med" placeholder="-  -" class="med-input" style="width: 6%; padding: 9px 5px 9px 5px; border-radius: 3px; margin-top: 10px; text-align: center">
+                            <input type="text" id="med2" name="med" placeholder="-  -" class="med-input" style="width: 6%; padding: 9px 5px 9px 5px; border-radius: 3px; margin-top: 10px; text-align: center">
+                            <b id="type" name="type" placeholder="_" class="med-input" style="width: 20%; padding: 9px; border-radius: 3px; margin-top: 10px; vertical-align: middle; font-size: 16px"></b>
+                            <select id="medicine_type" class=" " style="width: 10%; opacity: 0; padding-top: 15px; padding-bottom: 15px;">
+                              <option value="Tab">Tab</option>
+                              <option value="Tsp">Tsp</option>
+                              <option value="Nasal Spray">Nasal Spray</option>
+                              <option value="Creams">Creams</option>
+                              <option value="Dropper">Dropper</option>
+                            </select>
+                            <!--<a onclick="addmedicine()" class="btn btn-primary">Add</a>-->
+                            <!--
+                            <input type="text" placeholder="Search" data-bind="textInput: filter, event: { keypress: onEnter }" />
+                            <input type="button" data-bind="click: clearFilter" value="Reset" />
+
+                            <ul data-bind="foreach: filteredList">
+                              <li data-bind="text: $data"></li>
+                            </ul>
+                            -->
                          </div>
-                         <div></div>
+                         <!--dosages-->
+                         <div class="clearfix"></div>
+                         <div class="form-group">
+                               <img src="{{url('public/gentelella-master/production/images/Dx.png')}}" alt="..." class=""  width="60" height="60" style="float: left">
+                            <div class="clearfix"></div>
+                            <div></div>
+                             <ol id="dis_added" style="height: 80px; overflow-y: auto">
+                             </ol>
+                         </div>
+                         <!--medicines-->
+                         <div class="clearfix"></div>
+                         <div class="form-group">
+                             <div class="profile_pic">
+                               <img src="{{url('public/gentelella-master/production/images/Rx.png')}}" alt="..." class=""  width="60" height="60" style="float: left">
+                           </div>
+                           <div class="clearfix"></div>
+                           <div></div>
+                           <ol id="med_added" style="height: 180px; overflow-y: auto">
+                           </ol>
+                         </div>
+                         <!--
                          <textarea  rows="8" id="med_added" style="margin:auto; width: 50%; margin-top: 10px"></textarea>
+                          -->
                        </div>
                      </div>
                      <div class="form-group" style="font-size: 12px">
                       <div id="added_med0"></div>
                      </div>
-                     <textarea style="width: 30%; height: 10px; font-size: 12px" placeholder="Note..."></textarea>
+                     <textarea id="doctor_note" style="width: 90%; height: 10px; font-size: 12px" placeholder="Note..."></textarea>
                      <br><br>
                      <div class="form-group">
+                       <!--
                        <a onclick="patient_fvh_record()" id="myBtn" name="1days" class='btn btn-primary'>Growth</a>
                        <a onclick="editvaccinationhistory()" name="7days" class='btn btn-primary'>Vaccination</a>
                        <a onclick="displayBlockVisitHistories()" id="15days" name="15days" class='btn btn-primary'>Visit History</a>
                        <a onclick="ShowMedicalHistories()" id="30days" name="30days" class='btn btn-primary'>Medical History</a>
                        <input type="button" class='btn btn-primary' onclick="docschedulingpatient()" value="Reschedule">
-                       <a onclick="viewprint()" id="30days" name="30days" class='btn btn-primary'>Print</a>
-                       <a onclick="FinalVisitHistoryStore()" id="30days" name="30days" class='btn btn-success'>Save</a>
+                      -->
+                      <a onclick="patDetailedDashboard()" id="myModal" name="30days" class='btn btn-primary'>summary</a>
+                      <a onclick="showPrescription()" id="30days" name="30days" class='btn btn-primary'>Print</a>
+                       <a onclick="removePatFromList()" id="30days" name="30days" class='btn btn-success'>Save</a>
                      </div>
-
                      <hr>
                      <!--visit histories-->
                      <div class="form-group" style="font-size: 12px;">
@@ -204,18 +266,6 @@ setInterval(function() {
                        </div>
                      <!--med his end-->
                    </div>
-                   <div id="myModal" class="modal">
-                     <!-- Modal content -->
-                     <div class="modal-content">
-                       <span class="close">&times;</span>
-                        <!--growth histories-->
-                          <!--growth histories-->
-                          <div>
-                            <table id="records_table" class="records_table", style="margin: auto;">
-                            </table>
-                          </div>
-                        </div>
-                      </div>
                      <!--growth his end-->
                    </div>
                   </div>
@@ -224,25 +274,210 @@ setInterval(function() {
              <!--ending right-->
              </div>
            </div>
+
+           <div id="myModal" class="modal">
+             <!-- Modal content -->
+             <div class="modal-content">
+               <span class="close">&times;</span>
+              <!--growth histories-->
+                  <!--growth histories-->
+                  <div>
+                    fds
+                  </div>
+                </div>
+              </div>
+
          </div>
 
 <script>
 
-  function viewprint() {
-    window.print();
+  var js_array_med = [<?php echo '"'.implode('","', $medicine_names).'"' ?>];
+  var js_array_dis = [<?php echo '"'.implode('","', $disease_names).'"' ?>];
+
+  $("#autocomplete_med" ).autocomplete({
+    source: js_array_med
+  });
+  $("#autocomplete_disease" ).autocomplete({
+    source: js_array_dis
+  });
+
+function showPrescription() {
+    var vh_id = $("#vh_id").val();
+    var note = $("#doctor_note").val();
+    if (vh_id) {
+      if (note) {
+        window.open("{{url('showPrescription')}}"+'/'+vh_id+'/'+note);
+      } else {
+        window.open("{{url('showPrescription')}}"+'/'+vh_id+'/'+"_");
+      }
+    }
+    //window.location = "{{url('showPrescription')}}";
   }
 
-  $("#autocomplete" ).autocomplete({
-    source: [ "Panadol 500", "Panadol 250", "Brofin", "Albuterol", "Cefdinir", "Cephalexin", "Fluticasone" ]
-  });
-</script>
+ function patDetailedDashboard() {
+   if ($("#pid").text() && $("#vh_id").text()) {
+     window.open("{{url('patDetailedDashboard')}}"+'/'+$("#pid").text()+'/'+$("#vh_id").text());
+   }
+ }
 
-<script>
+var nums0 = [];
+var nums1 = [];
+var nums2 = [];
+
+//autocomplete_med enter press
+$('#autocomplete_med').keydown(function (e){
+  if(e.keyCode == 13){
+      nums0 = [];
+      nums1 = [];
+      nums2 = [];
+      var json = JSON.parse('<?php echo json_encode($medicines) ?>');
+      //console.log(json);
+      $.each(json, function (key, entry) {
+        if ($('#autocomplete_med').val() == entry.name){
+          $('#type').text(entry.type);
+        }
+      })
+      //$("#med").focus();
+      $("#med0").val("");
+      $("#med1").val("");
+      $("#med2").val("");
+      $("#med0").focus();
+      if (!js_array_med.includes($('#autocomplete_med').val())) {
+        $("#type").text(" ");
+        $("#medicine_type").css('opacity', '1');
+      } else {
+        $("#medicine_type").css('opacity', '0');
+      }
+    }
+})
+
+//dosage enter press
+//$('#med').keydown(function (e){
+$('#med2').keydown(function (e){
+    if(e.keyCode == 13 || e.keyCode == 9){
+      if (!js_array_med.includes($('#autocomplete_med').val())) {
+        $("#medicine_type").css('opacity', '1');
+        $("#type").text(" ");
+        //$("#med0").focus();
+        addnewmedicine($('#autocomplete_med').val(), $('#medicine_type').val());
+        //console.log($('#medicine_type').val());
+        addmedicine($('#medicine_type').val());
+      } else {
+        //console.log($('#type').text());
+        addmedicine($('#type').text());
+      }
+      $("#autocomplete_med").focus();
+        this.value = "";
+        $('#med0').val("");
+        $('#med1').val("");
+        $('#autocomplete_med').val("");
+        nums0 = [];
+        nums1 = [];
+        nums2 = [];
+        //$('#autocomplete_med').value = "";
+      }
+  })
+
+  $('#autocomplete_disease').keydown(function (e){
+    if(e.keyCode == 13){
+        e.preventDefault();
+        $(this).next('.autocomplete_med').focus();
+        adddiagnosis();
+        this.value = "";
+      }
+    })
 
 //$("#ssn").mask("999-999-999");
   jQuery(function($){
-     $("#med").mask("9/9/9/9/9/9/9/9/9",{placeholder:"-/-/-"});
-});
+     $("#med0").on("keyup", function(event){
+     		const Number = event.key;
+        if (Number >= 0 && Number <= 9) {
+          nums0.push(Number);
+        }
+        //console.log(nums0.length);
+        if (nums0.length == 2 && nums0.includes('0')) {
+          $('#med0').mask("99");
+          nums0 = [];
+          nums1 = [];
+          nums2 = [];
+        $("#med1").focus();
+      } else if (nums0.length == 2 && !nums0.includes('0')) {
+          $('#med0').mask("9/9");
+          nums0 = [];
+          nums1 = [];
+          nums2 = [];
+          $("#med1").focus();
+        }
+     	})
+  });
+
+  jQuery(function($){
+     //$("#med").mask("9/9+9/9+9/9",{placeholder:"-- -- --"});
+     //$("#med").mask("9/9+9/9+9/9",{completed:function(){alert("You typed the following: "+this.val());}});
+     //$.mask.definitions['~']='[+-]';
+     //$("#med").mask("~9.99 ~9.99 999");
+     //$('#med').mask("9/9+9/9+9/9", 'Z',{translation:  {'Z': {pattern: /[1-9]/, recursive: true}}});
+     //$('#med').mask('9/Z+9/Z+9/Z', {translation: {'Z': {pattern: /[1-9]/, optional: true}} });
+     //$('#med').mask("9/9+9/9+9/9", {reverse: false});
+     nums1 = [];
+     $("#med1").on("keyup", function(event){
+     		const Number = event.key;
+     		//nums1.push(Number);
+        if (Number >= 0 && Number <= 9) {
+          nums1.push(Number);
+        }
+        //console.log(nums1.length);
+        if (nums1.length == 2 && nums1.includes('0')) {
+          $('#med1').mask("99");
+          nums0 = [];
+          nums1 = [];
+          nums2 = [];
+          $("#med2").focus();
+        } else if (nums1.length == 2 && !nums1.includes('0')) {
+          //console.log("HI!");
+          $('#med1').mask("9/9");
+          nums0 = [];
+          nums1 = [];
+          nums2 = [];
+          $("#med2").focus();
+        }
+     	})
+  });
+
+  jQuery(function($){
+     //$("#med").mask("9/9+9/9+9/9",{placeholder:"-- -- --"});
+     //$("#med").mask("9/9+9/9+9/9",{completed:function(){alert("You typed the following: "+this.val());}});
+     //$.mask.definitions['~']='[+-]';
+     //$("#med").mask("~9.99 ~9.99 999");
+     //$('#med').mask("9/9+9/9+9/9", 'Z',{translation:  {'Z': {pattern: /[1-9]/, recursive: true}}});
+     //$('#med').mask('9/Z+9/Z+9/Z', {translation: {'Z': {pattern: /[1-9]/, optional: true}} });
+     //$('#med').mask("9/9+9/9+9/9", {reverse: false});
+     nums2 = [];
+     $("#med2").on("keyup", function(event){
+     		const Number = event.key;
+     		//nums2.push(Number);
+        if (Number >= 0 && Number <= 9) {
+          nums2.push(Number);
+        }
+        //console.log(nums2.length);
+        if (nums2.length == 2 && nums2.includes('0')) {
+          $('#med2').mask("99");
+          nums0 = [];
+          nums1 = [];
+          nums2 = [];
+        } else if (nums2.length == 2 && !nums2.includes('0')) {
+          //console.log("HI!");
+          $('#med2').mask("9/9");
+          nums0 = [];
+          nums1 = [];
+          nums2 = [];
+        }
+     	})
+  });
+
+  $('#med').keydown(function (e){
+
+  })
 
   function patient_fvh_record() {
     $("#records_table").css("display", "block");
@@ -252,7 +487,7 @@ setInterval(function() {
     $('#med_histories').css("display","none");
     $('#pat_vacc_histories').css("display","none");
     var pid = $("#pid").text();
-    console.log(pid);
+    //console.log(pid);
     $.ajaxSetup({
           headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -265,7 +500,7 @@ setInterval(function() {
         success: function(response) {
         var len = 0;
         var json = '';
-        console.log(response);
+        //console.log(response);
         var trHTML = '';
         if (response['data'] != null) {
           len = response['data'].length;
@@ -279,7 +514,7 @@ setInterval(function() {
         trHTML += '<tr><th>' + "Month" + '</th><th>' + "Length" + '</th><th>' + "Weight" + '</th><th>' + "Head Size" + '</th></tr>';
         var dob = $("#pdob").text();
         var pat_dob = new Date(dob);
-        console.log(dob);
+        //console.log(dob);
         var i = 1;
         var months_arr = [];
         $.each(json, function (key, entry) {
@@ -287,7 +522,7 @@ setInterval(function() {
           var m = pat_dob.getMonth() - visit_date.getMonth();
           months_arr.push(m);
         })
-        console.log(months_arr);
+        //console.log(months_arr);
         var months_added = [];
         $.each(json, function (key, entry) {
           for (var i = 1; i <= 6; i++) {
@@ -345,23 +580,25 @@ setInterval(function() {
           var html;
           $.each(json, function (key, entry) {
             //console.log(json);
-            //pat_list = pat_list.html("<span style='font-weight:bold;'>" + entry.fname + "</span>");
-            if(entry.other == "Video Consultation") {
-              pat_list = pat_list.append($('<i></i>').css("display", "inline-block").css("float", "right").attr("class", "material-icons videocam").text("videocam"))
-            } else if(entry.other == "Checkup") {
-              pat_list = pat_list.append($('<i></i>').css("display", "flex").css("float", "right").attr("class", "material-icons local_hospital").text("local_hospital"))
-            }  else if(entry.other == "Vaccination") {
-              pat_list = pat_list.append($('<i></i>').css("display", "flex").css("float", "right").attr("class", "material-icons coronavirus").text("coronavirus"))
-            }  else if(entry.other == "Checkup & Vaccination") {
-              pat_list = pat_list.append($('<i></i>').css("display", "flex").css("float", "right").attr("class", "material-icons local_hospital coronavirus").text("local_hospital coronavirus"))
-            } else {
+            if(entry.status == 1) {
+              //pat_list = pat_list.html("<span style='font-weight:bold;'>" + entry.fname + "</span>");
+              if(entry.other == "Video Consultation") {
+                pat_list = pat_list.append($('<i></i>').css("display", "inline-block").css("float", "right").attr("class", "material-icons videocam").text("videocam"))
+              } else if(entry.other == "Checkup") {
+                pat_list = pat_list.append($('<i></i>').css("display", "flex").css("float", "right").attr("class", "material-icons local_hospital").text("local_hospital"))
+              }  else if(entry.other == "Vaccination") {
+                pat_list = pat_list.append($('<i></i>').css("display", "flex").css("float", "right").attr("class", "material-icons coronavirus").text("coronavirus"))
+              }  else if(entry.other == "Checkup & Vaccination") {
+                pat_list = pat_list.append($('<i></i>').css("display", "flex").css("float", "right").attr("class", "material-icons local_hospital coronavirus").text("local_hospital coronavirus"))
+              } else {
 
+              }
+              pat_list = pat_list.append($('<h5></h5>').css("display", "inline-block").css("float", "left").click(function(){ patientselected(entry.id,entry.patient_id,entry.fname,entry.lname,entry.age,entry.gender,entry.dob,entry.guard_no); }).attr('id', entry.id).text(entry.fname + " " + entry.lname))
+              //now getting type of this patient
+              //pat_list = pat_list.append($('<hr>').css("height", 0))
+              pat_list = pat_list.append($('<br>'))
+              pat_list = pat_list.append($('<hr>'))
             }
-            pat_list = pat_list.append($('<h5></h5>').css("display", "inline-block").css("float", "left").click(function(){ patientselected(entry.patient_id,entry.fname,entry.lname,entry.age,entry.gender,entry.dob,entry.guard_no); }).attr('id', entry.id).text(entry.fname + " " + entry.lname))
-            //now getting type of this patient
-            //pat_list = pat_list.append($('<hr>').css("height", 0))
-            pat_list = pat_list.append($('<br>'))
-            pat_list = pat_list.append($('<hr>'))
           }
           //$("#pat_list").html(html);
         )
@@ -392,7 +629,9 @@ setInterval(function() {
       });
   }
 
-  function patientselected(pid, pfn, pln, p_age, gender, pdob, pguard_no) {
+  function patientselected(id, pid, pfn, pln, p_age, gender, pdob, pguard_no) {
+    let dis_added = $("#dis_added");
+    dis_added.empty();
     let added_med = $("#added_med");
     added_med.empty();
     $('#pat_v_histories').css("display","none");
@@ -403,6 +642,8 @@ setInterval(function() {
     p_list_right.empty();
     p_list_left.empty();
     p_list_left_details.empty();
+    $("#vh_id").text(id);
+    $("#vh_id").val(id);
     $("#pid").text(pid);
     $("#pfn").text(pfn);
     $("#pln").text(pln);
@@ -438,39 +679,329 @@ setInterval(function() {
              ShowVisitHistories(pid);
              getMedicalHistories(pid);
              patient_fvh_record();
+             getdiagnosis();
+             getmedicines();
           }
          }
        });
   }
 
-  function addmedicine() {
-    var med = $('#autocomplete').val();
-    var dosage = $('#med').val();
-    var meds = $("#med_added").text();
-    let med_added = $("#med_added").text(meds + " "+ med+" "+dosage + "\n");
-    //med_added = med_added.append($('<h5></h5>').attr('id', med_added).attr('value', med).text("Name: "+med+" Dosage: "+dosage))
-    /*added_med.empty();
-    $.ajaxSetup({
-          headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-          }
-        });
-        $.ajax({
-        url: "{{url('getmedicinename')}}"+'/'+med_id,
-        type: 'get',
-        dataType: 'json',
-        success: function(response) {
-        var len = 0;
-        var json = '';
-        if (response['data'] != null) {
-            len = response['data'].length;
-            json = response['data'];
-            let added_med = $("#added_med");
-            added_med = added_med.append($('<h5></h5>').attr('id', added_med).attr('value', json.id).text("Name: "+json.name+" Dosage: "+dosage))
-          }
+  function adddiagnosis() {
+    var dis = $('#autocomplete_disease').val();
+    $.ajax({
+      type:'POST',
+      url:"{{url('adddiagnosis')}}",
+      data: {
+        vh_id: $('#vh_id').text(),
+        dis_id: dis,
+        },
+        success:function(data) {
+          //alert("Patient visit added successfully!");
+          //location.reload();
+          //var dis = $('#autocomplete_disease').val();
+          //let dis_added = $("#dis_added");
+          //dis_added = dis_added.append($('<li></li>').attr('id', dis).attr('value', dis).css('font-size', '15px').css('float', 'left').css('font-weight', 'bold').css('color', 'black').html("&nbsp;" + dis + "<i id="+ dis + " <!--class='material-icons close' style='display: inline-block; padding-left: 15px;'></i>"))
+          //dis_added = dis_added.append($('<br><br>'))
+          getdiagnosis();
         }
-      });
+    });
+  }
+
+  function getdiagnosis() {
+      let dis_added = $("#dis_added");
+      dis_added.empty();
+      $.ajaxSetup({
+           headers: {
+             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+           }
+         });
+         $.ajax({
+         url: "{{url('getdiagnosis')}}"+'/'+$("#vh_id").text(),
+         type: 'get',
+         dataType: 'json',
+         success: function(response) {
+         var len = 0;
+         var json = '';
+         if (response['data'] != null) {
+           len = response['data'].length;
+           json = response['data'];
+           }
+         if(len > 0) {
+           //let p_list_left = $("#pat_v_histories");
+           //p_list_left.empty();
+           let dis_added = $("#dis_added");
+           dis_added.empty();
+           $.each(json, function (key, entry) {
+             //p_list_left = p_list_left.append($('<h5></h5>').attr('id', entry.id).attr('value', entry.date).text(entry.date))
+              //console.log(entry);
+              //var dis = $('#autocomplete_disease').val();
+              dis_added = dis_added.append($('<li></li>').attr('id', entry.dis_id).attr('value', entry.dis_id).css('font-size', '15px').css('float', 'left').css('font-weight', 'bold').css('color', 'black').html("&nbsp;" +  entry.dis_id + "<i id="+  entry.dis_id + " <!--class='material-icons close' style='display: inline-block; padding-left: 15px;'></i>"))
+              dis_added = dis_added.append($('<br><br>'))
+            })
+          }
+         }
+       });
+      }
+
+  function removediagnosis(diagnosis) {
+    //console.log(diagnosis);
+    $.ajaxSetup({
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      }
+    });
+    $.ajax({
+      type:'POST',
+      url:"{{url('removediagnosis')}}",
+      data: {
+        diagnosis: diagnosis,
+      },
+        success:function(data) {
+          //alert("Removed!");
+          //location.reload();
+          getdiagnosis();
+        }
+    });
+  }
+
+  $(document).on("click","#dis_added", function (event) {
+      let dis = event.target.id;
+      if (dis != "dis_added") {
+        var answer = window.confirm("Do you want to remove: " +dis);
+        //
+        //console.log("vh_id " + event.target.id);
+        if (answer) {
+          //document.getElementById(dis).remove();
+          removediagnosis (dis);
+        }
+        else {
+            //some code
+        }
+      }
+    })
+
+  function addnewmedicine(med_name, med_type) {
+    //console.log(diagnosis);
+    $.ajaxSetup({
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      }
+    });
+    $.ajax({
+      type:'POST',
+      url:"{{url('addnewmedicine')}}",
+      data: {
+        med_name: med_name,
+        med_type: med_type,
+     },
+        success:function(data) {
+          alert("New medicine " + med_name + " added to database!");
+          //location.reload();
+          //getdiagnosis();
+        }
+    });
+  }
+
+
+  function removediagnosis(diagnosis) {
+          //console.log(diagnosis);
+          $.ajaxSetup({
+            headers: {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+          });
+          $.ajax({
+            type:'POST',
+            url:"{{url('removediagnosis')}}",
+            data: {
+              diagnosis: diagnosis,
+           },
+              success:function(data) {
+                //alert("Removed!");
+                //location.reload();
+                getdiagnosis();
+              }
+          });
+        }
+
+  //medicine code started
+
+  //adding medicine
+  function addmedicine(medicine_type) {
+    var med_id = $('#autocomplete_med').val();
+    console.log(medicine_type);
+    //var dosage = $('#med').val();
+    if (!$('#med0').val()) {
+      $('#med0').val("00");
+    }
+    if (!$('#med1').val()) {
+      $('#med1').val("00");
+    }
+    if (!$('#med2').val()) {
+      $('#med2').val("00");
+    }
+    console.log(medicine_type);
+    if (medicine_type == "Tab") {
+      var med_type_urdu = "گولی";
+    } else if(medicine_type == "Dropper") {
+      var med_type_urdu = "ڈراپر";
+    } else if(medicine_type == "Creams") {
+      var med_type_urdu = "کریم";
+    } else if(medicine_type == "Nasal Spray") {
+      var med_type_urdu = "سپرے";
+    } else if(medicine_type == "Tsp") {
+      var med_type_urdu = "چمچ";
+    } else {
+      var med_type_urdu = "_";
+    }
+    var dosage_eng = 'In Morning: '+$('#med0').val()+' '+medicine_type+' | + In Evening: '+$('#med1').val()+' '+medicine_type+' | + At Night: '+$('#med2').val()+' '+medicine_type;
+    var dosage_urdu = 'صبح میں: '+$('#med0').val()+' '+med_type_urdu+' | + شام میں: '+$('#med1').val()+' '+med_type_urdu+' | + رات کو: '+$('#med2').val()+' '+med_type_urdu;
+    var array_eng = dosage_eng.split('+'); // split string on comma space
+    var array_urdu = dosage_urdu.split('+'); // split string on comma space
+    var final_dosage_eng = "";
+    var final_dosage_urdu = "";
+    array_eng.forEach(function (item) {
+      //console.log(item);
+      if (item.includes("00")) {
+
+      } else {
+        final_dosage_eng += item;
+      }
+    });
+    array_urdu.forEach(function (item) {
+      //console.log(item);
+      if (item.includes("00")) {
+
+      } else {
+        final_dosage_urdu += item;
+      }
+    });
+    console.log(final_dosage_eng + "__________");
+    console.log(final_dosage_urdu);
+
+    var type =  $('#type').val();
+    //var dis = $('#autocomplete_disease').val();
+    $.ajax({
+      type:'POST',
+      url:"{{url('addprescribedmedicine')}}",
+      data: {
+        vh_id: $('#vh_id').text(),
+        med_id: med_id,
+        dosage: final_dosage_eng,
+        dosage_urdu: final_dosage_urdu,
+        type: type,
+        },
+        success:function(data) {
+          getmedicines();
+        }
+    });
+  }
+  //gettig all the medicines
+  function getmedicines() {
+    let med_added = $("#med_added");
+    med_added.empty();
+    //let med_added = $("#med_added");
+    //med_added.empty();
+    $.ajaxSetup({
+         headers: {
+           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+         }
+       });
+       $.ajax({
+       url: "{{url('getmedicines')}}"+'/'+$("#vh_id").text(),
+       type: 'get',
+       dataType: 'json',
+       success: function(response) {
+       var len = 0;
+       var json = '';
+       if (response['data'] != null) {
+         len = response['data'].length;
+         json = response['data'];
+         }
+       if(len > 0) {
+         let med_added = $("#med_added");
+         med_added.empty();
+         $.each(json, function (key, entry) {
+            let med_added = $("#med_added");
+            med_added = med_added.append($('<li></li>').attr('id', entry.med_id).attr('value', entry.med_id).css('font-size', '18px').css('float', 'left').css('font-weight', 'bold').css('color', 'black').html("&nbsp;" + entry.med_id + "&nbsp;&nbsp;&nbsp;&nbsp;" + entry.dosage))
+            med_added = med_added.append($('<br><br>'))
+          })
+        }
+       }
+     });
+    }
+
+    /*
+    let med_added = $("#med_added");
+    med_added.empty();
+    $.ajaxSetup({
+         headers: {
+           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+         }
+       });
+       $.ajax({
+       url: "{{url('getmedicines')}}"+'/'+$("#vh_id").text(),
+       type: 'get',
+       dataType: 'json',
+       success: function(response) {
+       var len = 0;
+       var json = '';
+       if (response['data'] != null) {
+         len = response['data'].length;
+         json = response['data'];
+         }
+       if(len > 0) {
+         //let p_list_left = $("#pat_v_histories");
+         //p_list_left.empty();
+         let med_added = $("#med_added");
+         med_added.empty();
+         $.each(json, function (key, entry) {
+           //p_list_left = p_list_left.append($('<h5></h5>').attr('id', entry.id).attr('value', entry.date).text(entry.date))
+            console.log(entry);
+            let med_added = $("#med_added");
+            med_added = med_added.append($('<li></li>').attr('id', entry.med_id).attr('value', entry.med_id).css('font-size', '18px').css('float', 'left').css('font-weight', 'bold').css('color', 'black').html("&nbsp;" + entry.med_id + "&nbsp;&nbsp;&nbsp;&nbsp;" + entry.dosage))
+            med_added = med_added.append($('<br><br>'))
+          }
+         }
+       });
+      }
       */
+  //clicking on added medicine to remove
+  $(document).on("click","#med_added", function (event) {
+    //console.log("vh_id " + event.target.id);
+    let medicine = event.target.id;
+    if (medicine != "med_added") {
+      var answer = window.confirm("Do you want to remove: " +medicine);
+      //console.log("vh_id " + event.target.id);
+      if (answer) {
+        //document.getElementById(dis).remove();
+        removemedicines (medicine);
+      }
+      else {
+          //some code
+      }
+    }
+  })
+
+  function removemedicines(medicine) {
+    //console.log(medicine);
+    $.ajaxSetup({
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      }
+    });
+    $.ajax({
+      type:'POST',
+      url:"{{url('removemedicines')}}",
+      data: {
+        medicine: medicine,
+     },
+        success:function(data) {
+          //alert("Removed!");
+          //location.reload();
+          getmedicines();
+        }
+    });
   }
 
   function searchmedicinepot() {
@@ -540,7 +1071,7 @@ setInterval(function() {
        });
       }
 
-      $(document).on("click","#pat_v_histories", function (event) {
+  $(document).on("click","#pat_v_histories", function (event) {
           //console.log("vh_id " + event.target.id);
           let vh_id = event.target.id;
           $.ajaxSetup({
@@ -619,7 +1150,7 @@ setInterval(function() {
              });
           }
 
-          $(document).on("click","#pat_v_histories", function (event) {
+  $(document).on("click","#pat_v_histories", function (event) {
               //console.log("vh_id " + event.target.id);
               let vh_id = event.target.id;
               $.ajaxSetup({
@@ -778,7 +1309,6 @@ function SchedulePatVisitStore() {
   var v_type = $('#v_type').val();
 
   var date = current_date();
-
   //console.log(head_size + " " + length + " " + weight + " " + temperature + " " + date);
   $.ajax({
     type:'POST',
@@ -859,58 +1389,73 @@ window.onclick = function(event) {
   }
 }
 
-function FinalVisitHistoryStore() {
+function removePatFromList() {
+  showPrescription();
+  var vh_id = $("#vh_id").text();
   $.ajaxSetup({
     headers: {
       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     }
   });
-
-  var pid = $('#pid').text();
-  var head_size = $('#head_size').text();
-  var length = $('#length').text();
-  var weight = $('#weight').text();
-  if($('#temperature').text()) {
-    var temperature = $('#temperature').text();
-  } else {
-    var temperature = "_";
-  }
-  var v_type = $('#v_type').text();
-  var medicine = $('#added_med').text();
-  var dosage = $('#system').val();
-  if ($('#docnote').val()) {
-    var note = $('#docnote').val();
-  } else {
-    var note = "_";
-  }
-  //if(temperature==null){
-//    temperature = "_";
-//  }
-  var date = $('#date').text();
-  console.log(dosage);
-
-  //console.log(head_size + " " + length + " " + weight + " " + temperature + " " + date);
   $.ajax({
-    type:'POST',
-    url:"{{url('finalvisithistorystore')}}",
-    data: {
-      patient_id: pid,
-      date: date,
-      head_size: head_size,
-      length: length,
-      weight: weight,
-      temperature: temperature,
-      v_type: v_type,
-      medicine: medicine,
-      dosage: dosage,
-      note: note,
-   },
+    type:'GET',
+    url:"{{url('removePatFromList')}}"+'/'+vh_id,
       success:function(data) {
-        alert("Patient visit added successfully!");
+        alert("Patient visit completed successfully!");
         location.reload();
       }
   });
 }
+
+var ViewModel = function() {
+
+  var self = this;
+  self.filter = ko.observable();
+
+  self.list = ko.observableArray([
+    "fruit",
+    "bread",
+    "dad",
+    "zoo",
+    "keyboard",
+    "monkey",
+    "tiger",
+    "apple",
+    "bicycle",
+    "father",
+    "mother",
+    "test",
+    "computer",
+    "programming",
+    "ninja",
+    "love",
+    "earth",
+    "nothing",
+    "money"
+  ]);
+
+  self.filteredList = ko.computed(function() {
+    return ko.utils.arrayFilter(self.list(), function(item) {
+      return item.toLowerCase().indexOf(self.filter()) > -1;
+    });
+
+  });
+
+  self.clearFilter = function() {
+    self.filter('');
+  }
+
+  self.onEnter = function(d, e) {
+    if (e.keyCode === 13) {
+      //alert("You want to search for: " + self.filter());
+      self.clearFilter();
+    }
+    return true;
+  }
+
+}
+
+ko.applyBindings(new ViewModel())
 
 </script>
 

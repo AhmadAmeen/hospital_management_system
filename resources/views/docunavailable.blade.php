@@ -8,17 +8,11 @@
 
   <link rel="stylesheet" type="text/css" href="{{ asset('public/css/checkbox-etc-css.css') }}" />
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script>
-  /*
-  $(document).ready(function(){
-  $("#toggle_box").hide();
-    $("#toggle").click(function(){
-      $("#toggle_box").toggle();
-    });
-  });
-  */
-  </script>
-
+  <!-- Remember to include jQuery :) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+  <!-- jQuery Modal -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
   <div class="right_col" role="main">
    <div class="clearfix"></div>
              <div class="row">
@@ -44,9 +38,9 @@
                        </ul>
                        <div class="clearfix"></div>
                      </div>
-                        <div class="x_content">
+                    <div class="x_content">
                     <br>
-                    <form action="{{url('registernewpatient')}}" method="post" enctype="multipart/form-data" id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
+                    <form action="{{url('pat_rescheduled')}}" method="post" enctype="multipart/form-data" id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
                       @csrf
                       <h1 style="text-align: center; margin-down: 20px">Choose Center & Reason</h1>
                       <!--pat-name-->
@@ -54,11 +48,11 @@
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="dcoordinator">Choose Center:<span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                            <select name="center" class="form-control col-md-7 col-xs-12">
-                              <option value="All Centers">All Centers</option>
-                                @foreach($centers as $center)
-                                  <option value="{{$center->id}}">{{$center->cname}}</option>
-                                @endforeach
+                          <select name="center_unavail" class="form-control col-md-7 col-xs-12">
+                            <option value="All Centers">All Centers</option>
+                            @foreach($centers as $center)
+                              <option value="{{$center->id}}">{{$center->cname}}</option>
+                            @endforeach
                           </select>
                         </div>
                       </div>
@@ -66,9 +60,9 @@
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="dcoordinator">Reason:<span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                            <select name="type" class="form-control col-md-7 col-xs-12">
-                                  <option value="Unavailble">Unavailble</option>
-                                  <option value="Out of Country">Out of Country</option>
+                          <select name="type" class="form-control col-md-7 col-xs-12">
+                            <option value="Unavailble">Unavailble</option>
+                            <option value="Out of Country">Out of Country</option>
                           </select>
                         </div>
                       </div>
@@ -77,7 +71,7 @@
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="reason">Details (If any):<span></span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="text" id="details" name="reason" required="required" placeholder="Reason to leave..." class="form-control col-md-7 col-xs-12">
+                          <input type="text" id="details" name="reason" placeholder="Reason to leave..." class="form-control col-md-7 col-xs-12">
                         </div>
                       </div>
                       <!--from-->
@@ -99,9 +93,10 @@
                           <!--
                           <button class="btn btn-primary" type="button">Cancel</button>
                           <button class="btn btn-primary" type="reset">Reset</button>
-                          <button type="submit" name="submit" class="btn btn-success">Submit</button>
-                        -->
+                          <a tabindex="0" class="btn btn-lg btn-danger" role="button" data-toggle="popover" data-trigger="focus" title="Dismissible popover" data-content="And here's some amazing content. It's very engaging. Right?">Dismissible popover</a>
                           <a onclick="sendmsg()" class="btn btn-success">Send message</a>
+                          -->
+                          <button type="submit" name="submit" class="btn btn-success">Submit</button>
                         </div>
                       </div>
                     </form>
@@ -111,14 +106,15 @@
             </div>
           </div>
   <script>
+
     function sendmsg() {
       if ($("#from").val() && $("#to").val()) {
-      alert("Messages sent successfully!");
-      location.reload();
+      //alert("Messages sent successfully!");
     } else {
       alert("Please fill empty fields!");
       }
     }
+
   </script>
 
 @endsection

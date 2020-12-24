@@ -13,5 +13,6 @@ class MedicinePotencyController extends Controller
       $arr['data'] = MedicinePotency::where('med_id', $med_id)->get();
       echo json_encode($arr);
       exit;
+
     }
 }

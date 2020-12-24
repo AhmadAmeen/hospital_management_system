@@ -5,13 +5,13 @@ use Illuminate\Http\Request;
 use App\VisitHistory;
 use App\Patient;
 use App\Doctor;
+use App\Schedule;
 use App\Receptionist;
 Use Session;
 
 class VisitHistoryController extends Controller
 {
   public function vh_main_patients (Request $request) {
-
     //find current receptionist
     $recep_id = $request->session()->get('recep_session');
     $receptionist = Receptionist::find($recep_id);
@@ -64,6 +64,7 @@ class VisitHistoryController extends Controller
     $visit_history = new VisitHistory;
     $visit_history->patient_id = $id;
     $patient = Patient::find($id);
+    $schedule = Schedule::where('pat_id', $patient->id)->where('status', '0')->latest()->first();
     $visit_history->doc_id = $patient->doc_id;
     $visit_history->fname = $patient->fname;
     $visit_history->lname = $patient->lname;
@@ -76,12 +77,16 @@ class VisitHistoryController extends Controller
     $visit_history->head_size = $request->input('head_size');
     $visit_history->length = $request->input('length');
     $visit_history->weight = $request->input('weight');
+    $visit_history->note = "_";
     if ($request->input('temperature')) {
       $visit_history->temperature = $request->input('temperature');
     } else {
       $visit_history->temperature = "_";
     }
     $visit_history->other = $request->input('other');
+    //double check
+    $visit_history->center_id = $schedule->center_id;
+    $visit_history->status = '1';
     $visit_history->save();
     //return $this->vh_patient($id);
   }

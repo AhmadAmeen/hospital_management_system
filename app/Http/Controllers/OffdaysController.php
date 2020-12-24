@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Offdays;
+use App\AdvOffdays;
 use App\AdvCenter;
 use Illuminate\Http\Request;
 
@@ -47,6 +48,29 @@ class OffdaysController extends Controller
       $offdays->sat = ($request->sat == "TRUE") ? 'TRUE' : 'FALSE';
       $offdays->sun = ($request->sun == "TRUE") ? 'TRUE' : 'FALSE';
       $offdays->save();
+
+      if ($request->mon == "TRUE") {
+       $advoffdays = new AdvOffdays; $advoffdays->center_id = $request->center_id; $advoffdays->dayname = "Mon"; $advoffdays->status = "TRUE";
+      }
+      if ($request->tues == "TRUE") {
+       $advoffdays = new AdvOffdays; $advoffdays->center_id = $request->center_id;  $advoffdays->dayname = "Tues"; $advoffdays->status = "TRUE";
+      }
+      if ($request->wed == "TRUE") {
+       $advoffdays = new AdvOffdays; $advoffdays->center_id = $request->center_id;  $advoffdays->dayname = "Wed"; $advoffdays->status = "TRUE"; $advoffdays->save();
+      }
+      if ($request->thu == "TRUE") {
+       $advoffdays = new AdvOffdays; $advoffdays->center_id = $request->center_id;  $advoffdays->dayname = "Thu"; $advoffdays->status = "TRUE"; $advoffdays->save();
+      }
+      if ($request->fri == "TRUE") {
+       $advoffdays = new AdvOffdays; $advoffdays->center_id = $request->center_id;  $advoffdays->dayname = "Fri"; $advoffdays->status = "TRUE"; $advoffdays->save();
+      }
+      if ($request->sat == "TRUE") {
+       $advoffdays = new AdvOffdays; $advoffdays->center_id = $request->center_id;  $advoffdays->dayname = "Sat"; $advoffdays->status = "TRUE"; $advoffdays->save();
+      }
+      if ($request->sun == "TRUE") {
+       $advoffdays = new AdvOffdays; $advoffdays->center_id = $request->center_id;  $advoffdays->dayname = "Sun"; $advoffdays->status = "TRUE"; $advoffdays->save();
+      }
+
       return view('docregform_adv_center_timings')
       ->with('current_doc_id', $center->doc_id)
       ->with('center', $center);

@@ -2,8 +2,8 @@
 <html lang="en">
 <body>
 
-    <!-- top navigation -->
-    @include('doctorlayout/headerforvac')
+   <!-- top navigation -->
+   @include('doctorlayout/headerforvac')
    <!-- /top navigation -->
 
   <!-- page content -->
@@ -14,8 +14,8 @@
       <!-- footer content -->
 
       <!-- /footer content -->
-      </div>
         </div>
+      </div>
 
       <!-- jQuery -->
       <script src="{{ asset ('public/gentelella-master/vendors/jquery/dist/jquery.min.js') }}"></script>

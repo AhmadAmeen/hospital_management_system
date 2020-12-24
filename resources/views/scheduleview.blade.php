@@ -80,7 +80,7 @@
                          </div>
                         </div>
                         <!--centers-->
-                        <div class="form-group" id="toggle_box">
+                        <div class="form-group" id="toggle_box" style="margin: 30px">
                           <label class="control-label col-md-3 col-sm-3 col-xs-12" for="dcoordinator">Choose Center<span class="required">*</span>
                           </label>
                           <div class="col-md-6 col-sm-6 col-xs-12">
@@ -176,7 +176,8 @@
       },
          success:function(data) {
            alert("Patient scheduled successfully!");
-           location.reload();
+           window.location = "{{url('recep_main_p_visit/' . $patient->id)}}";
+           //location.reload();
          }
      });
    }

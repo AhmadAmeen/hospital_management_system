@@ -11,4 +11,12 @@ class MedicineController extends Controller
       echo json_encode($arr);
       exit;
     }
+
+    public function addnewmedicine(Request $request) {
+      $medicine = new Medicine;
+      $medicine->name = $request->input('med_name');
+      $medicine->desc = "_";
+      $medicine->type = $request->input('med_type');
+      $medicine->save();
+    }
 }

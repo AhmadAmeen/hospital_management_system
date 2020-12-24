@@ -15,7 +15,7 @@
     <!-- /page content -->
 
     <!-- footer content -->
-    <footer style="padding-top: 35px;">
+    <footer style="border-top: 1px solid #D3D3D3;">
        <!--<form action="/action_page.php">-->
        <div class="clearfix"></div>
        <div class="pull-right">
@@ -23,12 +23,11 @@
        </div>
        <div class="clearfix"></div>
     </footer>
-    <!-- /footer content -->
 
       </div>
         </div>
 
-      <!-- jQuery -->
+        <!-- jQuery -->
       <script src="{{ asset ('public/gentelella-master/vendors/jquery/dist/jquery.min.js') }}"></script>
       <!-- Bootstrap -->
       <script src="{{ asset ('public/gentelella-master/vendors/bootstrap/dist/js/bootstrap.min.js') }}"></script>

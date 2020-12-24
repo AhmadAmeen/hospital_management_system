@@ -184,16 +184,12 @@ Route::post('addingvaccinetimingfromupdate/{vid}', 'AdvVaccineTimingController@a
 Route::get('editvaccinationhistory/{pat_id}', 'VaccinationHistoryController@editvaccinationhistory');
 // edit vaccination history
 Route::get('editvaccinationhistorydoc/{pat_id}', 'VaccinationHistoryController@editvaccinationhistorydoc');
-// edit vaccination history
-Route::get('doc_edit_vh_from_pat/{pat_id}', 'VaccinationHistoryController@doc_edit_vh_from_pat');
 //add adv vaccine update history
 Route::post('advvaccineforpatientupdate/{pat_id}', 'VaccinationHistoryController@advvaccineforpatientupdate');
 //add adv vaccine update history
 Route::post('advvaccineforpatientupdatedoc/{pat_id}', 'VaccinationHistoryController@advvaccineforpatientupdatedoc');
 //main page doc from vacc redirect
-Route::get('TodocMainPage/{pat_id}', 'DoctorController@prescribeMed');
-//main page doc from vacc redirect
-Route::get('TodocMainPage', 'DoctorController@docMainPage');
+Route::get('TodocMainPage/{pat_id}', 'DoctorController@TodocMainPage');
 //add adv vaccine update history
 Route::post('recep_advvaccineforpatientupdate/{pat_id}', 'VaccinationHistoryController@recep_advvaccineforpatientupdate');
 //schedule view
@@ -216,6 +212,8 @@ Route::get('searchmedicine/{med_id}', 'MedicinePotencyController@show');
 Route::post('finalvisithistorystore','DoctorController@store');
 //show all patients
 Route::get('getmedicinename/{med_id}', 'MedicineController@getmedicine');
+// add new med
+Route::post('addnewmedicine', 'MedicineController@addnewmedicine');
 //tvh => temporary visit history record from recep
 Route::get('fetch_tvh_records', 'DoctorController@fetch_tvh_records');
 //tvh => temporary visit history record from recep
@@ -224,5 +222,37 @@ Route::get('getTypeOfVisit/{pat_id}', 'DoctorController@getTypeOfVisit');
 Route::get('patient_fvh_record/{pat_id}', 'FinalVisitHistoryController@patient_fvh_record');
 //fvh => final visit history record from recep
 Route::get('docunavailable/{doc_id}', 'DoctorController@docunavailable');
-
+//docunavailable post and rescheduling
+Route::post('pat_rescheduled', 'ScheduleController@pat_rescheduled');
+//prescription view
 Route::view('prescriptionview', 'prescriptionview');
+Route::post('finalvisithistorystore','FinalVisitHistoryController@store');
+//show doc dashboard
+Route::get('showdashboard/{doc_id}', 'DoctorController@showdashboard');
+// add medical adddiagnosis
+Route::post('adddiagnosis','DiagnosisController@adddiagnosis');
+// add medical adddiagnosis
+Route::post('addprescribedmedicine','PrescribedMedicineController@addprescribedmedicine');
+//get patient diagnosis for current vh
+Route::get('getdiagnosis/{vh_id}', 'DiagnosisController@getdiagnosis');
+//delete Diagnosis
+// remove medical diagnosis
+Route::post('removediagnosis','DiagnosisController@removediagnosis');
+//get patient prescribed medicines for current vh
+Route::get('getmedicines/{vh_id}', 'PrescribedMedicineController@getmedicines');
+// remove medicine
+Route::post('removemedicines','PrescribedMedicineController@removemedicines');
+//return view of prescriptionview
+Route::get('showPrescription/{vh_id}/{note}', 'DoctorController@showPrescription');
+//Route::view('showPrescription', 'showPrescription');
+Route::view('demo_prescriptionview', 'demo_prescriptionview');
+//update dashboard
+Route::get('updatedashboard/{from}/{to}', 'DoctorController@updatedashboard');
+// remove Pat From List
+Route::get('removePatFromList/{vh_id}', 'DoctorController@removePatFromList');
+// doc updating center
+Route::post('doc_updatingcenter', 'AdvCenterController@doc_updatingcenter');
+//doc unavail reschedule
+Route::view('docunavail_reschedule', 'docunavail_reschedule');
+// pat patDetailedDashboard
+Route::get('patDetailedDashboard/{pat_id}/{vh_id}', 'DoctorController@patDetailedDashboard');

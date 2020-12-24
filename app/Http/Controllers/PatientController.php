@@ -46,6 +46,7 @@ class PatientController extends Controller
         $patient->doc_id = $doctor->id;
         //echo $request->patient_cid;
         $patient->center_id = $request->patient_cid;
+        $patient->status = "1";
         $patient->save();
         //return redirect('showpatients/' . session('recep_session'));
         return redirect('addmedicalhistory/' . $patient->id);

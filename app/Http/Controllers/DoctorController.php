@@ -13,29 +13,29 @@ use App\VaccinationHistory;
 use App\AdvVaccine;
 use App\VisitHistory;
 use App\Medicine;
+use App\Diagnosis;
+use App\Disease;
+use App\PrescribedMedicine;
 use App\AdvVaccineTiming;
 use Validator;
 use Image;
 use Session;
+use Carbon\Carbon;
 
 class DoctorController extends Controller
 {
     public function doctorlogin() {
-    return view('doctorlogin');
-  }
+      return view('doctorlogin');
+    }
 
     public function getdoctorlogout() {
-    Session::flush();
-    return redirect('/');
-  }
+      Session::flush();
+      return redirect('/');
+    }
 
     public function fetch_tvh_records(Request $request) {
       $vhPatIds = VisitHistory::pluck('patient_id')->all();
       $doc_id = $request->session()->get('doctor_session');
-      //$arr['data'] = Patient::select('id', 'fname', 'lname', 'gender', 'age', 'dob', 'father_name', 'guard_no')
-      //->where('doc_id', $doc_id)
-      //->whereIn('id', $vhPatIds)
-      //->get();
       $arr['data'] = VisitHistory::where('doc_id', $doc_id)->get();
       echo json_encode($arr);
       exit;
@@ -47,56 +47,9 @@ class DoctorController extends Controller
       exit;
     }
 
-    public function doctorloggedin(Request $request) {
-        $doctor = Doctor::where('username',$request->username)->where('password',$request->password)
-        ->get()
-        ->toArray();
-        if ($doctor) {
-          $request->session()->put('doctor_session', $doctor[0]['id']);
-          $request->session()->put('doctor_name_session', $request->username);
-          //find all visit histories
-          $vhPatIds = VisitHistory::pluck('patient_id')->all();
-          $doc_id = $doctor[0]['id'];
-          $patients = Patient::where('doc_id', $doc_id)
-          ->whereIn('id', $vhPatIds)
-          ->get();
-          //$incoming_patients = "";
-          $v_histories = VisitHistory::get();
-          $medicines = Medicine::pluck('name')->all();
-          //echo '<pre>'; print_r($incoming_patients); echo '</pre>';
-          //echo json_encode($arr);
-          //exit;
-
-          $v_timings = array (
-            "Dosage I",
-            "Dosage II",
-            "Dosage III",
-            "Dosage IV",
-            "Dosage V",
-            "Dosage VI",
-            "Booster I",
-            "Booster II",
-          );
-          $advvaccines = AdvVaccine::where ('doc_id', $doc_id)->get();
-          //print_r($advvaccines);
-          foreach ($advvaccines as $advvaccine) {
-            $advvaccinetimings = AdvVaccineTiming::where('v_id', $advvaccine->id)->get();
-            //echo $advvaccinetimings[0];
-          }
-          $vaccinationhistories = VaccinationHistory::where('pat_id', 6)->get();
-          return view('doctormainpage')->with('patients', $patients)
-          ->with('medicines', $medicines)
-          ->with('v_timings', $v_timings)
-          ->with('advvaccines', $advvaccines)
-          ->with('vaccinationhistories', $vaccinationhistories);//->with('visit_details', $visit_details);
-        } else {
-          session::flash('coc', 'Email or Password is incorrect!');
-          return redirect('doctorlogin')->withinput();
-        }
-      }
-
     public function TodocMainPage($pat_id, Request $request) {
       $med_histories = MedicalHistory::where('patient_id', $pat_id)->get();
+      //public function docMainPage($pat_id, Request $request) {
       $cur_pat_vh = VisitHistory::where('patient_id', $pat_id)->latest()->first();
       //find all visit histories
       $v_histories = VisitHistory::get();
@@ -113,6 +66,9 @@ class DoctorController extends Controller
         }
       }
       $medicines = Medicine::get();
+      $medicine_names = Medicine::pluck('name')->all();
+      $diseases = Disease::get();
+      $disease_names = Disease::pluck('name')->all();
       //echo '<pre>'; print_r($incoming_patients); echo '</pre>';
       //echo json_encode($arr);
       //exit;
@@ -128,8 +84,8 @@ class DoctorController extends Controller
         "Booster II",
       );
 
-      $patient = Patient::find($pat_id);
-      $advvaccines = AdvVaccine::where ('doc_id', $patient->doc_id)->get();
+      //$patient = Patient::find($pat_id);
+      $advvaccines = AdvVaccine::where ('doc_id', $doc_id)->get();
       //print_r($advvaccines);
       foreach ($advvaccines as $advvaccine) {
         $advvaccinetimings = AdvVaccineTiming::where('v_id', $advvaccine->id)->get();
@@ -139,6 +95,9 @@ class DoctorController extends Controller
       $vaccinationhistories = VaccinationHistory::where('pat_id', $pat_id)->get();
       return view('doctormainpage')->with('patients', $patients)
       ->with('medicines', $medicines)
+      ->with('medicine_names', $medicine_names)
+      ->with('diseases', $diseases)
+      ->with('disease_names', $disease_names)
       ->with('v_timings', $v_timings)
       ->with('advvaccines', $advvaccines)
       ->with('currentpatient', $patient)
@@ -150,6 +109,71 @@ class DoctorController extends Controller
     public function prescribeMed(Request $request) {
       return view('doctormainpage');
     }
+
+    public function doctorloggedin(Request $request) {
+        $doctor = Doctor::where('username',$request->username)->where('password',$request->password)
+        ->get()
+        ->toArray();
+        if ($doctor) {
+          $request->session()->put('doctor_session', $doctor[0]['id']);
+          $request->session()->put('doctor_name_session', $request->username);
+          //find all visit histories
+          $v_histories = VisitHistory::get();
+          //$incoming_patients = "";
+          foreach ($v_histories as $v_history) {
+            //find patient with each of that visit history
+            $patient = Patient::find($v_history->patient_id);
+            $doc_id = $doctor[0]['id'];
+            // check if he's the patient of current doc
+            if($patient->doc_id == $doc_id) {
+              //if so send him and his history to the doc
+              $patients[] = $patient;
+              //$visit_details = $v_history;
+            }
+          }
+          $medicines = Medicine::get();
+          $medicine_names = Medicine::pluck('name')->all();
+          $diseases = Disease::get();
+          $disease_names = Disease::pluck('name')->all();
+          //echo '<pre>'; print_r($incoming_patients); echo '</pre>';
+          //echo json_encode($arr);
+          //exit;
+
+          $v_timings = array (
+            "Dosage I",
+            "Dosage II",
+            "Dosage III",
+            "Dosage IV",
+            "Dosage V",
+            "Dosage VI",
+            "Booster I",
+            "Booster II",
+          );
+
+          //$patient = Patient::find(6);
+          $advvaccines = AdvVaccine::where ('doc_id', $doctor[0]['id'])->get();
+          //print_r($advvaccines);
+          foreach ($advvaccines as $advvaccine) {
+            $advvaccinetimings = AdvVaccineTiming::where('v_id', $advvaccine->id)->get();
+            //echo $advvaccinetimings[0];
+          }
+
+          $vaccinationhistories = VaccinationHistory::where('pat_id', 6)->get();
+          return view('doctormainpage')//
+          //->with('patients', $patients)
+          ->with('medicines', $medicines)
+          ->with('medicine_names', $medicine_names)
+          ->with('diseases', $diseases)
+          ->with('disease_names', $disease_names)
+          ->with('v_timings', $v_timings)
+          ->with('advvaccines', $advvaccines)
+          ->with('patient', $patient)
+          ->with('vaccinationhistories', $vaccinationhistories);//->with('visit_details', $visit_details);
+        } else {
+          session::flash('coc', 'Email or Password is incorrect!');
+          return redirect('doctorlogin')->withinput();
+        }
+      }
 
     public function show() {
       return view ('docregform_docdetails');
@@ -213,7 +237,7 @@ class DoctorController extends Controller
       $doctor->active_status = '0';
       $doctor->save();
       return redirect('showdoctors');
-    }
+   }
 
    public function getseacheddoctors(Request $request) {
      $doctors = Doctor::where('dname' ,$request->dname)
@@ -229,4 +253,361 @@ class DoctorController extends Controller
      $centers = AdvCenter::where("doc_id", $doc_id)->get();
      return view ('docunavailable')->with('centers', $centers);
    }
+
+   public function showdashboard($doc_id, Request $request) {
+
+     //current month data
+     $patients = Patient::where('doc_id', $doc_id)
+     ->whereYear('created_at', Carbon::now()->year)
+     ->whereMonth('created_at', Carbon::now()->month)
+     ->get();
+
+     $males = Patient::where('doc_id', $doc_id)->where('gender', 'MALE')
+     ->whereYear('created_at', Carbon::now()->year)
+      ->whereMonth('created_at', Carbon::now()->month)
+     ->get();
+
+     $females = Patient::where('doc_id', $doc_id)->where('gender', 'FEMALE')
+     ->whereYear('created_at', Carbon::now()->year)
+     ->whereMonth('created_at', Carbon::now()->month)
+     ->get();
+
+     $activepatients = Patient::where('doc_id', $doc_id)->where('status', '1')
+     ->whereYear('created_at', Carbon::now()->year)
+     ->whereMonth('created_at', Carbon::now()->month)
+     ->get();
+
+     $visit_histories = VisitHistory::where('doc_id', $doc_id)
+     ->whereYear('created_at', Carbon::now()->year)
+     ->whereMonth('created_at', Carbon::now()->month)
+     ->get();
+
+     $centers = AdvCenter::where('doc_id', $doc_id)
+     ->whereYear('created_at', Carbon::now()->year)
+     ->whereMonth('created_at', Carbon::now()->month)
+     ->get();
+
+     $center_ids = AdvCenter::where('doc_id', $doc_id)
+     ->whereYear('created_at', Carbon::now()->year)
+     ->whereMonth('created_at', Carbon::now()->month)
+     ->pluck('id')->all();
+
+     $schedules = Schedule::whereIn('center_id', $center_ids)
+     ->whereYear('created_at', Carbon::now()->year)
+     ->whereMonth('created_at', Carbon::now()->month)
+     ->get();
+
+     $sch_vac = Schedule::where('type', 'Vaccination')
+     ->whereYear('created_at', Carbon::now()->year)
+     ->whereMonth('created_at', Carbon::now()->month)
+     ->get();
+
+     $sch_checkup = Schedule::where('type', 'Physical Checkup')
+     ->whereYear('created_at', Carbon::now()->year)
+     ->whereMonth('created_at', Carbon::now()->month)
+     ->get();
+
+     $sch_vid = Schedule::where('type', 'Video Consultation')
+     ->whereYear('created_at', Carbon::now()->year)
+     ->whereMonth('created_at', Carbon::now()->month)
+     ->get();
+     //current month data taken
+
+     //last month data
+     $patientslm = Patient::where('doc_id', $doc_id)
+     ->whereYear('created_at', Carbon::now()->year)
+     ->whereMonth('created_at', Carbon::now()->subMonth()->month)
+     ->get();
+
+     $patienschange = $this->getPercentageChange(count($patients), count($patientslm));
+
+     $maleslm = Patient::where('doc_id', $doc_id)->where('gender', 'MALE')
+     ->whereYear('created_at', Carbon::now()->year)
+     ->whereMonth('created_at', Carbon::now()->subMonth()->month)
+     ->get();
+
+     $maleschange = $this->getPercentageChange(count($males), count($maleslm));
+
+     $femaleslm = Patient::where('doc_id', $doc_id)
+     ->whereYear('created_at', Carbon::now()->year)
+     ->whereMonth('created_at', Carbon::now()->subMonth()->month)
+     ->get();
+
+     $femaleschange = $this->getPercentageChange(count($females), count($femaleslm));
+
+     $activepatientslm = Patient::where('doc_id', $doc_id)->where('status', '1')
+     ->whereYear('created_at', Carbon::now()->year)
+     ->whereMonth('created_at', Carbon::now()->subMonth()->month)
+     ->get();
+
+     $activepatientschange = $this->getPercentageChange(count($activepatients), count($activepatientslm));
+
+     $visit_historieslm = VisitHistory::where('doc_id', $doc_id)
+     ->whereYear('created_at', Carbon::now()->year)
+     ->whereMonth('created_at', Carbon::now()->subMonth()->month)
+     ->get();
+
+     $visit_historieschange = $this->getPercentageChange(count($visit_histories), count($visit_historieslm));
+
+     $centerslm = AdvCenter::where('doc_id', $doc_id)
+     ->whereYear('created_at', Carbon::now()->year)
+     ->whereMonth('created_at', Carbon::now()->subMonth()->month)
+     ->get();
+
+     $centerschange = $this->getPercentageChange(count($centers), count($centerslm));
+
+     $center_idslm = AdvCenter::where('doc_id', $doc_id)
+     ->whereYear('created_at', Carbon::now()->year)
+     ->whereMonth('created_at', Carbon::now()->subMonth()->month)
+     ->pluck('id')->all();
+
+     //$center_idschange = $this->getPercentageChange(count($center_ids), count($center_idslm));
+
+     $scheduleslm = Schedule::whereIn('center_id', $center_ids)
+     ->whereYear('created_at', Carbon::now()->year)
+     ->whereMonth('created_at', Carbon::now()->subMonth()->month)
+     ->get();
+
+     $scheduleschange = $this->getPercentageChange(count($schedules), count($scheduleslm));
+
+     //last month data taken
+
+     return view ('showdashboard')
+     ->with('patients', $patients)
+     ->with('males', $males)
+     ->with('females', $females)
+     ->with('activepatients', $activepatients)
+     ->with('centers', $centers)
+     ->with('visit_histories', $visit_histories)
+     ->with('schedules', $schedules)
+     ->with('sch_vac', $sch_vac)
+     ->with('sch_checkup', $sch_checkup)
+     ->with('sch_vid', $sch_vid)
+     ->with('patienschange', $patienschange)
+     ->with('maleschange', $maleschange)
+     ->with('femaleschange', $femaleschange)
+     ->with('visit_historieschange', $visit_historieschange)
+     ->with('scheduleschange', $scheduleschange);
+   }
+
+   public function updatedashboard($from, $to, Request $request) {
+
+          $doc_id = $request->session()->get('doctor_session');
+          $dateS = new Carbon($from);
+          $dateE = new Carbon($to);
+          $patients = Patient::where('doc_id', $doc_id)->whereBetween('created_at', [$dateS->format('Y-m-d')." 00:00:00", $dateE->format('Y-m-d')." 23:59:59"])->get();
+
+          //current month data
+  //        $patients = Patient::where('doc_id', $doc_id)
+//          ->whereYear('created_at', Carbon::now()->year)
+//          ->whereMonth('created_at', Carbon::now()->month)
+//          ->get();
+
+          //$males = Patient::where('doc_id', $doc_id)->where('gender', 'MALE')
+          //->whereYear('created_at', Carbon::now()->year)
+          // ->whereMonth('created_at', Carbon::now()->month)
+          //->get();
+          $males = Patient::where('doc_id', $doc_id)->where('gender', 'MALE')->whereBetween('created_at', [$dateS->format('Y-m-d')." 00:00:00", $dateE->format('Y-m-d')." 23:59:59"])->get();
+
+          $females = Patient::where('doc_id', $doc_id)->where('gender', 'FEMALE')->whereBetween('created_at', [$dateS->format('Y-m-d')." 00:00:00", $dateE->format('Y-m-d')." 23:59:59"])->get();
+          //$females = Patient::where('doc_id', $doc_id)->where('gender', 'FEMALE')
+          //->whereYear('created_at', Carbon::now()->year)
+          //->whereMonth('created_at', Carbon::now()->month)
+          //->get();
+
+          $activepatients = Patient::where('doc_id', $doc_id)->where('status', '1')->whereBetween('created_at', [$dateS->format('Y-m-d')." 00:00:00", $dateE->format('Y-m-d')." 23:59:59"])->get();
+          //$activepatients = Patient::where('doc_id', $doc_id)->where('status', '1')
+          //->whereYear('created_at', Carbon::now()->year)
+          //->whereMonth('created_at', Carbon::now()->month)
+          //->get();
+
+          $visit_histories = VisitHistory::where('doc_id', $doc_id)->whereBetween('created_at', [$dateS->format('Y-m-d')." 00:00:00", $dateE->format('Y-m-d')." 23:59:59"])->get();
+          //$visit_histories = VisitHistory::where('doc_id', $doc_id)
+          //->whereYear('created_at', Carbon::now()->year)
+          //->whereMonth('created_at', Carbon::now()->month)
+          //->get();
+
+          $centers = AdvCenter::where('doc_id', $doc_id)->whereBetween('created_at', [$dateS->format('Y-m-d')." 00:00:00", $dateE->format('Y-m-d')." 23:59:59"])->get();
+          //$centers = AdvCenter::where('doc_id', $doc_id)
+          //->whereYear('created_at', Carbon::now()->year)
+          //->whereMonth('created_at', Carbon::now()->month)
+          //->get();
+
+          $center_ids = AdvCenter::where('doc_id', $doc_id)->whereBetween('created_at', [$dateS->format('Y-m-d')." 00:00:00", $dateE->format('Y-m-d')." 23:59:59"])->pluck('id')->all();
+          //$center_ids = AdvCenter::where('doc_id', $doc_id)
+          //->whereYear('created_at', Carbon::now()->year)
+          //->whereMonth('created_at', Carbon::now()->month)
+          //->pluck('id')->all();
+
+          $schedules = Schedule::whereIn('center_id', $center_ids)->whereBetween('created_at', [$dateS->format('Y-m-d')." 00:00:00", $dateE->format('Y-m-d')." 23:59:59"])->get();
+          //$schedules = Schedule::whereIn('center_id', $center_ids)
+          //->whereYear('created_at', Carbon::now()->year)
+          //->whereMonth('created_at', Carbon::now()->month)
+          //->get();
+
+          $sch_vac = Schedule::where('type', 'Vaccination')->whereBetween('created_at', [$dateS->format('Y-m-d')." 00:00:00", $dateE->format('Y-m-d')." 23:59:59"])->get();
+          //$sch_vac = Schedule::where('type', 'Vaccination')
+          //->whereYear('created_at', Carbon::now()->year)
+          //->whereMonth('created_at', Carbon::now()->month)
+          //->get();
+
+          $sch_checkup = Schedule::where('type', 'Physical Checkup')->whereBetween('created_at', [$dateS->format('Y-m-d')." 00:00:00", $dateE->format('Y-m-d')." 23:59:59"])->get();
+          //$sch_checkup = Schedule::where('type', 'Physical Checkup')
+          //->whereYear('created_at', Carbon::now()->year)
+          //->whereMonth('created_at', Carbon::now()->month)
+          //->get();
+
+          $sch_vid = Schedule::where('type', 'Video Consultation')->whereBetween('created_at', [$dateS->format('Y-m-d')." 00:00:00", $dateE->format('Y-m-d')." 23:59:59"])->get();
+          //$sch_vid = Schedule::where('type', 'Video Consultation')
+          //->whereYear('created_at', Carbon::now()->year)
+          //->whereMonth('created_at', Carbon::now()->month)
+          //->get();
+          //current month data taken
+
+          //last month data
+          $patientslm = Patient::where('doc_id', $doc_id)
+          ->whereYear('created_at', Carbon::now()->year)
+          ->whereMonth('created_at', Carbon::now()->subMonth()->month)
+          ->get();
+
+          $patienschange = $this->getPercentageChange(count($patients), count($patientslm));
+
+          $maleslm = Patient::where('doc_id', $doc_id)->where('gender', 'MALE')
+          ->whereYear('created_at', Carbon::now()->year)
+          ->whereMonth('created_at', Carbon::now()->subMonth()->month)
+          ->get();
+
+          $maleschange = $this->getPercentageChange(count($males), count($maleslm));
+
+          $femaleslm = Patient::where('doc_id', $doc_id)
+          ->whereYear('created_at', Carbon::now()->year)
+          ->whereMonth('created_at', Carbon::now()->subMonth()->month)
+          ->get();
+
+          $femaleschange = $this->getPercentageChange(count($females), count($femaleslm));
+
+          $activepatientslm = Patient::where('doc_id', $doc_id)->where('status', '1')
+          ->whereYear('created_at', Carbon::now()->year)
+          ->whereMonth('created_at', Carbon::now()->subMonth()->month)
+          ->get();
+
+          $activepatientschange = $this->getPercentageChange(count($activepatients), count($activepatientslm));
+
+          $visit_historieslm = VisitHistory::where('doc_id', $doc_id)
+          ->whereYear('created_at', Carbon::now()->year)
+          ->whereMonth('created_at', Carbon::now()->subMonth()->month)
+          ->get();
+
+          $visit_historieschange = $this->getPercentageChange(count($visit_histories), count($visit_historieslm));
+
+          $centerslm = AdvCenter::where('doc_id', $doc_id)
+          ->whereYear('created_at', Carbon::now()->year)
+          ->whereMonth('created_at', Carbon::now()->subMonth()->month)
+          ->get();
+
+          $centerschange = $this->getPercentageChange(count($centers), count($centerslm));
+
+          $center_idslm = AdvCenter::where('doc_id', $doc_id)
+          ->whereYear('created_at', Carbon::now()->year)
+          ->whereMonth('created_at', Carbon::now()->subMonth()->month)
+          ->pluck('id')->all();
+
+          //$center_idschange = $this->getPercentageChange(count($center_ids), count($center_idslm));
+
+          $scheduleslm = Schedule::whereIn('center_id', $center_ids)
+          ->whereYear('created_at', Carbon::now()->year)
+          ->whereMonth('created_at', Carbon::now()->subMonth()->month)
+          ->get();
+
+          $scheduleschange = $this->getPercentageChange(count($schedules), count($scheduleslm));
+
+          //last month data taken
+
+          return view ('showdashboard')
+          ->with('patients', $patients)
+          ->with('males', $males)
+          ->with('females', $females)
+          ->with('activepatients', $activepatients)
+          ->with('centers', $centers)
+          ->with('visit_histories', $visit_histories)
+          ->with('schedules', $schedules)
+          ->with('sch_vac', $sch_vac)
+          ->with('sch_checkup', $sch_checkup)
+          ->with('sch_vid', $sch_vid)
+          ->with('patienschange', $patienschange)
+          ->with('maleschange', $maleschange)
+          ->with('femaleschange', $femaleschange)
+          ->with('visit_historieschange', $visit_historieschange)
+          ->with('scheduleschange', $scheduleschange);
+        }
+
+   function getPercentageChange($oldNumber, $newNumber){
+    if ($oldNumber == 0) {
+      return 0;
+    } else {
+      $decreaseValue = $oldNumber - $newNumber;
+      return ($decreaseValue / $oldNumber) * 100;
+    }
+  }
+
+  public function showPrescription($vh_id, $note, Request $request) {
+    $visit_history = VisitHistory::find($vh_id);
+    $visited_center = AdvCenter::find($visit_history->center_id);
+    $visit_history->note = $note;
+    $visit_history->save();
+    $patient = Patient::find($visit_history->patient_id);
+    $doctor = Doctor::find($visit_history->doc_id);
+    $centers = AdvCenter::where('doc_id', $doctor->id)->get();
+    $diagnoses = Diagnosis::where('vh_id', $vh_id)->get();
+    $prescribed_med = PrescribedMedicine::where('vh_id', $vh_id)->get();
+    return view ('showPrescription')
+    ->with('visit_history', $visit_history)
+    ->with('patient', $patient)
+    ->with('doctor', $doctor)
+    ->with('visited_cname', $visited_center->cname)
+    ->with('centers', $centers)
+    ->with('diagnoses', $diagnoses)
+    ->with('prescribed_med', $prescribed_med);
+  }
+
+  public function removePatFromList($vh_id, Request $request) {
+    $visit_history = VisitHistory::find($vh_id);
+    $visited_center = AdvCenter::find($visit_history->center_id);
+    $visit_history->status = '0';
+    $visit_history->save();
+    $patient = Patient::find($visit_history->patient_id);
+    $doctor = Doctor::find($visit_history->doc_id);
+    $centers = AdvCenter::where('doc_id', $doctor->id)->get();
+    $diagnoses = Diagnosis::where('vh_id', $vh_id)->get();
+    $prescribed_med = PrescribedMedicine::where('vh_id', $vh_id)->get();
+    return view ('showPrescription')
+    ->with('visit_history', $visit_history)
+    ->with('patient', $patient)
+    ->with('doctor', $doctor)
+    ->with('visited_cname', $visited_center->cname)
+    ->with('centers', $centers)
+    ->with('diagnoses', $diagnoses)
+    ->with('prescribed_med', $prescribed_med);
+  }
+
+  public function patDetailedDashboard($pat_id, $vh_id, Request $request) {
+    $visit_history = VisitHistory::find($vh_id);
+    $patient = Patient::find($pat_id);
+    $doctor = Doctor::find($patient->doc_id);
+    $centers = AdvCenter::where('doc_id', $doctor->id)->get();
+    $diagnoses = Diagnosis::where('vh_id', $vh_id)->get();
+    $prescribed_med = PrescribedMedicine::where('vh_id', $vh_id)->get();
+    $medical_histories = MedicalHistory::where('patient_id', $pat_id)->get();
+    $vacc_histories = VaccinationHistory::where('pat_id', $pat_id)->get();
+    return view ('patDetailedDashboard')
+    ->with('visit_history', $visit_history)
+    ->with('patient', $patient)
+    ->with('doctor', $doctor)
+    ->with('centers', $centers)
+    ->with('diagnoses', $diagnoses)
+    ->with('prescribed_med', $prescribed_med)
+    ->with('medical_histories', $medical_histories)
+    ->with('vacc_histories', $vacc_histories);
+  }
+
 }

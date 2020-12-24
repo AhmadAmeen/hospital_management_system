@@ -46,7 +46,7 @@
                      </div>
                         <div class="x_content">
                     <br>
-                    <form action="{{url('registernewpatient')}}" method="post" enctype="multipart/form-data" id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
+                    <form action="{{url('doc_updatingcenter')}}" method="post" enctype="multipart/form-data" id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
                       @csrf
                       <h1 style="text-align: center; margin-down: 20px">Update Center</h1>
                       <!--pat-name-->
@@ -54,7 +54,7 @@
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="dcoordinator">Choose Center to update:<span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                            <select name="center" class="form-control col-md-7 col-xs-12">
+                            <select name="center_id" class="form-control col-md-7 col-xs-12">
                                 @foreach($centers as $center)
                                   <option value="{{$center->id}}">{{$center->cname}}</option>
                                 @endforeach
@@ -78,12 +78,12 @@
                       <div class="ln_solid"></div>
                       <div class="form-group">
                         <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                          <!--
                           <button class="btn btn-primary" type="button">Cancel</button>
                           <button class="btn btn-primary" type="reset">Reset</button>
                           <button type="submit" name="submit" class="btn btn-success">Submit</button>
-                        -->
+                          <!--
                           <a onclick="updatecenter()" class="btn btn-success">Update</a>
+                        -->
                         </div>
                       </div>
                     </form>
@@ -92,15 +92,5 @@
               </div>
             </div>
           </div>
-  <script>
-    function updatecenter() {
-      if ($("#cname").text() && $("#cloc").text()) {
-      alert("Center updated successfully!");
-      location.reload();
-    } else {
-      alert("Please fill empty fields!");
-      }
-    }
-  </script>
 
 @endsection

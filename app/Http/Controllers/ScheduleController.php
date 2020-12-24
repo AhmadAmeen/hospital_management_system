@@ -8,7 +8,10 @@ use App\AdvCenter;
 use App\Centertiming;
 use App\CentertimingSlot;
 use App\Offdays;
+use App\AdvOffdays;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Log;
 
 class ScheduleController extends Controller
 {
@@ -101,16 +104,66 @@ class ScheduleController extends Controller
     }
 
     public function schedulepatientstore(Request $request) {
-      $schedule = new Schedule;
-      $schedule->pat_id = $request->input('pat_id');
-      $schedule->center_id = $request->input('center_id');
-      $schedule->date = $request->input('date');
-      $schedule->time = $request->input('time');
-      //$ct_slot = CentertimingSlot::find($schedule->time);
-      //$ct_slot->status = '1';
-      //$ct_slot->save();
-      $schedule->type = $request->input('type');
-      $schedule->status = $request->input('status');
-      $schedule->save();
+      $schedules = Schedule::where('pat_id',$request->input('pat_id'))->get();
+      //echo '<pre>'; print_r($schedules); echo '</pre>';
+      //if (!$schedules) {
+        $schedule = new Schedule;
+        $schedule->pat_id = $request->input('pat_id');
+        $schedule->center_id = $request->input('center_id');
+        $schedule->date = Carbon::parse($request->input('date'))->format('Y-m-d')." 00:00:00";
+        $schedule->time = $request->input('time');
+        $schedule->type = $request->input('type');
+        $schedule->status = $request->input('status');
+        $schedule->save();
+      //} else {
+
+      //}
+    }
+
+    public function pat_rescheduled (Request $request) {
+      $dateS = Carbon::parse($request->from)->format('Y-m-d')." 00:00:00";
+      $dateE = Carbon::parse($request->to)->format('Y-m-d')." 00:00:00";
+      if ($request->center_unavail == "All Centers") {
+        $scheduled_pats = Schedule::where('status', 0)->whereBetween('date', [$dateS, $dateE])->get();
+        //$scheduled_pats = Schedule::where('status', '0')->whereBetween('date',  [$request->from, $request->to])->get();
+      } else {
+        //$scheduled_pats = Schedule::where('center_id', $request->center_unavail)->where('status', 0)->whereBetween('created_at', [$dateS->format('Y-m-d')." 00:00:00", $dateE->format('Y-m-d')." 23:59:59"])->get();
+      }
+      foreach ($scheduled_pats as $scheduled_pat) {
+        $scheduled = Schedule::find($scheduled_pat->id);
+        $new_schedule = new Schedule;
+        $new_schedule->pat_id = $scheduled_pat->pat_id;
+        $new_schedule->center_id = $scheduled_pat->center_id;
+        $newdate = Carbon::parse($dateE)->addDays(1);//$dateE->addDays(1);
+        $schDate = new Carbon($newdate);
+        $center_offdays = AdvOffdays::where('center_id', $scheduled->center_id)->pluck('dayname')->all();
+        for ($i = 0; $i < 21; $i++) {
+          $newdate =Carbon::parse($schDate)->addDays($i);//$schDate->addDays($i);
+          //check if that time slot and date
+          //is already taken or not
+          $checkSchDatetime = Schedule::where('time', $scheduled->time)->where('date', $newdate)->where('status', '0')->get();
+          //echo '<pre>'; print_r($scheduled_pats); echo '</pre>';
+          //echo '<pre>'; print_r($newdate . "|" . date('D', strtotime($newdate)) . "|" . $checkSchDatetime); echo '</pre>';
+          if ($checkSchDatetime) {
+            //new date to schedule
+            //date('D', strtotime($date));
+            //check if new date is an offday or not
+            if (!in_array(date('D', strtotime($newdate)), $center_offdays))
+            {
+              $new_schedule->date = $newdate;
+              $new_schedule->time = $scheduled->time;
+              $new_schedule->type = $scheduled->type;
+              $scheduled->status = "2";
+              $scheduled->save();
+              $new_schedule->status = '0';
+              $new_schedule->save();
+              break;
+            }
+          }
+          $checkSchDatetime = "";
+        }
+      }
+      $doc_id = $request->session()->get('doctor_session');
+      return redirect ('docunavailable/'.$doc_id);
     }
 }

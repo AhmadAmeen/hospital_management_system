@@ -65,6 +65,7 @@ class VaccinationHistoryController extends Controller
     return redirect('TodocMainPage/' . $pat_id);
   }
 
+/*
   public function doc_advvaccineforpatientupdatedoc($pat_id, Request $request) {
     $vaccinationhistories = VaccinationHistory::where('pat_id', $pat_id)->get();
     $vid_to_dlt[]="";
@@ -89,6 +90,29 @@ class VaccinationHistoryController extends Controller
     return redirect('docpatientregform/' . $request->session()->get('doctor_session'));
   }
 
+          $vaccinationhistories = VaccinationHistory::where('pat_id', $pat_id)->get();
+          $vid_to_dlt[]="";
+          $vh[]="";
+          foreach ($vaccinationhistories as $vaccinationhistory) {
+            $vh[] = $vaccinationhistory->vt_id;
+            $vid_to_dlt[] = $vaccinationhistory->id;
+          }
+          foreach ($vid_to_dlt as $vid) {
+            $cur_vh = VaccinationHistory::find($vid);
+            if($cur_vh) {
+              $cur_vh->delete();
+            }
+          }
+          //$diff = array_diff($vh, $request->vchecks);
+          if($request->vchecks) {
+            foreach ($request->vchecks as $vcheck) {
+              $v_history = VaccinationHistory::firstOrNew(['pat_id' => $pat_id, 'vt_id' => $vcheck, 'status' => "TRUE"]);
+              $v_history->save();
+            }
+          }
+          return redirect('TodocMainPage/' . $pat_id);
+        }
+*/
 
   public function advvaccineforpatientstore($pat_id ,Request $request) {
     try {
