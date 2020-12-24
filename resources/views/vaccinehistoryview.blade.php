@@ -250,7 +250,7 @@ $i = 0;
                                             <div>
                                               <input type="checkbox" value="{{$vtid}}" name="vchecks[]" class="form-control col-md-7 col-xs-12">
                                               <div class="popup" onclick="myFunction({{$i}})" style="margin-top: 5px; padding-left: 5px; padding-right: 5px; background-color: gray; color: white"><i>?</i>
-                                              <span class="popuptext" id="{{$i}}"><p><i>Vaccine Name:</i><br> {{$vaccine->vname}}<br><br><i>Vaccine Timing:</i><br> {{$vt}} Months<br><br><i>Doctor Name:</i><br> {{$cur_doctor->dname}}<br><br><i>Patient Name:</i><br> {{$patient->fname}} {{$patient->lname}}</p></span>
+                                              <span class="popuptext" id="{{$i}}"><p><i>Vaccine Name:</i><br> {{$vaccine->vname}}<br><br><i>Vaccine Timing:</i><br> {{$vt}} Days<br><br><i>Doctor Name:</i><br> {{$cur_doctor->dname}}<br><br><i>Patient Name:</i><br> {{$patient->fname}} {{$patient->lname}}</p></span>
                                             </div>
                                           </div>
                                           </td>

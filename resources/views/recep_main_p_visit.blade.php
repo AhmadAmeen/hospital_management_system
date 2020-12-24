@@ -136,7 +136,7 @@ img {
        <input type="button" class='btn btn-succes' onclick="schedulingpatient()" value="Reschedule" style="float: right">
        <input type="button" class='btn' onclick="editingpatient()" style="background-color: gray; color: white; float: right" value="Edit">
        @foreach($schedules as $schedule)
-         <b>{{$schedule->type}}: </b>{{$schedule->date}}&nbsp;&nbsp;&nbsp;
+         <b>{{$schedule->type}}: </b>{{substr($schedule->date, 0, 10)}}&nbsp;&nbsp;&nbsp;
        @endforeach
   </div>
   <!-- The Modal -->

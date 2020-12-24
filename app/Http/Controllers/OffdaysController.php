@@ -53,7 +53,7 @@ class OffdaysController extends Controller
        $advoffdays = new AdvOffdays; $advoffdays->center_id = $request->center_id; $advoffdays->dayname = "Mon"; $advoffdays->status = "TRUE";
       }
       if ($request->tues == "TRUE") {
-       $advoffdays = new AdvOffdays; $advoffdays->center_id = $request->center_id;  $advoffdays->dayname = "Tues"; $advoffdays->status = "TRUE";
+       $advoffdays = new AdvOffdays; $advoffdays->center_id = $request->center_id;  $advoffdays->dayname = "Tue"; $advoffdays->status = "TRUE";
       }
       if ($request->wed == "TRUE") {
        $advoffdays = new AdvOffdays; $advoffdays->center_id = $request->center_id;  $advoffdays->dayname = "Wed"; $advoffdays->status = "TRUE"; $advoffdays->save();
@@ -98,6 +98,33 @@ class OffdaysController extends Controller
       $offdays[0]->sat = ($request->sat == "TRUE") ? 'TRUE' : 'FALSE';
       $offdays[0]->sun = ($request->sun == "TRUE") ? 'TRUE' : 'FALSE';
       $offdays[0]->save();
+
+      $advoffdays = AdvOffdays::where('center_id', $center_id)->get();
+      foreach ($advoffdays as $advoffday) {
+        $advoffday->delete();
+      }
+
+      if ($request->mon == "TRUE") {
+       $advoffdays = new AdvOffdays; $advoffdays->center_id = $center_id; $advoffdays->dayname = "Mon"; $advoffdays->status = "TRUE"; $advoffdays->save();
+      }
+      if ($request->tues == "TRUE") {
+       $advoffdays = new AdvOffdays; $advoffdays->center_id = $center_id;  $advoffdays->dayname = "Tue"; $advoffdays->status = "TRUE"; $advoffdays->save();
+      }
+      if ($request->wed == "TRUE") {
+       $advoffdays = new AdvOffdays; $advoffdays->center_id = $center_id;  $advoffdays->dayname = "Wed"; $advoffdays->status = "TRUE"; $advoffdays->save();
+      }
+      if ($request->thu == "TRUE") {
+       $advoffdays = new AdvOffdays; $advoffdays->center_id = $center_id;  $advoffdays->dayname = "Thu"; $advoffdays->status = "TRUE"; $advoffdays->save();
+      }
+      if ($request->fri == "TRUE") {
+       $advoffdays = new AdvOffdays; $advoffdays->center_id = $center_id;  $advoffdays->dayname = "Fri"; $advoffdays->status = "TRUE"; $advoffdays->save();
+      }
+      if ($request->sat == "TRUE") {
+       $advoffdays = new AdvOffdays; $advoffdays->center_id = $center_id;  $advoffdays->dayname = "Sat"; $advoffdays->status = "TRUE"; $advoffdays->save();
+      }
+      if ($request->sun == "TRUE") {
+       $advoffdays = new AdvOffdays; $advoffdays->center_id = $center_id;  $advoffdays->dayname = "Sun"; $advoffdays->status = "TRUE"; $advoffdays->save();
+      }
 
       return redirect('editingcenter/' . $center_id);
     }
