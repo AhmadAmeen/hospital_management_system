@@ -9,8 +9,7 @@ use Illuminate\Http\Request;
 
 class VaccinationHistoryController extends Controller
 {
-  public function show ($pat_id)
-  {
+  public function show ($pat_id)  {
     try{
     $patient = Patient::find ($pat_id);
     $advvaccines = AdvVaccine::where ('doc_id', $patient->doc_id)->get();
@@ -43,39 +42,24 @@ class VaccinationHistoryController extends Controller
 
   public function advvaccineforpatientupdatedoc($pat_id, Request $request) {
     $vaccinationhistories = VaccinationHistory::where('pat_id', $pat_id)->get();
-    $vid_to_dlt[]="";
-    $vh[]="";
     foreach ($vaccinationhistories as $vaccinationhistory) {
-      $vh[] = $vaccinationhistory->vt_id;
-      $vid_to_dlt[] = $vaccinationhistory->id;
+      // code...
+      $vaccinationhistory->delete();
     }
-    foreach ($vid_to_dlt as $vid) {
-      $cur_vh = VaccinationHistory::find($vid);
-      if($cur_vh) {
-        $cur_vh->delete();
-      }
-    }
-    //$diff = array_diff($vh, $request->vchecks);
-    if($request->vchecks) {
+
+    $patient = Patient::find($pat_id);
+    if ($request->vchecks) {
       foreach ($request->vchecks as $vcheck) {
-        $v_history = VaccinationHistory::firstOrNew(['pat_id' => $pat_id, 'vt_id' => $vcheck, 'status' => "TRUE"]);
+        $v_history = new VaccinationHistory;
+        $v_history->pat_id = $pat_id;
+        $v_history->vt_id = $vcheck;
+        $v_history->status = "TRUE";
+        $v_history->vaccination_date = "_";
         $v_history->save();
       }
+    } else {
+      $request->vchecks = [];
     }
-    return redirect('TodocMainPage/' . $pat_id);
-  }
-
-  public function advvaccineforpatientstore($pat_id ,Request $request) {
-
-    try {
-    foreach ($request->vchecks as $vcheck) {
-      $v_history = new VaccinationHistory;
-      $v_history->pat_id = $pat_id;
-      $v_history->vt_id = $vcheck;
-      $v_history->status = "TRUE";
-      $v_history->save();
-    }
-    $patient = Patient::find($pat_id);
     $vaccines = AdvVaccine::where('doc_id', $patient->doc_id)->get();
     foreach ($vaccines as $vaccine) {
       $vaccinetimings = AdvVaccineTiming::where('v_id', $vaccine->id)->get();
@@ -86,6 +70,42 @@ class VaccinationHistoryController extends Controller
           $v_history->pat_id = $pat_id;
           $v_history->vt_id = $vaccinetiming->id;
           $v_history->status = "FALSE";
+          $v_history->vaccination_date = date('Y-m-d', strtotime($patient->dob. ' + '. $vaccinetiming->vtiming .' days'));
+          $v_history->save();
+        }
+      }
+    }
+    echo "<script>window.close();</script>";
+    //return redirect('TodocMainPage/' . $pat_id);
+  }
+
+  public function advvaccineforpatientstore($pat_id ,Request $request) {
+
+    try {
+    $patient = Patient::find($pat_id);
+    if ($request->vchecks) {
+      foreach ($request->vchecks as $vcheck) {
+        $v_history = new VaccinationHistory;
+        $v_history->pat_id = $pat_id;
+        $v_history->vt_id = $vcheck;
+        $v_history->status = "TRUE";
+        $v_history->vaccination_date = "_";
+        $v_history->save();
+      }
+    } else {
+      $request->vchecks = [];
+    }
+    $vaccines = AdvVaccine::where('doc_id', $patient->doc_id)->get();
+    foreach ($vaccines as $vaccine) {
+      $vaccinetimings = AdvVaccineTiming::where('v_id', $vaccine->id)->get();
+      foreach ($vaccinetimings as $vaccinetiming) {
+        // code...
+        if (!in_array($vaccinetiming->id, $request->vchecks)) {
+          $v_history = new VaccinationHistory;
+          $v_history->pat_id = $pat_id;
+          $v_history->vt_id = $vaccinetiming->id;
+          $v_history->status = "FALSE";
+          $v_history->vaccination_date = date('Y-m-d', strtotime($patient->dob. ' + '. $vaccinetiming->vtiming .' days'));
           $v_history->save();
         }
       }
@@ -99,12 +119,16 @@ class VaccinationHistoryController extends Controller
 
   public function doc_advvaccineforpatientstore($pat_id ,Request $request) {
     try {
-    foreach ($request->vchecks as $vcheck) {
-      $v_history = new VaccinationHistory;
-      $v_history->pat_id = $pat_id;
-      $v_history->vt_id = $vcheck;
-      $v_history->status = "TRUE";
-      $v_history->save();
+    if ($request->vchecks) {
+      foreach ($request->vchecks as $vcheck) {
+        $v_history = new VaccinationHistory;
+        $v_history->pat_id = $pat_id;
+        $v_history->vt_id = $vcheck;
+        $v_history->status = "TRUE";
+        $v_history->save();
+      }
+    } else {
+      $request->vchecks = [];
     }
     return redirect('docpatientregform/' . session('doctor_session'));
     } catch(Exception $e) {
@@ -179,7 +203,7 @@ class VaccinationHistoryController extends Controller
     }
   }
 
-  public function editvaccinationhistorydoc($pat_id ,Request $request) {
+  public function editvaccinationhistorydoc($pat_id, Request $request) {
       try {
         $patient = Patient::find ($pat_id);
         $vaccinationhistories = VaccinationHistory::where('pat_id', $pat_id)->get();
@@ -201,6 +225,7 @@ class VaccinationHistoryController extends Controller
           "Booster II",
         );
 
+
         return view ('editvaccinationhistorydoc')
         ->with('patient', $patient)
         ->with('advvaccines', $advvaccines)
@@ -213,28 +238,28 @@ class VaccinationHistoryController extends Controller
     }
 
   public function advvaccineforpatientupdate($pat_id, Request $request) {
-        $vaccinationhistories = VaccinationHistory::where('pat_id', $pat_id)->get();
-        $vid_to_dlt[]="";
-        $vh[]="";
-        foreach ($vaccinationhistories as $vaccinationhistory) {
-          $vh[] = $vaccinationhistory->vt_id;
-          $vid_to_dlt[] = $vaccinationhistory->id;
-        }
-        foreach ($vid_to_dlt as $vid) {
-          $cur_vh = VaccinationHistory::find($vid);
-          if($cur_vh) {
-            $cur_vh->delete();
-          }
-        }
-        //$diff = array_diff($vh, $request->vchecks);
-        if($request->vchecks) {
-          foreach ($request->vchecks as $vcheck) {
-            $v_history = VaccinationHistory::firstOrNew(['pat_id' => $pat_id, 'vt_id' => $vcheck, 'status' => "TRUE"]);
-            $v_history->save();
-          }
-        }
-        return redirect('editvaccinationhistory/' . $pat_id);
+    $vaccinationhistories = VaccinationHistory::where('pat_id', $pat_id)->get();
+    $vid_to_dlt[]="";
+    $vh[]="";
+    foreach ($vaccinationhistories as $vaccinationhistory) {
+      $vh[] = $vaccinationhistory->vt_id;
+      $vid_to_dlt[] = $vaccinationhistory->id;
+    }
+    foreach ($vid_to_dlt as $vid) {
+      $cur_vh = VaccinationHistory::find($vid);
+      if($cur_vh) {
+        $cur_vh->delete();
       }
+    }
+    //$diff = array_diff($vh, $request->vchecks);
+    if($request->vchecks) {
+      foreach ($request->vchecks as $vcheck) {
+        $v_history = VaccinationHistory::firstOrNew(['pat_id' => $pat_id, 'vt_id' => $vcheck, 'status' => "TRUE"]);
+        $v_history->save();
+      }
+    }
+    return redirect('editvaccinationhistory/' . $pat_id);
+  }
 
   public function recep_advvaccineforpatientupdate($pat_id, Request $request) {
     $vaccinationhistories = VaccinationHistory::where('pat_id', $pat_id)->get();
@@ -265,13 +290,17 @@ class VaccinationHistoryController extends Controller
     }
 
     $patient = Patient::find($pat_id);
-    foreach ($request->vchecks as $vcheck) {
-      $v_history = new VaccinationHistory;
-      $v_history->pat_id = $pat_id;
-      $v_history->vt_id = $vcheck;
-      $v_history->status = "TRUE";
-      $v_history->vaccination_date = "_";
-      $v_history->save();
+    if ($request->vchecks) {
+      foreach ($request->vchecks as $vcheck) {
+        $v_history = new VaccinationHistory;
+        $v_history->pat_id = $pat_id;
+        $v_history->vt_id = $vcheck;
+        $v_history->status = "TRUE";
+        $v_history->vaccination_date = "_";
+        $v_history->save();
+      }
+    } else {
+      $request->vchecks = [];
     }
     $vaccines = AdvVaccine::where('doc_id', $patient->doc_id)->get();
     foreach ($vaccines as $vaccine) {

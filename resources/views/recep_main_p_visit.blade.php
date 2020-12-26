@@ -1,9 +1,8 @@
-@if(!Session::has('recep_name_session'))
+@if(!Session::has('recep_name_session') && !Session::has('doctor_name_session'))
 <script>window.location = "welcome";</script>
+@else
+@extends(Session::has('recep_name_session') ? 'patientlayout.default' : 'doctorlayout.default')
 @endif
-
-@extends ('recep-main-layout.default')
-
 @section('content')
 
 <?php
@@ -13,6 +12,7 @@ use App\AdvCenter;
 use App\AdvVaccine;
 use App\Patient;
 use App\VaccinationHistory;
+use Carbon\Carbon;
 $i = 0;
 ?>
 <script>
@@ -147,9 +147,9 @@ img {
         <div id="pat_vacc_histories1">
         <form action="{{url('recep_advvaccineforpatientupdate', $patient->id)}}" method="post" enctype="multipart/form-data" id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
           @csrf
-          <table id="vaccines_list_recep"  style="width: 100%; height: 100%;">
+          <table id="vaccines_list_recep"  style="width: 100%; height: 100%; background-color: white">
             <tr>
-            <th>Vaccines</th>
+            <th>Vaccine Names</th>
             @foreach ($v_timings as $key)
                 <th>{{ $key }}</th>
             @endforeach
@@ -187,7 +187,7 @@ img {
                         <div>
                           <input type="checkbox" value="{{$vtid}}" name="vchecks[]" @if ($check == 'TRUE') ? checked : '' @endif  class="form-control col-md-7 col-xs-12">
                           <div class="popup" onclick="myFunction({{$i}})" style="margin-top: 5px; padding-left: 5px; padding-right: 5px; background-color: gray; color: white"><i>?</i>
-                          <span class="popuptext" id="{{$i}}"><p><i>Vaccine Timing ID: {{$advvaccinetiming->id}}</i><br><i>Vaccine Name:</i><br> {{$vaccine->vname}}<br><i>Vaccine Timing:</i><br> {{$vt}} Months<br><i>Doctor Name:</i><br> {{$cur_doctor->dname}}<br><i>Patient Name:</i><br> {{$patient->fname}} {{$patient->lname}}</p></span>
+                          <span class="popuptext" id="{{$i}}"><p><i>Vaccine Due Date: </i><br> {{ Carbon::parse($patient->dob)->addDays($vt)->format('Y-m-d') }} </script> </p></span>
                         </div>
                       </div>
                       </td>
@@ -206,7 +206,6 @@ img {
                     //create empty rows for all the remaining columns
                     echo "<td></td>";
                   }
-                  echo "<br>";
                   unset($items);
                   unset($timings);
                   unset($temp);
@@ -236,7 +235,7 @@ img {
                       <div>
                         <input type="checkbox" value="{{$vtid}}" name="vchecks[]" @if ($check_booster == 'TRUE') ? checked : '' @endif class="form-control col-md-7 col-xs-12">
                         <div class="popup" onclick="myFunction({{$i}})" style="margin-top: 5px; padding-left: 5px; padding-right: 5px; background-color: gray; color: white"><i>?</i>
-                        <span class="popuptext" id="{{$i}}"><p><i>Vaccine Type:</i><br> {{$advvaccinetiming->vt_type}}<br><i>Vaccine Name:</i><br> {{$vaccine->vname}}<br><i>Vaccine Timing:</i><br> {{$vt}} Months<br><i>Doctor Name:</i><br> {{$cur_doctor->dname}}<br><i>Patient Name:</i><br> {{$patient->fname}} {{$patient->lname}}</p></span>
+                        <span class="popuptext" id="{{$i}}"><p><i>Booster Due Date: </i><br> {{ Carbon::parse($patient->dob)->addDays($vt)->format('Y-m-d') }} </script> </p></span>
                       </div>
                     </div>
                     </td>
@@ -253,7 +252,6 @@ img {
                     //create empty rows for all the remaining booster columns
                     echo "<td></td>";
                   }
-                  echo "<br>";
                   unset($items);
                   unset($timings);
                   unset($temp);
@@ -464,8 +462,14 @@ function SchedulePatVisitStore() {
 }
 
 function ShowVisitHistories() {
+  $('#pat_v_histories').empty();
+  $('#pat_v_history_detail_left').empty();
+  $('#pat_v_history_detail_right').empty();
+
   $('#pat_v_histories').css("display","block");
   $('#pat_v_history_detail_left').css("display","block");
+  $('#pat_v_history_detail_right').css("display","block");
+
   $('#med_histories').css("display","none");
   $('#pat_vacc_histories').css("display","none");
   $('#footer').css("display","block");
@@ -480,6 +484,7 @@ function ShowVisitHistories() {
        dataType: 'json',
        success: function(response) {
        var len = 0;
+       //console.log(response);
        var json = '';
        if (response['data'] != null) {
          len = response['data'].length;
@@ -488,6 +493,7 @@ function ShowVisitHistories() {
        if(len > 0) {
          let p_list_left = $("#pat_v_histories");
          p_list_left.empty();
+         //console.log(json);
          $.each(json, function (key, entry) {
            p_list_left = p_list_left.append($('<h5></h5>').attr('id', entry.id).attr('value', entry.date).text(entry.date))
           })
@@ -497,7 +503,7 @@ function ShowVisitHistories() {
     }
 
     $(document).on("click","#pat_v_histories", function (event) {
-        console.log("vh_id " + event.target.id);
+        //console.log("vh_id " + event.target.id);
         let vh_id = event.target.id;
         $.ajaxSetup({
           headers: {
@@ -514,7 +520,7 @@ function ShowVisitHistories() {
         if (response['data'] != null) {
           len = response['data'].length;
           json = response['data'];
-          console.log(json);
+          //console.log(json);
          }
         if (len > 0) {
           let p_list = $("#pat_v_history_details");
@@ -531,13 +537,59 @@ function ShowVisitHistories() {
           p_list_left = p_list_left.append($('<h5></h5>').text("Temperature: " + json.temperature).css('text-align','left').css('margin-left', '25px'))
           p_list_left = p_list_left.append($('<i></i>').attr("class", "material-icons txtsms print email").css('float','left').css('padding','5px').text("txtsms "+"print "+"email "))
 
-          let p_list_right = $("#pat_v_history_detail_right");
-          p_list_right.empty();
-          //$("#pat_v_history_detail_left").attr('class',"material-icons print");
-          p_list_right = $("#pat_v_history_detail_right").attr("class", "split right")
-          p_list_right = p_list_right.append($('<h5></h5>').text("Medicines Suggested:").css('font-style','bold'))
+        //getting prescribed medicine
+        $.ajax({
+        url: "{{url('specific_med_patient')}}"+'/'+vh_id,
+        type: 'get',
+        dataType: 'json',
+        success: function(response) {
+        var len = 0;
+        var json = '';
+        if (response['data'] != null) {
+            len = response['data'].length;
+            json = response['data'];
+            console.log(json);
+            }
+          if (len > 0) {
+            let p_list_right = $("#pat_v_history_detail_right");
+            p_list_right.empty();
+            //$("#pat_v_history_detail_left").attr('class',"material-icons print");
+            p_list_right = $("#pat_v_history_detail_right").attr("class", "split right")
+            p_list_right = p_list_right.append($('<h5></h5>').text("Medicines Suggested:").css('font-weight','bold'))
+            $.each(json, function (key, entry) {
+              p_list_right = p_list_right.append($('<h5></h5>').text(entry.med_id))
+             })
+            }
+           }
+          })
+          //prescribed medicines completed
+          //getting diagnosis
+          $.ajax({
+          url: "{{url('specific_diag_patient')}}"+'/'+vh_id,
+          type: 'get',
+          dataType: 'json',
+          success: function(response) {
+          var len = 0;
+          var json = '';
+          if (response['data'] != null) {
+              len = response['data'].length;
+              json = response['data'];
+              //console.log(json);
+              }
+            if (len > 0) {
+              let p_list_right = $("#pat_v_history_detail_right");
+              //p_list_right.empty();
+              //$("#pat_v_history_detail_left").attr('class',"material-icons print");
+              p_list_right = p_list_right.append($('<h5></h5>').text("Diagnosis:").css('font-weight','bold'))
+              $.each(json, function (key, entry) {
+                p_list_right = p_list_right.append($('<h5></h5>').text(entry.dis_id))
+               })
+              }
+             }
+            })
+            //prescribed medicines completed
 
-          }
+         }
         }
       });
     });
@@ -584,6 +636,12 @@ window.onclick = function(event) {
   if (event.target == modal) {
     modal.style.display = "none";
   }
+}
+
+function addDays(date, days) {
+  var result = new Date(date);
+  result.setDate(result.getDate() + days);
+  return result;
 }
 </script>
 

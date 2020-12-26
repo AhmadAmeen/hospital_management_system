@@ -61,7 +61,9 @@ input.largerCheckbox {
                 </div>
               </form>
               <button style="float: right" class="btn" onclick="addmorehistories()">Add More Medical Histories</button>
+              <!--
               <button style="float: right" class="btn btn-success" onclick="editvaccinationhistory()">Edit Vaccination History</button>
+              -->
           </div>
         </div>
        </div>

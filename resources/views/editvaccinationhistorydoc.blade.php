@@ -93,45 +93,37 @@ form {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
           <!-- my code -->
-          <div class="right_col" role="main" style="background-color: white">
-           <div class="clearfix"></div>
-                     <div class="row" >
-                       <div class="col-md-12 col-sm-12 col-xs-12">
-                         <div class="x_panel">
-                           <div class="x_title">
-                             <h2>Welcome <small>Edit Vaccine History Details</small></h2>
-                             <ul class="nav navbar-right panel_toolbox">
-                               <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                               </li>
-                               <li class="dropdown">
-                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                   <i class="fa fa-wrench"></i></a>
-                                 <ul class="dropdown-menu" role="menu">
-                                   <li><a href="#">Settings 1</a>
-                                   </li>
-                                   <li><a href="#">Settings 2</a>
-                                   </li>
-                                 </ul>
-                               </li>
-                                 <li><a class="close-link"><i class="fa fa-close"></i></a>
-                                 </li>
-                               </ul>
-                               <div class="clearfix"></div>
-                             </div>
-                             <div class="x_content">
-                            <br>
-                            <span><i class="material-icons close"><a href="{{url('TodocMainPage/' . $patient->id)}}" >close</a></i><a style="margin-left: 10px; color: white; "></a></span>
-                            <div>
-                              <body>
-                            <form action="{{url('advvaccineforpatientupdatedoc', $patient->id)}}" method="post" enctype="multipart/form-data" id="demo-form2" data-parsley-validate style="margin: auto" >
+                            <div style="background-color: #3090C7">
+                            <body>
+                              <div class="x_title" style="color: white">
+                                <h2>Welcome <small style="color: white">Edit Vaccine History Details</small></h2>
+                                <ul class="nav navbar-right panel_toolbox">
+                                  <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                  </li>
+                                  <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                      <i class="fa fa-wrench"></i></a>
+                                    <ul class="dropdown-menu" role="menu">
+                                      <li><a href="#">Settings 1</a>
+                                      </li>
+                                      <li><a href="#">Settings 2</a>
+                                      </li>
+                                    </ul>
+                                  </li>
+                                    <li><a class="close-link"><i class="fa fa-close"></i></a>
+                                    </li>
+                                  </ul>
+                                  <div class="clearfix"></div>
+                                </div>
+                            <form action="{{url('advvaccineforpatientupdatedoc', $patient->id)}}" method="post" enctype="multipart/form-data" id="demo-form2" data-parsley-validate style="margin: auto">
                             @csrf
                             <div class="form-group">
                               <div width="107" height="90">
                               <table id="vaccines_list" style="background-color: white">
                                 <tr>
-                                <th></th>
+                                <th>Vaccine Names</th>
                                 @foreach ($v_timings as $key)
-                                    <th>{{ $key }}</th>
+                                  <th>{{ $key }}</th>
                                 @endforeach
                                 </tr>
                                 <tr>
@@ -187,7 +179,6 @@ form {
                                           //create empty rows for all the remaining columns
                                           echo "<td></td>";
                                         }
-                                        echo "<br>";
                                         unset($items);
                                         unset($timings);
                                         unset($temp);
@@ -251,7 +242,7 @@ form {
                               <div class="ln_solid"></div>
                               <div class="form-group">
                                 <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                                  <button type="submit" name="submit" class="btn btn-success">Update</button>
+                                  <button type="submit" name="submit" class="btn btn-primary" style="border-color: white; border-width: 3px; padding: 10px 25px 10px 25px">Update</button>
                                 </div>
                               </div>
                             </form>
@@ -271,6 +262,9 @@ form {
         popup.classList.toggle("show");
       }
     }
+  }
+  function close_window() {
+      close();
   }
 </script>
 

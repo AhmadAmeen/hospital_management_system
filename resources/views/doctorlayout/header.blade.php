@@ -23,18 +23,15 @@
   <!-- Custom Theme Style -->
   <link href="{{ asset('public/gentelella-master/build/css/custom.min.css') }}" rel="stylesheet">
 
-<div class="top_nav">
-  <div class="nav_menu">
-    <nav>
-      <div class="nav toggle">
-        <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+    <div class="top_nav">
+      <div class="nav_menu">
+        <nav>
+          <ul class="nav pull-right">
+                  <form style="margin: 5px" class="nav r_searchbox" action="{{url('getseachedpatients')}}" method="get">
+                    <input type="text" id="pname" name="pname" required="required" placeholder="Search Patients...">
+                    <a style="padding: 5px" href="{{ url ('getlogout') }}"><i class="fa fa-sign-out pull-right"></i> Log Out </a>
+                  </form>
+          </ul>
       </div>
-      <ul class="nav navbar-nav navbar-right">
-        <li class="">
-          <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-            <li><a href="{{ url ('getlogout') }}"><i class="fa fa-sign-out pull-right"></i> Log Out </a></li>
-        </li>
-      </ul>
-  </div>
-</div>
+    </div>
 </head>

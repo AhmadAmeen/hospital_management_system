@@ -29,7 +29,6 @@
                   <input type="text" id="pname" name="pname" required="required" placeholder="Search Patients...">
                   <a style="padding: 5px" href="{{ url ('getlogout') }}"><i class="fa fa-sign-out pull-right"></i> Log Out </a>
                 </form>
-
         </ul>
     </div>
   </div>

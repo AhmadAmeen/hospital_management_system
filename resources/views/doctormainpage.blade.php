@@ -237,11 +237,11 @@ setInterval(function() {
                      <div class="form-group">
                        <!--
                        <a onclick="patient_fvh_record()" id="myBtn" name="1days" class='btn btn-primary'>Growth</a>
-                       <a onclick="editvaccinationhistory()" name="7days" class='btn btn-primary'>Vaccination</a>
                        <a onclick="displayBlockVisitHistories()" id="15days" name="15days" class='btn btn-primary'>Visit History</a>
                        <a onclick="ShowMedicalHistories()" id="30days" name="30days" class='btn btn-primary'>Medical History</a>
                        <input type="button" class='btn btn-primary' onclick="docschedulingpatient()" value="Reschedule">
                       -->
+                      <a onclick="editvaccinationhistory()" class='btn btn-primary'>Vaccination</a>
                       <a onclick="patDetailedDashboard()" id="myModal" name="30days" class='btn btn-primary'>summary</a>
                       <a onclick="showPrescription()" id="30days" name="30days" class='btn btn-primary'>Print</a>
                        <a onclick="removePatFromList()" id="30days" name="30days" class='btn btn-success'>Save</a>
@@ -1268,8 +1268,9 @@ $('#med2').keydown(function (e){
 }
 
   function editvaccinationhistory() {
+
   if($("#pid").text()){
-    window.location = "{{url('editvaccinationhistorydoc')}}"+'/'+$("#pid").text();
+    window.open("{{url('editvaccinationhistorydoc')}}"+'/'+$("#pid").text());
   }
 }
   // When the user clicks on div, open the popup

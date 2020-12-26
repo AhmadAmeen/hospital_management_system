@@ -214,6 +214,7 @@ $i = 0;
                             <form action="{{url('advvaccineforpatientstore', $patient->id)}}" method="post" enctype="multipart/form-data" id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
                             @csrf
                             <h1 style="text-align: center; margin-down: 20px">Vaccination History Details</h1>
+                            <hr>
                             <div class="form-group">
                               <div width="107" height="90">
                               <table id="vaccines_list" style="background-color: white">
@@ -266,7 +267,6 @@ $i = 0;
                                           //create empty rows for all the remaining columns
                                           echo "<td></td>";
                                         }
-                                        echo "<br>";
                                         unset($items);
                                         unset($timings);
                                         unset($temp);
@@ -304,7 +304,6 @@ $i = 0;
                                           //create empty rows for all the remaining booster columns
                                           echo "<td></td>";
                                         }
-                                        echo "<br>";
                                         unset($items);
                                         unset($timings);
                                         unset($temp);

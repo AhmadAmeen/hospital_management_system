@@ -104,6 +104,10 @@ Route::get('mh_patient/{id}', 'MedicalHistoryController@mh_patient');
 Route::get('vh_and_patient/{pid}', 'VisitHistoryController@vh_and_patient');
 //choosen patient previous history
 Route::get('specific_vh_patient/{vh_id}', 'VisitHistoryController@specific_vh_patient');
+//specific vh medicines prescribed
+Route::get('specific_med_patient/{vh_id}', 'VisitHistoryController@specific_med_patient');
+//specific vh diagnosis
+Route::get('specific_diag_patient/{vh_id}', 'VisitHistoryController@specific_diag_patient');
 //add new patient history main page
 Route::get('addnewpvhhistory/{id}', 'VisitHistoryController@addnewpvhhistory');
 //adding patient route

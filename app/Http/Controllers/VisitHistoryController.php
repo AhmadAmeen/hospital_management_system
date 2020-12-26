@@ -7,7 +7,10 @@ use App\Patient;
 use App\Doctor;
 use App\Schedule;
 use App\Receptionist;
+use App\PrescribedMedicine;
+use App\Diagnosis;
 Use Session;
+use Illuminate\Support\Facades\DB;
 
 class VisitHistoryController extends Controller
 {
@@ -23,12 +26,6 @@ class VisitHistoryController extends Controller
   public function vh_patient ($id) {
     try{
       $arr['data'] = VisitHistory::where('patient_id', $id)->get();
-      //if (!$pvhistories) {
-      //  return view ('addnewpatienthistory');
-      //} else {
-        //$patient = Patient::find($id);
-        //return view ('vh_patient')->with('pvhistories', $pvhistories)
-        //->with('patient', $patient);
         echo json_encode($arr);
         exit;
       //}
@@ -49,6 +46,28 @@ class VisitHistoryController extends Controller
   public function specific_vh_patient ($vh_id) {
     try{
       $arr['data'] = VisitHistory::find($vh_id);
+      echo json_encode($arr);
+      exit;
+    }  catch(Exception $e) {
+        echo 'Message: ' .$e->getMessage();
+    }
+  }
+
+  public function specific_med_patient ($vh_id) {
+    try{
+      $results = DB::select( DB::raw("SELECT * FROM prescribed_medicines WHERE vh_id = '$vh_id'") );
+      //$arr['data'] = PrescribedMedicine::where('vh_id', $vh_id)->get();
+      $arr['data'] = $results;
+      echo json_encode($arr);
+      exit;
+    }  catch(Exception $e) {
+        echo 'Message: ' .$e->getMessage();
+    }
+  }
+
+  public function specific_diag_patient ($vh_id) {
+    try{
+      $arr['data'] = Diagnosis::where('vh_id', $vh_id)->get();
       echo json_encode($arr);
       exit;
     }  catch(Exception $e) {
