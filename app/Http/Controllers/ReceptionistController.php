@@ -7,6 +7,7 @@ use App\Patient;
 use App\Doctor;
 use App\AdvCenter;
 use App\Schedule;
+use App\CentertimingSlot;
 use App\MedicalHistory;
 use App\VaccinationHistory;
 use App\AdvVaccine;
@@ -125,7 +126,6 @@ class ReceptionistController extends Controller
        $advvaccinetimings = AdvVaccineTiming::where('v_id', $advvaccine->id)->get();
        //echo $advvaccinetimings[0];
      }
-
      $v_timings = array (
        "Dosage I",
        "Dosage II",
@@ -136,16 +136,17 @@ class ReceptionistController extends Controller
        "Booster I",
        "Booster II",
      );
-     
      $vaccinationhistories = VaccinationHistory::where('pat_id', $pat_id)->get();
      $med_histories = MedicalHistory::where('patient_id', $pat_id)->where('status', 'TRUE')->get();
-     $schedules = Schedule::where('pat_id', $pat_id)->get();
-     return view ('recep_main_p_visit')->with('patient', $patient)->with('schedules', $schedules)
+     $schedule = Schedule::where('pat_id', $pat_id)->first();
+     $schTimingSlot = CentertimingSlot::find($schedule->time);
+     return view ('recep_main_p_visit')->with('patient', $patient)
+     ->with('schedule', $schedule)
+     ->with('schTimingSlot', $schTimingSlot)
      ->with('med_histories', $med_histories)
      ->with('advvaccines', $advvaccines)
      ->with('v_timings', $v_timings)
      ->with('advvaccinetimings', $advvaccinetimings)
      ->with('vaccinationhistories', $vaccinationhistories);
    }
-
 }

@@ -136,6 +136,7 @@ setInterval(function() {
        <a id="temp" style="display:none"><b>Temperature: </b> @if (empty($cur_pat_vh->temp))@else{{$cur_pat_vh->temp}}@endif</a>&nbsp;&nbsp;&nbsp;&nbsp;
        <a id="v_type" style="display:none"><b>Visit Type: </b> @if (empty($cur_pat_vh->other))@else{{$cur_pat_vh->other}}@endif</a>&nbsp;&nbsp;&nbsp;&nbsp;
        <a id="date" style="display:none"><b>Date: </b> @if (empty($cur_pat_vh->date))@else{{$cur_pat_vh->date}}@endif</a>&nbsp;&nbsp;&nbsp;&nbsp;
+       <input type="button" class='' onclick="schedulingpatient()" value="Reschedule" style="float: right; border-radius: 20px; background-color: white; color: black">
     </div>
 
     <div class="split left card-left" style="width: 20%;">
@@ -242,7 +243,7 @@ setInterval(function() {
                        <input type="button" class='btn btn-primary' onclick="docschedulingpatient()" value="Reschedule">
                       -->
                       <a onclick="editvaccinationhistory()" class='btn btn-primary'>Vaccination</a>
-                      <a onclick="patDetailedDashboard()" id="myModal" name="30days" class='btn btn-primary'>summary</a>
+                      <a onclick="patDetailedDashboard()" id="myModal" name="30days" class='btn btn-primary'>Summary</a>
                       <a onclick="showPrescription()" id="30days" name="30days" class='btn btn-primary'>Print</a>
                        <a onclick="removePatFromList()" id="30days" name="30days" class='btn btn-success'>Save</a>
                      </div>
@@ -286,9 +287,7 @@ setInterval(function() {
                   </div>
                 </div>
               </div>
-
          </div>
-
 <script>
 
   var js_array_med = [<?php echo '"'.implode('","', $medicine_names).'"' ?>];
@@ -326,7 +325,7 @@ var nums2 = [];
 
 //autocomplete_med enter press
 $('#autocomplete_med').keydown(function (e){
-  if(e.keyCode == 13){
+  if(e.keyCode == 13 || e.keyCode == 9){
       nums0 = [];
       nums1 = [];
       nums2 = [];
@@ -341,13 +340,15 @@ $('#autocomplete_med').keydown(function (e){
       $("#med0").val("");
       $("#med1").val("");
       $("#med2").val("");
-      $("#med0").focus();
       if (!js_array_med.includes($('#autocomplete_med').val())) {
         $("#type").text(" ");
         $("#medicine_type").css('opacity', '1');
       } else {
         $("#medicine_type").css('opacity', '0');
       }
+    }
+    if(e.keyCode == 13){
+      $("#med0").focus();
     }
 })
 
@@ -366,7 +367,6 @@ $('#med2').keydown(function (e){
         //console.log($('#type').text());
         addmedicine($('#type').text());
       }
-      $("#autocomplete_med").focus();
         this.value = "";
         $('#med0').val("");
         $('#med1').val("");
@@ -375,6 +375,9 @@ $('#med2').keydown(function (e){
         nums1 = [];
         nums2 = [];
         //$('#autocomplete_med').value = "";
+      }
+      if(e.keyCode == 13){
+        $("#autocomplete_med").focus();
       }
   })
 
@@ -1387,6 +1390,13 @@ span.onclick = function() {
 window.onclick = function(event) {
   if (event.target == modal) {
     modal.style.display = "none";
+  }
+}
+
+function schedulingpatient() {
+  var pid = $("#pid").text();
+  if (pid) {
+    window.location = "{{url('schedulingpatient')}}"+'/'+pid;
   }
 }
 

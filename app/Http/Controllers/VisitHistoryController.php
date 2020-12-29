@@ -87,7 +87,7 @@ class VisitHistoryController extends Controller
     $visit_history->doc_id = $patient->doc_id;
     $visit_history->fname = $patient->fname;
     $visit_history->lname = $patient->lname;
-    $visit_history->gender = $patient->lname;
+    $visit_history->gender = $patient->gender;
     $visit_history->age = $patient->age;
     $visit_history->dob = $patient->dob;
     $visit_history->father_name = $patient->father_name;

@@ -148,7 +148,12 @@ class PatientController extends Controller
      //patient history image updated
      $recp_id = $request->session()->get('recep_session');
      $recep = Receptionist::find($recp_id);
-     $doctor = Doctor::find($recep->doc_id);
+     if ($recep) {
+       $doc_id = $receptionist->doc_id;
+     } else {
+       $doc_id = $request->session()->get('doctor_session');
+     }
+     $doctor = Doctor::find($doc_id);
      //echo $doctor->doc_id;
      $patient->doc_id = $doctor->id;
      $patient->save();

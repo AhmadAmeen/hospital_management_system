@@ -1,12 +1,8 @@
-@if(!Session::has('recep_name_session'))
+@if(!Session::has('recep_name_session') && !Session::has('doctor_name_session'))
 <script>window.location = "welcome";</script>
+@else
+@extends(Session::has('recep_name_session') ? 'patientlayout.default' : 'doctorlayout.default')
 @endif
-@if (session('error'))
-<div class="alert alert-danger">{{ session('error') }}</div>
-@endif
-
-@extends('patientlayout.default')
-
 @section('content')
 
 <style>
@@ -127,7 +123,7 @@
                           <a onclick="addDays(30)" id="30days" name="30days" class='ph-button ph-btn-blue'>30 Days</a>
                       </div>
                       <?php
-                      echo Form::button('Schedule Center Timing', ['onClick'=>'schedule_center_timing()', 'class'=>'ph-button ph-btn-red']);
+                      //echo Form::button('Schedule Center Timing', ['onClick'=>'schedule_center_timing()', 'class'=>'ph-button ph-btn-red']);
                       ?>
                       <!--result from ajax-->
                       <!--footer-->
@@ -219,10 +215,10 @@
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
           }
         });
-       var c_id = document.getElementById("center_select").value;
-       var cur_date = document.getElementById("cur_date").value;
-       var pur_date = document.getElementById("pur_date").value;
-       var pur_dayname = document.getElementById("pur_dayname").value;
+       var c_id = $("#center_select").val();
+       var cur_date = $("#cur_date").val();
+       var pur_date = $("#pur_date").val();
+       var pur_dayname = $("#pur_dayname").val();
        $.ajax({
           type:'POST',
           url:"{{url('checkcenteroffdays')}}",
@@ -236,12 +232,13 @@
              $("#msg").html(data.result);
              console.log(data.pur_date + " ");
              console.log(data.pur_dayname);
-             document.getElementById("pur_date").text = data.pur_date;
-             document.getElementById("pur_dayname").text = data.pur_dayname;
-             document.getElementById("pur_date").value = data.pur_date;
-             document.getElementById("pur_dayname").value = data.pur_dayname;
-             var center_timing_div = document.getElementById("center_timing_div");
-             center_timing_div.style.display = "block";
+             $("#pur_date").text(data.pur_date);
+             $("#pur_dayname").text(data.pur_dayname);
+             $("#pur_date").val(data.pur_date);
+             $("#pur_dayname").val(data.pur_dayname);
+             //var center_timing_div = document.getElementById("center_timing_div");
+             //center_timing_div.style.display = "block";
+             $("#center_timing_div").show(700);
              getCenterTimings(data.center_id);
            }
        });
@@ -293,12 +290,11 @@
 
    function get_ct_slots(centertiming_id, vtype_id) {
      var type = document.getElementById(vtype_id);
-     var ct_slots_div = document.getElementById("ct_slots_div");
-
      document.getElementById("v_type").text = document.getElementById(vtype_id).value;
      var final_purposed_date = document.getElementById("pur_date").text;
-     ct_slots_div.style.display = "block";
-
+     //var ct_slots_div = document.getElementById("ct_slots_div");
+     //ct_slots_div.style.display = "block";
+     $("#ct_slots_div").show();
      $.ajaxSetup({
        headers: {
          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -325,27 +321,63 @@
         dropdown.prop('selectedIndex', 0);
         $.each(json, function (key, entry) {
           dropdown.append($('<option></option>').attr('value', entry.id).text("From: " + entry.from + " To: " + entry.to));
-          })
+        })
       }
      }
      });
     }
 
     function addDays(days) {
-      var result = new Date();
-      result.setDate(result.getDate() + days);
-      document.getElementById("pur_date").text =formatedate(result);
-      document.getElementById("pur_date").value = formatedate(result);
-      var daydate = formatedate(result);
-      document.getElementById("pur_dayname").text =getDayOfWeek(daydate);
-      document.getElementById("pur_dayname").value = getDayOfWeek(daydate);
+      ct_slots_div.style.display = "none";
+      //center_timing_div.style.display = "none";
+      var c_id = $("#center_select").val();
+      if (!c_id) {
+        alert("Please choose center first!");
+      } else {
+        var result = new Date();
+        result.setDate(result.getDate() + days);
+        //document.getElementById("pur_date").text =formatedate(result);
+        document.getElementById("pur_date").value = formatedate(result);
+        var daydate = formatedate(result);
+        //document.getElementById("pur_dayname").text =getDayOfWeek(daydate);
+        document.getElementById("pur_dayname").value = getDayOfWeek(daydate);
+        schedule_center_timing();
+        getCenterOffdays(c_id);
+      }
+    }
+
+   function getCenterOffdays(c_id) {
+     $.ajaxSetup({
+       headers: {
+         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+       }
+     });
+     $.ajax({
+     url: '../getCenterOffdays/'+c_id,
+     type: 'get',
+     dataType: 'json',
+     success: function(response) {
+     var len = 0;
+     var json = '';
+     if (response['data'] != null) {
+       len = response['data'].length;
+       json = response['data'];
+     }
+     if(len > 0) {
+       console.log(json);
+       $.each(json, function (key, entry) {
+
+       })
+      }
+     }
+     });
     }
 
     // Accepts a Date object or date string that is recognized by the Date.parse() method
     function getDayOfWeek(date) {
       const dayOfWeek = new Date(date).getDay();
       return isNaN(dayOfWeek) ? null :
-        ['sun', 'mon', 'tues', 'wed', 'thu', 'fri', 'sat'][dayOfWeek];
+        ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'][dayOfWeek];
     }
 
     function tConvert (time) {

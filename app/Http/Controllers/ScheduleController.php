@@ -24,20 +24,29 @@ class ScheduleController extends Controller
      $c_offdays = Offdays::where('center_id', $c_id)->get();
      $c_timings = Centertiming::where('center_id', $c_id)->get();
      $test = $pur_dayname;
-     if ($c_offdays[0]->$pur_dayname == 'FALSE') {
+     $adv_offdays = AdvOffdays::where('center_id', $c_id)->pluck('dayname')->all();
+     if (!in_array($pur_dayname, $adv_offdays)) {
        $result = "You will be scheduled on: <b>" . strtoupper($pur_dayname) . "</b><br> Date: <b>" . $pur_date . "</b> <br> At the center: <b>" . $center->cname . "</b> <br> Please select the <b>center timing</b>, thank you!";
-     } else {
-       for ($i=0; $i < 14; $i++) {
+     }
+//     if ($c_offdays[0]->$pur_dayname == 'FALSE') {
+//       $result = "You will be scheduled on: <b>" . strtoupper($pur_dayname) . "</b><br> Date: <b>" . $pur_date . "</b> <br> At the center: <b>" . $center->cname . "</b> <br> Please select the <b>center timing</b>, thank you!";
+//     }
+    else {
+       for ($i=0; $i < 21; $i++) {
          $repeat = strtotime("+1 day",strtotime($today));
          $today = date('d-m-Y',$repeat);
          $dayname = date('D', strtotime($today));
          $dayname = strtolower($dayname);
          $pur_date = $today;
          $pur_dayname = $dayname;
-          if ($c_offdays[0]->$dayname == 'FALSE') {
-            $result = "You will be scheduled on: <b>" . strtoupper($dayname) . "</b><br> Date: <b>" . $today . "</b> <br> At the center: <b>" . $center->cname . "</b> <br> Please select the <b>center timing</b>, thank you!";
-            return response()->json(array('result'=> $result, 'center_id'=> $center->id, 'pur_date'=> $pur_date, 'pur_dayname'=> $pur_dayname), 200);
-          }
+         if (!in_array($pur_dayname, $adv_offdays)) {
+           $result = "You will be scheduled on: <b>" . strtoupper($dayname) . "</b><br> Date: <b>" . $today . "</b> <br> At the center: <b>" . $center->cname . "</b> <br> Please select the <b>center timing</b>, thank you!";
+           return response()->json(array('result'=> $result, 'center_id'=> $center->id, 'pur_date'=> $pur_date, 'pur_dayname'=> $pur_dayname), 200);
+         }
+//          if ($c_offdays[0]->$dayname == 'FALSE') {
+//            $result = "You will be scheduled on: <b>" . strtoupper($dayname) . "</b><br> Date: <b>" . $today . "</b> <br> At the center: <b>" . $center->cname . "</b> <br> Please select the <b>center timing</b>, thank you!";
+//            return response()->json(array('result'=> $result, 'center_id'=> $center->id, 'pur_date'=> $pur_date, 'pur_dayname'=> $pur_dayname), 200);
+//          }
         //$today=$pur_date;
         }
       }
@@ -53,8 +62,7 @@ class ScheduleController extends Controller
     public function get_ct_slots($ct_id, Request $request) {
       //$arr['data'] = CentertimingSlot::where('ct_id', $ct_id)->where('status', '0')->get();
       $x = $request->input('final_purposed_date');
-
-      $already_scheduled = Schedule::where('date', $x)->get();
+      $already_scheduled = Schedule::where('date', Carbon::parse($x))->get();
       $scheduled_ids[] = "";
       if(!is_null($already_scheduled)) {
         foreach ($already_scheduled as $key) {
@@ -104,9 +112,17 @@ class ScheduleController extends Controller
     }
 
     public function schedulepatientstore(Request $request) {
-      $schedules = Schedule::where('pat_id',$request->input('pat_id'))->get();
+      $pat_id = $request->input('pat_id');
+      $schedules = Schedule::where('pat_id', $pat_id)->get();
       //echo '<pre>'; print_r($schedules); echo '</pre>';
       //if (!$schedules) {
+        $check_prev_schs = Schedule::where('pat_id', $pat_id)->get();
+        if ($check_prev_schs) {
+          foreach ($check_prev_schs as $check_prev_sch) {
+            // code...
+            $check_prev_sch->delete();
+          }
+        }
         $schedule = new Schedule;
         $schedule->pat_id = $request->input('pat_id');
         $schedule->center_id = $request->input('center_id');

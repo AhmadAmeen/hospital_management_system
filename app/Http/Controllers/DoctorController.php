@@ -93,7 +93,7 @@ class DoctorController extends Controller
       }
 
       $vaccinationhistories = VaccinationHistory::where('pat_id', $pat_id)->get();
-      return view('doctormainpage')->with('patients', $patients)
+      return view('doctormainpage')//->with('patients', $patients)
       ->with('medicines', $medicines)
       ->with('medicine_names', $medicine_names)
       ->with('diseases', $diseases)
@@ -592,22 +592,63 @@ class DoctorController extends Controller
 
   public function patDetailedDashboard($pat_id, $vh_id, Request $request) {
     $visit_history = VisitHistory::find($vh_id);
+    $visit_histories = VisitHistory::where('patient_id', $pat_id)->get();
+    $visit_histories_ids = VisitHistory::where('patient_id', $pat_id)->pluck('id')->all();
     $patient = Patient::find($pat_id);
     $doctor = Doctor::find($patient->doc_id);
     $centers = AdvCenter::where('doc_id', $doctor->id)->get();
     $diagnoses = Diagnosis::where('vh_id', $vh_id)->get();
-    $prescribed_med = PrescribedMedicine::where('vh_id', $vh_id)->get();
+    $diagnoses_alltime = Diagnosis::where('vh_id', $visit_histories_ids)->pluck('dis_id')->all();
+    $p_meds_alltime = PrescribedMedicine::where('vh_id', $visit_histories_ids)->pluck('med_id')->all();
+    $prescribed_meds = PrescribedMedicine::where('vh_id', $vh_id)->get();
     $medical_histories = MedicalHistory::where('patient_id', $pat_id)->get();
-    $vacc_histories = VaccinationHistory::where('pat_id', $pat_id)->get();
+    $vacc_histories_t = VaccinationHistory::where('pat_id', $pat_id)->where('status', 'TRUE')->get();
+    //$vaccines_t  = AdvVaccineTiming::where('id', $vacc_histories_t)->get()
+    $vacc_histories_f = VaccinationHistory::where('pat_id', $pat_id)->where('status', 'FALSE')->get();
+    //$arr = 4;
+    $arrayMedName = array();
+    $arrayDiagName = array();
+    $background_colors = array('#282E33', '#25373A', '#164852', '#495E67', '#b90000', '#FF3838', '#8338bd');
+
+    foreach ($prescribed_meds as $prescribed_med) {
+      $rand_background = $background_colors[array_rand($background_colors)];
+      array_push($arrayMedName, array('y'=> count(array_keys($p_meds_alltime, $prescribed_med->med_id)), 'name'=>$prescribed_med->med_id, 'color'=>$rand_background));
+    }
+
+    foreach ($diagnoses as $diagnosis) {
+      $rand_background = $background_colors[array_rand($background_colors)];
+      array_push($arrayDiagName, array('y'=> count(array_keys($diagnoses_alltime, $diagnosis->dis_id)), 'name'=>$diagnosis->dis_id, 'color'=>$rand_background));
+    }
+
+    $headsizes = array();
+    $ex_hs = array(6, 6, 6.6, 7, 7, 7.1, 7.5, 7.5, 7.7, 7.8, 7.9, 8.0);
+    $lengths = array();
+    $ex_len = array(6, 6, 6.6, 7, 7, 7.1, 7.5, 7.5, 7.7, 7.8, 7.9, 8.0);
+    $weights = array();
+    $ex_w = array(6, 6, 6.6, 7, 7, 7.1, 7.5, 7.5, 7.7, 7.8, 7.9, 8.0);
+    foreach ($visit_histories as $visit_history) {
+      // code...
+      array_push($headsizes, $visit_history->head_size);
+      array_push($lengths, $visit_history->length);
+      array_push($weights, $visit_history->weight);
+    }
     return view ('patDetailedDashboard')
     ->with('visit_history', $visit_history)
+    ->with('visit_history_hs', json_encode($headsizes))
+    ->with('ex_hs', json_encode($ex_hs))
+    ->with('visit_history_len', json_encode($lengths))
+    ->with('ex_len', json_encode($ex_len))
+    ->with('visit_history_w', json_encode($weights))
+    ->with('ex_w', json_encode($ex_w))
     ->with('patient', $patient)
     ->with('doctor', $doctor)
     ->with('centers', $centers)
     ->with('diagnoses', $diagnoses)
     ->with('prescribed_med', $prescribed_med)
     ->with('medical_histories', $medical_histories)
-    ->with('vacc_histories', $vacc_histories);
+    ->with('vacc_histories_t', $vacc_histories_t)
+    ->with('vacc_histories_f', $vacc_histories_f)
+    ->with('arrmed', json_encode($arrayMedName))
+    ->with('arrdiag', json_encode($arrayDiagName));
   }
-
 }

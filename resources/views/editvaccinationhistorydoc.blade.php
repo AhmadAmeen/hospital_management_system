@@ -1,7 +1,17 @@
 @extends('doctorlayout.defaultforvac')
 
 @section('content')
+<style>
 
+.bg {
+	background: url('csd/img/bg9.jpg');
+	background-repeat: no-repeat;
+	background-position: top;
+    background-size: contain;
+    height: 500px;
+}
+
+</style>
 <?php
 use App\AdvVaccineTiming;
 use App\Doctor;
@@ -93,7 +103,7 @@ form {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
           <!-- my code -->
-                            <div style="background-color: #3090C7">
+                            <div style="background: url('csd/img/bg9.jpg')">
                             <body>
                               <div class="x_title" style="color: white">
                                 <h2>Welcome <small style="color: white">Edit Vaccine History Details</small></h2>
@@ -118,7 +128,9 @@ form {
                             <form action="{{url('advvaccineforpatientupdatedoc', $patient->id)}}" method="post" enctype="multipart/form-data" id="demo-form2" data-parsley-validate style="margin: auto">
                             @csrf
                             <div class="form-group">
-                              <div width="107" height="90">
+                              <div width="80%" height="90">
+                                <br>
+                                <br>
                               <table id="vaccines_list" style="background-color: white">
                                 <tr>
                                 <th>Vaccine Names</th>
@@ -225,7 +237,6 @@ form {
                                           //create empty rows for all the remaining booster columns
                                           echo "<td></td>";
                                         }
-                                        echo "<br>";
                                         unset($items);
                                         unset($timings);
                                         unset($temp);

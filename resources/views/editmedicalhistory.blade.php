@@ -1,9 +1,8 @@
-@if(!Session::has('recep_name_session'))
-<script>window.location = "adminlogin";</script>
+@if(!Session::has('recep_name_session') && !Session::has('doctor_name_session'))
+<script>window.location = "welcome";</script>
+@else
+@extends(Session::has('recep_name_session') ? 'patientlayout.default' : 'doctorlayout.default')
 @endif
-
-@extends('patientlayout.default')
-
 @section('content')
 
 <style>

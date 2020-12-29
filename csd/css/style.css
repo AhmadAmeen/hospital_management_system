@@ -974,8 +974,8 @@ ul.sidebar-menu li.active a i {
 
 #main-content {
 
-    margin-left: 180px;
-
+    //margin-left: 180px;
+	margin-left: 0px;
 }
 
 
@@ -1036,7 +1036,7 @@ ul.sidebar-menu li.active a i {
 
 .grad-bg {    
 
-    background: linear-gradient(to right, #ff5227 0%, #ff9a00 100%);
+    background: linear-gradient(to right, #0094e8 0%, #2cb368 100%);
 
     border-bottom: 1px solid #f1f2f7;
 

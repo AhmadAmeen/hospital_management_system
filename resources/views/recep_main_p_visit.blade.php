@@ -135,9 +135,10 @@ img {
        <b>Guard No: </b> {{$patient->guard_no}}&nbsp;&nbsp;&nbsp;&nbsp;
        <input type="button" class='btn btn-succes' onclick="schedulingpatient()" value="Reschedule" style="float: right">
        <input type="button" class='btn' onclick="editingpatient()" style="background-color: gray; color: white; float: right" value="Edit">
-       @foreach($schedules as $schedule)
-         <b>{{$schedule->type}}: </b>{{substr($schedule->date, 0, 10)}}&nbsp;&nbsp;&nbsp;
-       @endforeach
+       <br>
+       <b>Date: </b> {{substr($schedule->date, 0, 10)}}&nbsp;&nbsp;&nbsp;
+       <b>Slot: </b> {{$schTimingSlot->from}} <b>-</b> {{$schTimingSlot->to}}&nbsp;&nbsp;&nbsp;
+       <b>Type: </b> {{$schedule->type}}&nbsp;&nbsp;&nbsp;
   </div>
   <!-- The Modal -->
     <div id="myModal" class="modal">
@@ -184,12 +185,10 @@ img {
                         @endif
                       @endforeach
                       <td>
-                        <div>
-                          <input type="checkbox" value="{{$vtid}}" name="vchecks[]" @if ($check == 'TRUE') ? checked : '' @endif  class="form-control col-md-7 col-xs-12">
-                          <div class="popup" onclick="myFunction({{$i}})" style="margin-top: 5px; padding-left: 5px; padding-right: 5px; background-color: gray; color: white"><i>?</i>
+                        <input type="checkbox" value="{{$vtid}}" name="vchecks[]" @if ($check == 'TRUE') ? checked : '' @endif  class="form-control col-md-7 col-xs-12">
+                        <div class="popup" onclick="myFunction({{$i}})" style="display: inline-block; margin-top: 5px; padding-left: 5px; padding-right: 5px; background-color: gray; color: white;"><i>?</i>
                           <span class="popuptext" id="{{$i}}"><p><i>Vaccine Due Date: </i><br> {{ Carbon::parse($patient->dob)->addDays($vt)->format('Y-m-d') }} </script> </p></span>
-                        </div>
-                      </div>
+                       </div>
                       </td>
                     <?php $check = ''; ?>
                     @else
@@ -393,12 +392,6 @@ img {
       </div>
   </div>
 </div>
-  <footer>
-    <div class="pull-right" id="footer">
-      Hospital Management System <a href="#">Visit Our Site</a>
-    </div>
-    <div class="clearfix"></div>
-  </footer>
 <script>
 function addmorehistories() {
   window.location = "{{url('addmedicalhistory/' . $patient->id)}}";

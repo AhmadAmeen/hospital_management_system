@@ -260,3 +260,5 @@ Route::post('doc_updatingcenter', 'AdvCenterController@doc_updatingcenter');
 Route::view('docunavail_reschedule', 'docunavail_reschedule');
 // pat patDetailedDashboard
 Route::get('patDetailedDashboard/{pat_id}/{vh_id}', 'DoctorController@patDetailedDashboard');
+//getCenterOffdays
+Route::get('getCenterOffdays/{c_id}', 'AdvOffdaysController@getCenterOffdays');

@@ -5,6 +5,7 @@ use App\VaccinationHistory;
 use App\AdvVaccine;
 use App\AdvVaccineTiming;
 use App\Patient;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class VaccinationHistoryController extends Controller
@@ -54,7 +55,16 @@ class VaccinationHistoryController extends Controller
         $v_history->pat_id = $pat_id;
         $v_history->vt_id = $vcheck;
         $v_history->status = "TRUE";
-        $v_history->vaccination_date = "_";
+        $dt = Carbon::now();
+        //$v_history->vaccination_date = $dt->toDateString();
+        $vaccinetiming = AdvVaccineTiming::find($vcheck);
+        $v_history->vaccination_date = date('Y-m-d', strtotime($patient->dob. ' + '. $vaccinetiming->vtiming .' days'));
+        //$v_history->vaccination_date = "_";
+        $vt = AdvVaccineTiming::find($vcheck);
+        $v_history->timingindays = $vt->vtiming;
+        $v_history->vt_type = $vt->vt_type;
+        $vaccine = AdvVaccine::find($vt->v_id);
+        $v_history->vname = $vaccine->vname;
         $v_history->save();
       }
     } else {
@@ -71,6 +81,11 @@ class VaccinationHistoryController extends Controller
           $v_history->vt_id = $vaccinetiming->id;
           $v_history->status = "FALSE";
           $v_history->vaccination_date = date('Y-m-d', strtotime($patient->dob. ' + '. $vaccinetiming->vtiming .' days'));
+          $vt = AdvVaccineTiming::find($vcheck);
+          $v_history->timingindays = "_";
+          $v_history->vt_type = "_";
+          $vaccine = AdvVaccine::find($vt->v_id);
+          $v_history->vname = "_";
           $v_history->save();
         }
       }
@@ -89,7 +104,16 @@ class VaccinationHistoryController extends Controller
         $v_history->pat_id = $pat_id;
         $v_history->vt_id = $vcheck;
         $v_history->status = "TRUE";
-        $v_history->vaccination_date = "_";
+        $dt = Carbon::now();
+        //$v_history->vaccination_date = $dt->toDateString();
+        $vaccinetiming = AdvVaccineTiming::find($vcheck);
+        $v_history->vaccination_date = date('Y-m-d', strtotime($patient->dob. ' + '. $vaccinetiming->vtiming .' days'));
+        //$v_history->vaccination_date = "_";
+        $vt = AdvVaccineTiming::find($vcheck);
+        $v_history->timingindays = $vt->vtiming;
+        $v_history->vt_type = $vt->vt_type;
+        $vaccine = AdvVaccine::find($vt->v_id);
+        $v_history->vname = $vaccine->vname;
         $v_history->save();
       }
     } else {
@@ -106,6 +130,11 @@ class VaccinationHistoryController extends Controller
           $v_history->vt_id = $vaccinetiming->id;
           $v_history->status = "FALSE";
           $v_history->vaccination_date = date('Y-m-d', strtotime($patient->dob. ' + '. $vaccinetiming->vtiming .' days'));
+          $vt = AdvVaccineTiming::find($vcheck);
+          $v_history->timingindays = "_";
+          $v_history->vt_type = "_";
+          $vaccine = AdvVaccine::find($vt->v_id);
+          $v_history->vname = "_";
           $v_history->save();
         }
       }
@@ -296,7 +325,15 @@ class VaccinationHistoryController extends Controller
         $v_history->pat_id = $pat_id;
         $v_history->vt_id = $vcheck;
         $v_history->status = "TRUE";
-        $v_history->vaccination_date = "_";
+        $dt = Carbon::now();
+        //$v_history->vaccination_date = $dt->toDateString();
+        $v_history->vaccination_date = date('Y-m-d', strtotime($patient->dob. ' + '. $vaccinetiming->vtiming .' days'));
+        //$v_history->vaccination_date = "_";
+        $vt = AdvVaccineTiming::find($vcheck);
+        $v_history->timingindays = $vt->vtiming;
+        $v_history->vt_type = $vt->vt_type;
+        $vaccine = AdvVaccine::find($vt->v_id);
+        $v_history->vname = $vaccine->vname;
         $v_history->save();
       }
     } else {
@@ -313,6 +350,11 @@ class VaccinationHistoryController extends Controller
           $v_history->vt_id = $vaccinetiming->id;
           $v_history->status = "FALSE";
           $v_history->vaccination_date = date('Y-m-d', strtotime($patient->dob. ' + '. $vaccinetiming->vtiming .' days'));
+          $vt = AdvVaccineTiming::find($vcheck);
+          $v_history->timingindays = "_";
+          $v_history->vt_type = "_";
+          $vaccine = AdvVaccine::find($vt->v_id);
+          $v_history->vname = "_";
           $v_history->save();
         }
       }
