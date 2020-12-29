@@ -106,6 +106,13 @@ class VisitHistoryController extends Controller
     //double check
     $visit_history->center_id = $schedule->center_id;
     $visit_history->status = '1';
+    
+    $visit_history->ex_head_size = '1';
+    $visit_history->ex_length = '1';
+    $visit_history->ex_weight = '1';
+    //$table->string('ex_head_size');
+    //$table->string('ex_length');
+    //$table->string('ex_weight');
     $visit_history->save();
     //return $this->vh_patient($id);
   }

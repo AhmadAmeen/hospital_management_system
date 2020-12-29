@@ -68,8 +68,11 @@
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="gender">Patient Gender <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="text" id="gender" name="gender" required="required" class="form-control col-md-7 col-xs-12">
-                        </div>
+                          <input type="radio" id="male" name="gender" value="Male">
+                          <label for="male">Male</label>&nbsp;&nbsp;&nbsp;&nbsp;
+                          <input type="radio" id="female" name="gender" value="Female">
+                          <label for="female">Female</label>
+                          </div>
                       </div>
                     <!--
                       <div class="form-group">

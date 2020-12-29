@@ -46,7 +46,7 @@
                      </div>
                         <div class="x_content">
                     <br>
-                    <form action="{{url('docregisternewpatient/' . session('doctor_session'))}}" method="post" enctype="multipart/form-data" id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
+                    <form action="{{url('registernewpatient')}}" method="post" enctype="multipart/form-data" id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
                       @csrf
                       <h1 style="text-align: center; margin-down: 20px">Register Patient</h1>
                       <!--pat-name-->
@@ -64,13 +64,16 @@
                           <input type="text" id="lname" name="lname" required="required" class="form-control col-md-7 col-xs-12">
                         </div>
                       </div>
-                      <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="gender">Patient Gender <span class="required">*</span>
-                        </label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="text" id="gender" name="gender" required="required" class="form-control col-md-7 col-xs-12">
+                        <div class="form-group">
+                          <label class="control-label col-md-3 col-sm-3 col-xs-12" for="dob">Gender <span class="required">*</span>
+                          </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                              <input type="radio" id="male" name="gender" value="Male">
+                              <label for="male">Male</label>&nbsp;&nbsp;&nbsp;&nbsp;
+                              <input type="radio" id="female" name="gender" value="Female">
+                              <label for="female">Female</label>
+                            </div>
                         </div>
-                      </div>
                     <!--
                       <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="age">Patient Age <span class="required">*</span>

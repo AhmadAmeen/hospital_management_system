@@ -574,7 +574,6 @@ Highcharts.chart('chart5', {
         data: JSON.parse(arrmed)
     }]
 });
-</script>
-
-  </body>
+  </script>
+ </body>
 </html>

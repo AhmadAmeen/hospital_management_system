@@ -619,7 +619,6 @@ class DoctorController extends Controller
       $rand_background = $background_colors[array_rand($background_colors)];
       array_push($arrayDiagName, array('y'=> count(array_keys($diagnoses_alltime, $diagnosis->dis_id)), 'name'=>$diagnosis->dis_id, 'color'=>$rand_background));
     }
-
     $headsizes = array();
     $ex_hs = array(6, 6, 6.6, 7, 7, 7.1, 7.5, 7.5, 7.7, 7.8, 7.9, 8.0);
     $lengths = array();
