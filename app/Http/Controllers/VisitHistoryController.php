@@ -9,8 +9,11 @@ use App\Schedule;
 use App\Receptionist;
 use App\PrescribedMedicine;
 use App\Diagnosis;
+use App\Std;
 Use Session;
+Use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
+use DateTime;
 
 class VisitHistoryController extends Controller
 {
@@ -106,15 +109,82 @@ class VisitHistoryController extends Controller
     //double check
     $visit_history->center_id = $schedule->center_id;
     $visit_history->status = '1';
-    
-    $visit_history->ex_head_size = '1';
-    $visit_history->ex_length = '1';
-    $visit_history->ex_weight = '1';
-    //$table->string('ex_head_size');
-    //$table->string('ex_length');
-    //$table->string('ex_weight');
+    //$months = Carbon::parse($visit_history->dob)->diff(Carbon::now())->format('%m') + 12 * $diff->format('%y');
+    $birthday = new DateTime($visit_history->dob);
+    $diff = $birthday->diff(new DateTime());
+    $months = $diff->format('%m') + 12 * $diff->format('%y');
+    $visit_history->ageinmonths = $months;
+    if ($patient->gender == "Male") {
+      if ($months == 0) {
+        $visit_history->ex_head_size = '14.6';
+        $visit_history->ex_length = '21.5';
+        $visit_history->ex_weight = '9.9';
+      } else if ($months == 1) {
+        $visit_history->ex_head_size = '15.4';
+        $visit_history->ex_length = '22.9';
+        $visit_history->ex_weight = '12.3';
+      } else if ($months == 2) {
+        $visit_history->ex_head_size = '16.3';
+        $visit_history->ex_length = '25.2';
+        $visit_history->ex_weight = '15.4';
+      } else if ($months == 3) {
+        $visit_history->ex_head_size = '16.3';
+        $visit_history->ex_length = '25.2';
+        $visit_history->ex_weight = '15.4';
+      } else if ($months == 4 || $months == 5) {
+        $visit_history->ex_head_size = '17';
+        $visit_history->ex_length = '26.6';
+        $visit_history->ex_weight = '17.6';
+      } else if ($months == 6 || $months == 7 || $months == 8) {
+        $visit_history->ex_head_size = '17.7';
+        $visit_history->ex_length = '28.3';
+        $visit_history->ex_weight = '19.8';
+      } else if ($months == 9 || $months == 10 || $months == 11 || $months == 12) {
+        $visit_history->ex_head_size = '18.1';
+        $visit_history->ex_length = '29.8';
+        $visit_history->ex_weight = '21.2';
+      } else {
+        $visit_history->ex_head_size = '_';
+        $visit_history->ex_length = '_';
+        $visit_history->ex_weight = '_';
+      }
+    } else {
+      if ($months == 0) {
+        $visit_history->ex_head_size = '14.6';
+        $visit_history->ex_length = '21.5';
+        $visit_history->ex_weight = '9.9';
+      } else if ($months == 1) {
+        $visit_history->ex_head_size = '15.4';
+        $visit_history->ex_length = '22.9';
+        $visit_history->ex_weight = '12.3';
+      } else if ($months == 2) {
+        $visit_history->ex_head_size = '16.3';
+        $visit_history->ex_length = '25.2';
+        $visit_history->ex_weight = '15.4';
+      } else if ($months == 3) {
+        $visit_history->ex_head_size = '16.3';
+        $visit_history->ex_length = '25.2';
+        $visit_history->ex_weight = '15.4';
+      } else if ($months == 4 || $months == 5) {
+        $visit_history->ex_head_size = '17';
+        $visit_history->ex_length = '26.6';
+        $visit_history->ex_weight = '17.6';
+      } else if ($months == 6 || $months == 7 || $months == 8) {
+        $visit_history->ex_head_size = '17.7';
+        $visit_history->ex_length = '28.3';
+        $visit_history->ex_weight = '19.8';
+      } else if ($months == 9 || $months == 10 || $months == 11 || $months == 12) {
+        $visit_history->ex_head_size = '18.1';
+        $visit_history->ex_length = '29.8';
+        $visit_history->ex_weight = '21.2';
+      } else {
+        $visit_history->ex_head_size = '_';
+        $visit_history->ex_length = '_';
+        $visit_history->ex_weight = '_';
+      }
+    }
+
     $visit_history->save();
-    //return $this->vh_patient($id);
   }
 
   public function vh_getseachedpatients (Request $request) {

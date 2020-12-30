@@ -41,7 +41,12 @@ class PatientController extends Controller
         //$patient->pat_history = $request->pat_history;
         $recp_id = $request->session()->get('recep_session');
         $recep = Receptionist::find($recp_id);
-        $doctor = Doctor::find($recep->doc_id);
+        if ($recep) {
+          $doctor = Doctor::find($recep->doc_id);
+        } else {
+          $doc_id = $request->session()->get('doctor_session');
+          $doctor = Doctor::find($doc_id);
+        }
         //echo $doctor->doc_id;
         $patient->doc_id = $doctor->id;
         //echo $request->patient_cid;

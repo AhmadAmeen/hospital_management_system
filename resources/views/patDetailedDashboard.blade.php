@@ -323,9 +323,14 @@ body {
   var ex_len = <?php echo json_encode($ex_len) ?>;
   var w = <?php echo json_encode($visit_history_w) ?>;
   var ex_w = <?php echo json_encode($ex_w) ?>;
+  var x_axis = <?php echo json_encode($x_axis) ?>;
+  //x_axis = x_axis.replace(/['"]+/g, '');
   hs = hs.replace(/['"]+/g, '');
+  ex_hs = ex_hs.replace(/['"]+/g, '');
   len = len.replace(/['"]+/g, '');
+  ex_len = ex_len.replace(/['"]+/g, '');
   w = w.replace(/['"]+/g, '');
+  ex_w = ex_w.replace(/['"]+/g, '');
   //alert(hs.replace(/['"]+/g, ''));
       //knob
       $(function() {
@@ -377,7 +382,7 @@ Highcharts.chart('chart2', {
         enabled: false
     },
     xAxis: {
-        categories: ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12']
+        categories: JSON.parse(x_axis)
     },
 	yAxis: {
         labels: {
@@ -421,7 +426,7 @@ Highcharts.chart('chart3', {
         enabled: false
     },
     xAxis: {
-        categories: ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12']
+        categories: JSON.parse(x_axis)
     },
 	yAxis: {
         labels: {
@@ -463,7 +468,7 @@ Highcharts.chart('chart4', {
         enabled: false
     },
     xAxis: {
-        categories: ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12']
+        categories: JSON.parse(x_axis)
     },
 	yAxis: {
         labels: {

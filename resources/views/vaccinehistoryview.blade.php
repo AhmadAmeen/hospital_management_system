@@ -1,6 +1,9 @@
-@if(!Session::has('recep_name_session'))
+@if(!Session::has('recep_name_session') && !Session::has('doctor_name_session'))
 <script>window.location = "welcome";</script>
+@else
+@extends(Session::has('recep_name_session') ? 'patientlayout.default' : 'doctorlayout.default')
 @endif
+@section('content')
 
 <?php
 use App\AdvVaccineTiming;
@@ -83,9 +86,6 @@ $i = 0;
 }
 </style>
 </head>
-@extends('patientlayout.default')
-
-@section('content')
 
 <!--
   <div class="right_col" role="main"  >

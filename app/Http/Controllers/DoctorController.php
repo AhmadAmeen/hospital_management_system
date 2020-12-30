@@ -620,18 +620,26 @@ class DoctorController extends Controller
       array_push($arrayDiagName, array('y'=> count(array_keys($diagnoses_alltime, $diagnosis->dis_id)), 'name'=>$diagnosis->dis_id, 'color'=>$rand_background));
     }
     $headsizes = array();
-    $ex_hs = array(6, 6, 6.6, 7, 7, 7.1, 7.5, 7.5, 7.7, 7.8, 7.9, 8.0);
+    $ex_hs = array();
     $lengths = array();
-    $ex_len = array(6, 6, 6.6, 7, 7, 7.1, 7.5, 7.5, 7.7, 7.8, 7.9, 8.0);
+    $ex_len = array();
     $weights = array();
-    $ex_w = array(6, 6, 6.6, 7, 7, 7.1, 7.5, 7.5, 7.7, 7.8, 7.9, 8.0);
+    $ex_w = array();
+    $x_axis = array();
     foreach ($visit_histories as $visit_history) {
       // code...
-      array_push($headsizes, $visit_history->head_size);
-      array_push($lengths, $visit_history->length);
-      array_push($weights, $visit_history->weight);
+      if($visit_history->ageinmonths >= '0' && $visit_history->ageinmonths < '13') {
+        array_push($x_axis, $visit_history->ageinmonths);
+        array_push($headsizes, $visit_history->head_size);
+        array_push($ex_hs, $visit_history->ex_head_size);
+        array_push($lengths, $visit_history->length);
+        array_push($ex_len, $visit_history->ex_length);
+        array_push($weights, $visit_history->weight);
+        array_push($ex_w, $visit_history->ex_weight);
+      }
     }
     return view ('patDetailedDashboard')
+    ->with('x_axis', json_encode($x_axis))
     ->with('visit_history', $visit_history)
     ->with('visit_history_hs', json_encode($headsizes))
     ->with('ex_hs', json_encode($ex_hs))

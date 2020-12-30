@@ -139,10 +139,14 @@ class ReceptionistController extends Controller
      $vaccinationhistories = VaccinationHistory::where('pat_id', $pat_id)->get();
      $med_histories = MedicalHistory::where('patient_id', $pat_id)->where('status', 'TRUE')->get();
      $schedule = Schedule::where('pat_id', $pat_id)->first();
-     $schTimingSlot = CentertimingSlot::find($schedule->time);
+     if ($schedule) {
+       $schTimingSlot = CentertimingSlot::find($schedule->time);
+     } else {
+       $schTimingSlot = "";
+     }
      return view ('recep_main_p_visit')->with('patient', $patient)
      ->with('schedule', $schedule)
-     ->with('schTimingSlot', $schTimingSlot)
+     //->with('schTimingSlot', $schTimingSlot)
      ->with('med_histories', $med_histories)
      ->with('advvaccines', $advvaccines)
      ->with('v_timings', $v_timings)

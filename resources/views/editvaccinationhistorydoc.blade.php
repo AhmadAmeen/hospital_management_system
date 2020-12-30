@@ -1,6 +1,6 @@
 @extends('doctorlayout.defaultforvac')
-
 @section('content')
+
 <style>
 
 .bg {

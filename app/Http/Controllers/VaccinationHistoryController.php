@@ -139,8 +139,11 @@ class VaccinationHistoryController extends Controller
         }
       }
     }
-
-    return redirect('patientregform/' . session('recep_session'));
+    if (session('recep_session')) {
+      return redirect('patientregform/' . session('recep_session'));
+    } else {
+      return redirect('docpatientregform/' . session('doctor_session'));
+    }
     } catch(Exception $e) {
         echo 'Message: ' .$e->getMessage();
     }

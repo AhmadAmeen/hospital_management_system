@@ -137,8 +137,10 @@ img {
        <input type="button" class='btn' onclick="editingpatient()" style="background-color: gray; color: white; float: right" value="Edit">
        <br>
        <b>Date: </b> {{substr($schedule->date, 0, 10)}}&nbsp;&nbsp;&nbsp;
-       <b>Slot: </b> {{$schTimingSlot->from}} <b>-</b> {{$schTimingSlot->to}}&nbsp;&nbsp;&nbsp;
-       <b>Type: </b> {{$schedule->type}}&nbsp;&nbsp;&nbsp;
+       <!--
+       <b>Slot: </b> {{--$schTimingSlot->from--}} <b>-</b> {{--$schTimingSlot->to--}}&nbsp;&nbsp;&nbsp;
+       <b>Type: </b> {{--$schedule->type--}}&nbsp;&nbsp;&nbsp;
+     -->
   </div>
   <!-- The Modal -->
     <div id="myModal" class="modal">
