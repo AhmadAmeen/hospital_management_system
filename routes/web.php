@@ -12,7 +12,9 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+//Route::view('DrRazaKareem','DoctorWebsitesController@DrRazaKareem');
+Route::view ('DrRazaKareem', 'DrRazaKareem');
+Route::view('upload', 'webisteImagesUpload');
 Route::view('/', 'welcome');
 //admin
 Route::view('adminlogin', 'adminlogin');
@@ -262,3 +264,14 @@ Route::view('docunavail_reschedule', 'docunavail_reschedule');
 Route::get('patDetailedDashboard/{pat_id}/{vh_id}', 'DoctorController@patDetailedDashboard');
 //getCenterOffdays
 Route::get('getCenterOffdays/{c_id}', 'AdvOffdaysController@getCenterOffdays');
+// doc Website Builder
+Route::get('docWebsiteBuilder/{doc_id}', 'DoctorWebsiteController@docWebsiteBuilder');
+// visit website
+Route::get('visitOwnWebsite/{doc_id}', 'DoctorWebsiteController@visitOwnWebsite');
+// dr website
+Route::get('Dr/{webname}','DoctorWebsiteController@drWebsite');
+// Gallery
+Route::get('image-gallery', 'DocCenterImagesController@index');
+Route::get('image-gallery/{doc_id}', 'DocCenterImagesController@index');
+Route::post('image-gallery', 'DocCenterImagesController@upload');
+Route::delete('image-gallery/{doc_id}', 'DocCenterImagesController@destroy');

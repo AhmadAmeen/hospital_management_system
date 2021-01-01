@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateStdsTable extends Migration
+class CreateDocCenterImagesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,10 @@ class CreateStdsTable extends Migration
      */
     public function up()
     {
-        Schema::create('standards', function (Blueprint $table) {
+        Schema::create('doc_center_images', function (Blueprint $table) {
             $table->id();
+            $table->string('title');
+            $table->string('image');
             $table->timestamps();
         });
     }
@@ -26,6 +28,6 @@ class CreateStdsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('standards');
+        Schema::dropIfExists('doc_center_images');
     }
 }

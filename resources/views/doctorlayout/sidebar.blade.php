@@ -62,6 +62,16 @@
             </ul>
           </li>
       </li>
+      <li>
+         <li><a style="border-style: outset; margin-right: 2px; border-color: #fff;"></i> Website <span style="float: right" class=" ">↓</span></a>
+             <ul class="nav child_menu">
+               <li><a href="{{url('docWebsiteBuilder/' . session('doctor_session'))}}">Website Data</a></li>
+               <li><a href="{{url('image-gallery/' . session('doctor_session'))}}">Website Images</a></li>
+               <li><a href="{{url('visitOwnWebsite/' . session('doctor_session'))}}">Visit Website</a></li>
+
+            </ul>
+          </li>
+      </li>
     </ul>
    </div>
   </div>

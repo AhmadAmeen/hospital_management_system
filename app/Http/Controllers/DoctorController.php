@@ -23,7 +23,16 @@ use Session;
 use Carbon\Carbon;
 
 class DoctorController extends Controller
+
 {
+
+    public function drWebsite($dweb) {
+      $doctor = Doctor::where('username', $dweb)->latest()->first();
+      if($doctor) {
+        return view ('DrRazaKareem')->with('doctor', $doctor)->with('images', $doctor->dimg);
+      }
+    }
+
     public function doctorlogin() {
       return view('doctorlogin');
     }

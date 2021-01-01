@@ -136,11 +136,13 @@ img {
        <input type="button" class='btn btn-succes' onclick="schedulingpatient()" value="Reschedule" style="float: right">
        <input type="button" class='btn' onclick="editingpatient()" style="background-color: gray; color: white; float: right" value="Edit">
        <br>
+       @if ($schedule)
        <b>Date: </b> {{substr($schedule->date, 0, 10)}}&nbsp;&nbsp;&nbsp;
+       @endif
        <!--
        <b>Slot: </b> {{--$schTimingSlot->from--}} <b>-</b> {{--$schTimingSlot->to--}}&nbsp;&nbsp;&nbsp;
        <b>Type: </b> {{--$schedule->type--}}&nbsp;&nbsp;&nbsp;
-     -->
+       -->
   </div>
   <!-- The Modal -->
     <div id="myModal" class="modal">

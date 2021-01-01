@@ -113,39 +113,7 @@ body {
             <!--logo end-->
             <div class="nav search-row" id="top_menu">
             </div>
-            <div class="top-nav notification-row">
-                <!-- notificatoin dropdown start-->
-                <ul class="nav pull-right top-menu">
-                    <!-- alert notification end-->
-                    <!-- user login dropdown start-->
-                    <li class="dropdown">
-                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                            <span class="profile-ava">
-                                <img alt="" src="{{ asset('csd/img/avatar1_small.jpg') }}">
-                            </span>
-                            <span class="username">Admin</span>
-                            <b class="caret"></b>
-                        </a>
-                        <ul class="dropdown-menu extended logout">
-                            <div class="log-arrow-up"></div>
-                            <li class="eborder-top">
-                                <a href="#" style="color:#003858"><i class="icon_profile"></i> My Profile</a>
-                            </li>
-                            <li>
-                                <a href="#" style="color:#003858"><i class="icon_mail_alt"></i> Change Password</a>
-                            </li>
-                            <li>
-                                <a href="login.html" style="color:#003858"><i class="icon_key_alt"></i> Log Out</a>
-                            </li>
-                            <li>
-                                <a href="#"><i></i> </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <!-- user login dropdown end -->
-                </ul>
-                <!-- notificatoin dropdown end-->
-            </div>
+
       </header>
       <!--header end-->
 
@@ -174,7 +142,6 @@ body {
 							<img src="{{ asset('csd/img/ages.png') }}" style="width:280px; height:120px">
 						</div>
 						<div class="col-lg-3 col-md-3">
-
               @foreach ($vacc_histories_t as $vh_t)
                <div class="checkbox">
                 <label><input type="checkbox" value="" checked>Name: {{$vh_t->vname}} Type: {{$vh_t->vt_type}} </label>
@@ -394,7 +361,7 @@ Highcharts.chart('chart2', {
 		color:'#8338bd',
         data: JSON.parse(hs)
     }, {
-		name:'Expected',
+		name:'Standard',
 		color:'#034a73',
       data: JSON.parse(ex_hs)
     }]
@@ -438,7 +405,7 @@ Highcharts.chart('chart3', {
 		color:'#ff2759',
       data: JSON.parse(len)
     }, {
-		name:'Expected',
+		name:'Standard',
 		color:'#034a73',
       data: JSON.parse(ex_len)
     }]
@@ -480,7 +447,7 @@ Highcharts.chart('chart4', {
 		color:'#0fa953',
       data: JSON.parse(w)
     }, {
-		name:'Expected',
+		name:'Standard',
 		color:'#034a73',
       data: JSON.parse(ex_w)
     }]

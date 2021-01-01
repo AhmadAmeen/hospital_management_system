@@ -14,6 +14,8 @@ use App\AdvVaccine;
 use App\Patient;
 use App\VaccinationHistory;
 $i = 0;
+
+
 ?>
 <script src="https://cdn.jsdelivr.net/npm/jquery-mask-plugin@1.14.16/dist/jquery.mask.min.js"></script>
 <!-- Jquery Library 2.1 JavaScript-->
@@ -136,6 +138,7 @@ setInterval(function() {
        <a id="temp" style="display:none"><b>Temperature: </b> @if (empty($cur_pat_vh->temp))@else{{$cur_pat_vh->temp}}@endif</a>&nbsp;&nbsp;&nbsp;&nbsp;
        <a id="v_type" style="display:none"><b>Visit Type: </b> @if (empty($cur_pat_vh->other))@else{{$cur_pat_vh->other}}@endif</a>&nbsp;&nbsp;&nbsp;&nbsp;
        <a id="date" style="display:none"><b>Date: </b> @if (empty($cur_pat_vh->date))@else{{$cur_pat_vh->date}}@endif</a>&nbsp;&nbsp;&nbsp;&nbsp;
+       <p class='' value="Reschedule" style="float: right; border-radius: 20px; background-color: white; color: black"></p>
        <input type="button" class='' onclick="schedulingpatient()" value="Reschedule" style="float: right; border-radius: 20px; background-color: white; color: black">
     </div>
 
@@ -1468,6 +1471,17 @@ var ViewModel = function() {
 
 ko.applyBindings(new ViewModel())
 
+</script>
+<script type="text/javascript">
+/*
+    var slowLoad = window.setTimeout( function() {
+        //alert( "the page is taking its sweet time loading" );
+    }, 10 );
+
+    window.addEventListener( 'load', function() {
+        window.clearTimeout( slowLoad );
+    }, false );
+*/
 </script>
 
 @endsection
