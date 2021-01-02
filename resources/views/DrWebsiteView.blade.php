@@ -139,13 +139,7 @@ h1 {
           <div class="section-heading">
             <h2>About Me</h2>
             <div class="line-dec"></div>
-                Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.
-                <br><br>
-                Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.
-                <br><br>
-                Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.
-                <br><br>
-                The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.
+                <p>{!! nl2br(e($docWeb->about)) !!}</p>
                 <br><br>
               <h5><b>Our Centers:</b></h5>
               <div class="line-dec"></div>
@@ -206,8 +200,7 @@ h1 {
                     </svg>
                     </div>
                     <div class="px-3 text-center pb-3">
-                        <p class="font-weight-light my-3 text-secondary">Lorem ipsum dolor sit consectetur adipisicing elit. Alias amet
-                            deleniti et fugit iusto nesciunt.</p>
+                        <p class="font-weight-light my-3 text-secondary">{{$docWeb->t1}}</p>
                     </div>
                 </div>
                 <div>
@@ -240,8 +233,7 @@ h1 {
                     </svg>
                     </div>
                     <div class="px-3 text-center pb-3">
-                        <p class="font-weight-light my-3 text-white">Lorem ipsum dolor sit consectetur adipisicing elit. Alias amet
-                            deleniti et fugit iusto nesciunt.</p>
+                        <p class="font-weight-light my-3 text-white">{{$docWeb->t2}}</p>
                     </div>
                 </div>
                 <div>
@@ -274,8 +266,7 @@ h1 {
                     </svg>
                     </div>
                     <div class="px-3 text-center pb-3">
-                        <p class="font-weight-light my-3 text-secondary">Lorem ipsum dolor sit consectetur adipisicing elit. Alias amet
-                            deleniti et fugit iusto nesciunt.</p>
+                        <p class="font-weight-light my-3 text-secondary">{{$docWeb->t3}}</p>
                     </div>
                 </div>
                 <div>

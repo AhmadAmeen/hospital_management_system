@@ -1,8 +1,21 @@
+<?php
+require_once('config.php');
+
+if(isset($_SESSION['access_token'])){
+	header("Location: index.php");
+	exit();
+}
+
+
+$redirectTo = "http://localhost/loginfb/callback.php";
+$data = ['email'];
+$fullURL = $handler->getLoginUrl($redirectTo, $data);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <!-- Meta, title, CSS, favicons, etc. -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -21,11 +34,15 @@
     <link href="public/gentelella-master/build/css/custom.min.css" rel="stylesheet">
     <!--animated login form-->
     <link href="public/css/adminloginform-css.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 
 
   </head>
   <body class="login" >
-<div class="container" style="background-color: white">
+  <div class="container" style="background-color: white">
   <div class="left">
     <div class="header">
       <h2 class="animation a1" style="color: black">Doctor Login</h2>
@@ -44,6 +61,7 @@
           </div>
           <div>
             <input type="submit" value="Log in!" class="btn btn-default submit" class="animation a6">
+            <input type="submit" value="Log in with Facebook" class="btn btn-default submit" class="animation a6">
             <a class="reset_pass" href="#">Please enter username and password</a>
           </div>
 
@@ -64,7 +82,9 @@
               </p>
             </div>
           </div>
+          <input type="button" onclick="window.location = '<?php echo $fullURL ?>'" value="Login with Facebook" class="btn btn-primary">
         </form>
+
     </div>
   </div>
   <div class="right"></div>

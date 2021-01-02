@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Providers;
-
+use Facebook\Facebook;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -13,7 +13,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+      $this->app->singleton(Facebook::class, function ($app) {
+          return new Facebook(config('facebook.config'));
+      });
     }
 
     /**
