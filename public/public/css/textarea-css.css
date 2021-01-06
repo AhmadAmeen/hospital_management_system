@@ -1,0 +1,60 @@
+* {
+  &,
+  &::before,
+  &::after {
+    box-sizing: inherit;
+  }
+}
+
+textarea {
+  scrollbar-width: thin;
+  outline: none;
+  resize: none;
+  box-shadow: 0 0 0 4px rgba(#79bd8f, 0.3);
+  width: 100%;
+  min-height: 50px;
+  max-height: 200px;
+  border-radius: 5px;
+  padding: 5px;
+  border: 1px solid #79bd8f;
+
+  &:hover,
+  &:focus {
+    box-shadow: 0 0 0 4px rgba(#79bd8f, 0.5);
+  }
+
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+  &::-webkit-scrollbar-track {
+    background-color: #f0f0f0;
+    border-radius: 0 5px 5px 0;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: #588a68;
+    border-radius: 5px;
+    }
+  }
+
+  <script>
+  const textarea = document.getElementById("textarea");
+
+  function setHeight(elem) {
+    const style = getComputedStyle(elem, null);
+    const verticalBorders = Math.round(parseFloat(style.borderTopWidth) + parseFloat(style.borderBottomWidth));
+    const maxHeight = parseFloat(style.maxHeight) || 300;
+
+    elem.style.height = "auto";
+
+    const newHeight = elem.scrollHeight + verticalBorders;
+
+    elem.style.overflowY = newHeight > maxHeight ? "auto" : "hidden";
+    elem.style.height = Math.min(newHeight, maxHeight) + "px";
+  }
+
+  textarea.addEventListener("input", (e) => {
+    setHeight(e.target);
+  });
+
+  setHeight(textarea);
+</script>

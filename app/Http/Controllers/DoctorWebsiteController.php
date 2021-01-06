@@ -27,4 +27,12 @@ class DoctorWebsiteController extends Controller
     public function visitWebsite($webname) {
       return view('DrWebsiteView');
     }
+
+    public function drWebsite($webname) {
+      $doctor = Doctor::where('username', $webname)->first();
+      $centers = AdvCenter::where('doc_id', $doctor->id)->get();
+      $images = DocCenterImages::get();
+      $docWeb = DocWebsite::where('doc_id', $doctor->id)->first();
+      return view('DrWebsiteView')->with('doctor', $doctor)->with('doc_id', $doctor->id)->with('centers', $centers)->with(compact('images'))->with('docWeb', $docWeb);
+    }
 }

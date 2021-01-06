@@ -109,6 +109,7 @@ h1 {
       .carousel-control.left {margin-left: -45px; color: black;}
       .carousel-control.right {margin-right: -45px; color: black;}
   </style>
+
   <body>
     <div id="page-wraper">
       <!-- Sidebar Menu -->
@@ -118,7 +119,7 @@ h1 {
           <i class="fa fa-times" id="menu-close"></i>
           <div class="container">
             <div class="image">
-              <a href="#"><img src="data:image/png;base64,{{ chunk_split(base64_encode($doctor->dimg)) }}" alt="" /></a>
+              <a href="#"><img src="data:image/png;base64,{{ chunk_split(base64_encode($doctor->dimg)) }}" style="width: 140px; height: 150px" alt="" /></a>
             </div>
             <div class="author-content">
               <h4>{{$doctor->dname}}</h4>
@@ -146,6 +147,11 @@ h1 {
                 @foreach($centers as $center)
       					<p>{{$center->cname}}: {{$center->address}}</p>
       					@endforeach
+              <br><br>
+              <h5><b>Contact Me:</b></h5>
+              <div class="line-dec"></div>
+              <p>Contact details: {{$doctor->phno}}</p>
+              <p>{{$doctor->email}}</p>
              </div>
          </div>
       </section>

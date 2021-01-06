@@ -269,7 +269,7 @@ Route::get('docWebsiteBuilder/{doc_id}', 'DoctorWebsiteController@docWebsiteBuil
 // visit website
 Route::get('visitOwnWebsite/{doc_id}', 'DoctorWebsiteController@visitOwnWebsite');
 // dr website
-Route::get('Dr/{webname}','DoctorWebsiteController@drWebsite');
+Route::get('dr/{webname}','DoctorWebsiteController@drWebsite');
 // Gallery
 Route::get('image-gallery', 'DocCenterImagesController@index');
 Route::get('image-gallery/{doc_id}', 'DocCenterImagesController@index');

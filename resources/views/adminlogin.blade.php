@@ -6,9 +6,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <title>Admin Login</title>
-
     <!-- Bootstrap -->
     <link href="public/gentelella-master/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
@@ -21,8 +19,6 @@
     <link href="public/gentelella-master/build/css/custom.min.css" rel="stylesheet">
     <!--animated login form-->
     <link href="public/css/adminloginform-css.css" rel="stylesheet">
-
-
   </head>
   <body class="login" >
 <div class="container" style="background-color: white">
@@ -46,14 +42,10 @@
             <input type="submit" value="Log in!" class="btn btn-default submit" class="animation a6">
             <a class="reset_pass" href="#">Please enter username and password</a>
           </div>
-
           <div class="clearfix"></div>
-
           <div class="separator">
-
             <div class="clearfix"></div>
             <br />
-
             <div>
               <p>
                 @if (Session::has('coc'))

@@ -1,0 +1,15 @@
+<style>
+img {
+ border-radius: 50%;
+ display: block;
+ margin: 0 auto;
+ padding: 10px;
+}
+.label_margin {
+   margin: 15px;
+   width: 100%;
+   padding: 15px;
+   font-weight: bold;
+}
+
+</style>

@@ -1,0 +1,25 @@
+
+<style>
+#vaccines_list {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#vaccines_list td, #vaccines_list th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#vaccines_list tr:nth-child(even){background-color: #f2f2f2;}
+
+#vaccines_list tr:hover {background-color: #ddd;}
+
+#vaccines_list th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #4c7faf;
+  color: white;
+}
+</style>

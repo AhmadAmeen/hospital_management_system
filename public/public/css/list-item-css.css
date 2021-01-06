@@ -1,0 +1,44 @@
+* {
+  font-family:sans-serif;
+}
+
+li {
+  color:#fff;
+  list-style:none;
+  position: relative;
+  margin-bottom: 5px;
+  padding-left:50px;
+  line-height: 1;
+  font-size:15px;
+}
+
+li:before {
+  font-family:FontAwesome;
+  position: absolute;
+  left: 0;
+  color:#318ca0;
+  font-size:15px;
+}
+
+li.one:before {
+   content:"\f111";
+}
+li.two:before {
+   content:"\f00c";
+}
+li.three:before {
+   content:"\f10c";
+}
+li.four:before {
+   content:"\f004";
+}
+li.five:before {
+   content:"\f1e2";
+}
+li.six:before {
+   content:"\f0e7";
+}
+
+li:hover:before {
+  color:#fff;
+}

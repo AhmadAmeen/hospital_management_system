@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Creative - Bootstrap 3 Responsive Admin Template">
+    <meta name="author" content="GeeksLabs">
+    <meta name="keyword" content="Creative, Dashboard, Admin, Template, Theme, Bootstrap, Responsive, Retina, Minimal">
+    <link rel="shortcut icon" href="img/favicon.ico">
+
+    <title>Child Specialist Doctor</title>
+
+    <!-- Bootstrap CSS -->    
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- bootstrap theme -->
+    <link href="css/bootstrap-theme.css" rel="stylesheet">
+    <!--external css-->
+    <!-- font icon -->
+    <link href="css/elegant-icons-style.css" rel="stylesheet" />
+    <link href="css/font-awesome.min.css" rel="stylesheet" />    
+    <!-- full calendar css-->
+    <!-- easy pie chart-->
+    
+    <!-- owl carousel -->
+    <link rel="stylesheet" href="css/owl.carousel.css" type="text/css">
+	<link href="css/jquery-jvectormap-1.2.2.css" rel="stylesheet">
+    <!-- Custom styles -->
+	<link rel="stylesheet" href="css/fullcalendar.css">
+	<link href="css/widgets.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/style-responsive.css" rel="stylesheet" />
+	
+	<link href="css/jquery-ui-1.10.4.min.css" rel="stylesheet">
+	
+    <!-- =======================================================
+        Theme Name: Child Specialist Doctor
+        Theme URL: 
+        Author: Syed Sammar Zaidi
+        Author URL: http://sammarzaidi.com
+    ======================================================= -->
+	
+	<script src="js/highcharts.js"></script>
+<script src="js/exporting.js"></script>
+<script src="js/export-data.js"></script>
+<script src="js/data.js"></script>
+<script src="js/drilldown.js"></script>
+<script src="js/highcharts-3d.js"></script>
+<script src="js/rounded-corners.js"></script>
+
+
+
+<style style="text/css">
+  	
+	/* Define the default color for all the table rows */
+	.hoverTable tr{
+		background: #fff;
+	}
+	/* Define the hover highlight color for the table row */
+    .hoverTable tr:hover {
+          background-color: #eee;
+    }
+
+	.circle {
+      width: 500px;
+      height: 300px;
+      background: red;
+      border-radius: 50%
+    }
+	
+	.blue-bg {
+  background: #b90000;
+  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #b90000, #ff0602);
+  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #b90000, #ff0602);
+  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+.bg {
+	background: url('img/bg.jpg');
+	background-repeat: no-repeat;
+	background-position: top;
+    background-size: contain;
+    height: 500px;  
+}
+
+/*
+body {
+  background-image: url("img/bg.jpg"), url("img/bg.jpg");
+  background-color: #cccccc;
+}
+*/
+
+body {
+  background: url('img/bg15.png') no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  background-size: cover;
+  -o-background-size: cover;
+}
+
+#rcorners2 {
+  border-radius: 25px;
+  border: 2px solid #73AD21;
+  padding: 20px; 
+  width: 200px;
+  height: 150px;  
+}
+
+</style>
+  </head>
+
+  <body>
+  <!-- container section start -->
+  <section id="container" class="">
+     
+      
+      <header class="header grad-bg">
+          
+
+            <!--logo start-->
+            <a href="index.html" class="logo" style="color:#ffeb00">Child<span class="" style="color:#fff"> Specialist</span></a>
+            <!--logo end-->
+
+            <div class="nav search-row" id="top_menu">
+                        
+            </div>
+
+            <div class="top-nav notification-row">                
+                <!-- notificatoin dropdown start-->
+                <ul class="nav pull-right top-menu">
+                    
+                    
+                    <!-- alert notification end-->
+                    <!-- user login dropdown start-->
+                    <li class="dropdown">
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                            <span class="profile-ava">
+                                <img alt="" src="img/avatar1_small.jpg">
+                            </span>
+                            <span class="username">Admin</span>
+                            <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu extended logout">
+                            <div class="log-arrow-up"></div>
+                            <li class="eborder-top">
+                                <a href="#" style="color:#003858"><i class="icon_profile"></i> My Profile</a>
+                            </li>
+                            <li>
+                                <a href="#" style="color:#003858"><i class="icon_mail_alt"></i> Change Password</a>
+                            </li>
+                            <li>
+                                <a href="login.html" style="color:#003858"><i class="icon_key_alt"></i> Log Out</a>
+                            </li>
+                            <li>
+                                <a href="#"><i></i> </a>
+                            </li>
+                            
+                        </ul>
+                    </li>
+                    <!-- user login dropdown end -->
+                </ul>
+                <!-- notificatoin dropdown end-->
+            </div>
+      </header>      
+      <!--header end-->
+
+      <!--sidebar start-->
+      
+      <!--sidebar end-->
+      
+      <!--main content start-->
+      <section id="main-content">
+          <section class="wrapper">  
+     
+              <!--overview start-->
+			  <div class="row" >
+			  
+				<div class="col-lg-12" >
+					<h3 class="page-header" style="color:#008bda; font-weight:bold"><i class="fa fa-laptop" style="color:#008bda"></i> Dashboard</h3>
+					<ol class="breadcrumb" style="background-color:#0094e8">
+						<li><i class="fa fa-home" style="color:#fff"></i><a href="index.html" style="color:#fff">Home</a></li>
+						<li><i class="fa fa-laptop" style="color:#fff"></i><span style="color:#fff">Dashboard</span></li>						  	
+					</ol>
+				</div>
+			</div>
+              
+            
+			
+           <div class="row">
+			
+				<div class="col-lg-12 col-md-12" >
+				<div style="margin-top:0px; background-color:#fff; color:#0094e8; font-size:16px; font-weight:bold; padding:5px;border-radius:0px 25px;">Vaccination History (Monthly)</div>
+					<div class="info-box white-bg" style="border-top: 2px solid #0094e8; height:250px">
+					
+						<div class="col-lg-3 col-md-3">
+							<img src="img/ages.png" style="width:280px; height:120px">
+						</div>
+						<div class="col-lg-3 col-md-3">
+							
+
+ <div class="checkbox">
+  <label><input type="checkbox" value="" checked>HepB vaccine protects against hepatitis B</label>
+</div>
+<div class="checkbox">
+  <label><input type="checkbox" value="" checked>DTaP* vaccine protects against diphtheria</label>
+</div>
+<div class="checkbox">
+  <label><input type="checkbox" value="" checked>Flu vaccine protects against influenza</label>
+</div>
+<div class="checkbox">
+  <label><input type="checkbox" value="" checked>IPV vaccine protects against polio</label>
+</div>
+<div class="checkbox">
+  <label><input type="checkbox" value="" checked>PCV13 vaccine against pneumococcus</label>
+</div>
+<div class="checkbox">
+  <label><input type="checkbox" value="" >Hib vaccine against influenzae type b</label>
+</div>
+<div class="checkbox">
+  <label><input type="checkbox" value="">RV vaccine protects against rotavirus
+</label>
+</div>
+<div class="checkbox">
+  <label><input type="checkbox" value="">MMR** vaccine protects against rubella
+</label>
+</div>
+
+
+						</div>
+						<div class="col-md-2">
+							<div class="row blue-bg" style="height:60px">
+            <div class="col-sm-3"><span class="fa fa-bell fa-2x pull-center" style="margin-top:15px" ></span></div>
+            <div class="col-sm-9">
+              <h4>
+        			<b>ALERT!</b>
+					<p>You Have Missed</p>
+        		</h4>
+              
+            </div>
+          </div>
+		  <div class="checkbox">
+  <label><input type="checkbox" value="">RV vaccine protects against rotavirus
+</label>
+</div>
+<div class="checkbox">
+  <label><input type="checkbox" value="">MMR** vaccine protects against rubella
+</label>
+						</div>
+										
+					</div><!--/.info-box-->	
+					<div class="col-md-4">
+					<div class="info-box white-bg" style="border-top: 2px solid #00bcda;">
+						
+						<div class="col-md-8" style="color:#00bcda; font-weight:bold">Medical History
+						<div class="checkbox">
+  <label style="color:#000;"><input type="checkbox" value="" style="background-color:red" checked>ACL Injuries</label>
+</div>
+<div class="checkbox">
+  <label style="color:#000;"><input type="checkbox" value="" checked>Cough
+</label>
+
+</div>
+<div class="checkbox">
+  <label style="color:#000;"><input type="checkbox" value="" checked>Aplastic Anemia
+</label>
+</div>
+<div class="checkbox">
+  <label style="color:#000;"><input type="checkbox" value="" checked>Arthrogryposis
+</label>
+</div>
+					
+						</div>
+						<div class="col-md-4">
+						<img alt="User Pic" src="https://x1.xingassets.com/assets/frontend_minified/img/users/nobody_m.original.jpg" id="profile-image1" class="img-circle img-responsive">
+						</div>						
+						
+						
+					</div>
+						
+				</div>
+              
+			</div>  
+            
+		  
+		  <!-- Today status end -->
+			<div class="row">
+				<div class="col-md-4">
+					<div style="margin-top:0px; background-color:#fff; color:#0069a5; font-size:16px; font-weight:bold; padding:5px;border-radius:0px 25px 0px 0px;">Height</div>
+					<div class="info-box white-bg" style="border-top: 2px solid #0069a5; border-bottom: 2px solid #0069a5;height:250px;border-radius:0px 0px 25px 25px;">
+					<div id="chart2" name="chart2" style="min-width: 300px; height: 200px; margin: 0 auto"></div>	
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div style="margin-top:0px; background-color:#fff; color:#0094e7; font-size:16px; font-weight:bold; padding:5px;border-radius:0px 25px 0px 0px;">Weight</div>
+					<div class="info-box white-bg" style="border-top: 2px solid #0094e7; border-bottom: 2px solid #0094e7; height:250px;border-radius:0px 0px 25px 25px;">
+					<div id="chart3" name="chart3" style="min-width: 300px; height: 200px; margin: 0 auto"></div>	
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div style="margin-top:0px; background-color:#fff; color:#18a257; font-size:16px; font-weight:bold; padding:5px;border-radius:0px 25px 0px 0px;">Head Size</div>
+					<div class="info-box white-bg" style="border-top: 2px solid #18a257; border-bottom: 2px solid #18a257; height:250px;border-radius:0px 0px 25px 25px;">
+					<div id="chart4" name="chart4" style="min-width: 300px; height: 200px; margin: 0 auto"></div>	
+					</div>
+				</div>
+				
+			</div>
+			
+			<div class="row">
+				<div class="col-md-6">
+					<div style="margin-top:0px; background-color:#fff; color:#003858; font-size:16px; font-weight:bold; padding:5px;border-radius:0px 25px 0px 0px;">Diagnosis Details Monthly</div>
+					<div class="info-box white-bg" style="border-top: 2px solid #003858; border-bottom: 2px solid #003858; height:250px;border-radius:0px 0px 25px 25px;">
+					<div id="chart5" name="chart5" style="min-width: 300px; height: 200px; margin: 0 auto"></div>	
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div style="margin-top:0px; background-color:#fff; color:#ff2759; font-size:16px; font-weight:bold; padding:5px;border-radius:0px 25px 0px 0px;">Perscription Details</div>
+					<div class="info-box white-bg" style="border-top: 2px solid #ff2759; border-bottom: 2px solid #ff2759; height:250px;border-radius:0px 0px 25px 25px;">
+					<div id="chart6" name="chart6" style="min-width: 300px; height: 200px; margin: 0 auto"></div>	
+					</div>
+				</div>
+				
+				
+			</div>
+              
+				
+			
+                    
+                   
+                <!-- statics end -->
+       
+
+          </section>
+          <div class="text-right">
+          <div class="credits" style="background-color:#fff; height:30px; padding:5px">
+                <!-- 
+                    All the links in the footer should remain intact. 
+                    You can delete the links only if you purchased the pro version.
+                    Licensing information: http://sammarzaidi.com/dental_inventory/license/
+                    Purchase the pro version form: http://sammarzaidi.com/buy/?theme=dental_inventory
+                -->
+                <span style="font-size:10px; color:#000; padding:5px">
+				Designed By: <a href="#">Syed Sammar Zaidi</a>
+				</span>
+            </div>
+        </div>
+      </section>
+      <!--main content end-->
+  </section>
+  <!-- container section start -->
+
+    <!-- javascripts -->
+    <script src="js/jquery.js"></script>
+	<script src="js/jquery-ui-1.10.4.min.js"></script>
+    <script src="js/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="js/jquery-ui-1.9.2.custom.min.js"></script>
+    <!-- bootstrap -->
+    <script src="js/bootstrap.min.js"></script>
+    <!-- nice scroll -->
+    <script src="js/jquery.scrollTo.min.js"></script>
+    <script src="js/jquery.nicescroll.js" type="text/javascript"></script>
+    <!-- charts scripts -->
+    <script src="assets/jquery-knob/js/jquery.knob.js"></script>
+    <!-- <script src="js/jquery.sparkline.js" type="text/javascript"></script> -->
+    <!-- <script src="assets/jquery-easy-pie-chart/jquery.easy-pie-chart.js"></script> -->
+    <script src="js/owl.carousel.js" ></script>
+    <!-- jQuery full calendar -->
+    <!-- <<script src="js/fullcalendar.min.js"></script> -->
+	<!-- <script src="assets/fullcalendar/fullcalendar/fullcalendar.js"></script> -->
+    <!--script for this page only-->
+    <!-- <script src="js/calendar-custom.js"></script> -->
+	<!-- <script src="js/jquery.rateit.min.js"></script> -->
+    <!-- custom select -->
+    <!-- <script src="js/jquery.customSelect.min.js" ></script> -->
+	<!-- <script src="assets/chart-master/Chart.js"></script> -->
+   
+    <!--custome script for all page-->
+    <script src="js/scripts.js"></script>
+    <!-- custom script for this page-->
+    <!-- <script src="js/sparkline-chart.js"></script> -->
+    <!-- <script src="js/easy-pie-chart.js"></script> -->
+	<!-- <script src="js/jquery-jvectormap-1.2.2.min.js"></script> -->
+	<!-- <script src="js/jquery-jvectormap-world-mill-en.js"></script> -->
+	<!-- <script src="js/xcharts.min.js"></script> -->
+	<script src="js/jquery.autosize.min.js"></script>
+	<script src="js/jquery.placeholder.min.js"></script>
+	<script src="js/gdp-data.js"></script>	
+	<!-- <script src="js/morris.min.js"></script> -->
+	<!-- <script src="js/sparklines.js"></script>	 -->
+	<!-- <script src="js/charts.js"></script> -->
+	<script src="js/jquery.slimscroll.min.js"></script>
+  <script>
+
+      //knob
+      $(function() {
+        $(".knob").knob({
+          'draw' : function () { 
+            $(this.i).val(this.cv + '%')
+          }
+        })
+      });
+
+      //carousel
+      $(document).ready(function() {
+	  
+	  $(document).on("click", "#tableId tbody tr", function() {
+      //alert("hi");
+	  inventory_details();
+    });
+	  
+	  
+	  
+	  
+          $("#owl-slider").owlCarousel({
+              navigation : true,
+              slideSpeed : 300,
+              paginationSpeed : 400,
+              singleItem : true
+
+          });
+      });
+
+      //custom select box
+
+      //$(function(){
+          //$('select.styled').customSelect();
+      //});
+	  
+	  /* ---------- Map ---------- */
+	/*
+	$(function(){
+	  $('#map').vectorMap({
+	    map: 'world_mill_en',
+	    series: {
+	      regions: [{
+	        values: gdpData,
+	        scale: ['#000', '#000'],
+	        normalizeFunction: 'polynomial'
+	      }]
+	    },
+		backgroundColor: '#eef3f7',
+	    onLabelShow: function(e, el, code){
+	      el.html(el.html()+' (GDP - '+gdpData[code]+')');
+	    }
+	  });
+	});
+	*/
+  </script>
+	<script>
+	
+/*
+Highcharts.chart('chart1', {
+    chart: {
+        type: 'column'
+    },
+    title: {
+        text: ''
+    },
+	credits: {
+        enabled: false
+    },
+    xAxis: {
+        categories: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12']
+    },
+    yAxis: {
+        min: 0,
+        title: {
+            text: ''
+        },
+        stackLabels: {
+            enabled: true,
+            style: {
+                fontWeight: 'bold',
+                color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
+            }
+        }
+    },
+    legend: {
+        title: {
+            text: 'Vaccines<br/><span style="font-size: 9px; color: #666; font-weight: normal">(Click to hide)</span>',
+            style: {
+                fontStyle: 'italic',
+                fontweight: 'bold'
+            }
+        },
+        layout: 'vertical',
+        align: 'right',
+        verticalAlign: 'top',
+        x: -10,
+        y: 100
+    },
+    tooltip: {
+        headerFormat: '<b>{point.x}</b><br/>',
+        pointFormat: '{series.name}: {point.y}<br/>Total: {point.stackTotal}'
+    },
+    plotOptions: {
+        column: {
+            stacking: 'normal',
+            dataLabels: {
+                enabled: true,
+                color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white'
+            }
+        }
+    },
+    series: [{
+		pointWidth: 12,
+        name: 'Vaccine 1',
+		color: '#c51314',
+        data: [1, 0, 0, 0, 0,0,0,0,0,0,0,0]
+    }, {
+		pointWidth: 12,
+        name: 'Vaccine 2',
+		color: '#8338bd',
+        data: [1, 1, 0, 0, 1,1,1,1,1,1,1,1]
+    }, {
+		pointWidth: 12,
+        name: 'Vaccine 3',
+		color:'#ff5227',
+        data: [0, 1, 0, 0, 1,1,1,1,1,1,1,1]
+    }, {
+		pointWidth: 12,
+        name: 'Vaccine 4',
+		color: '#ff9a00',
+        data: [0, 0, 1, 0, 1,1,1,0,1,1,1,1]
+    }, {
+		pointWidth: 12,
+        name: 'Vaccine 5',
+		color:'#003858',
+        data: [0, 0, 0, 1, 1,1,0,1,0,1,0,1]
+    }, {
+		pointWidth: 12,
+        name: 'Vaccine 6',
+		color:'#0fa953',
+        data: [0, 0, 0, 1, 1,1,1,1,0,1,1,1]
+    }, {
+		pointWidth: 12,
+        name: 'Vaccine 7',
+		color:'#ff2759',
+        data: [0, 0, 0, 1, 1,1,1,1,0,1,1,1]
+    }, {
+		pointWidth: 12,
+        name: 'Vaccine 8',
+		color:'#0bafca',
+        data: [0, 0, 0, 1, 1,1,1,1,0,1,1,1]
+    }]
+});
+*/
+// Chart2
+Highcharts.chart('chart2', {
+	chart: {
+        type: 'line',
+    //spacingTop: 0,
+            spacingRight: 5,
+            spacingBottom: 0,
+            spacingLeft: 50,
+            //plotBorderWidth: 0,
+            marginRight: 5,
+       marginLeft: 50,//-60,  //whenever the page changes width
+            marginTop: 10,
+            //marginBottom: 0
+    },
+    title: {
+        text: ''
+    },
+
+    legend: {
+        // layout: 'horizontal', // default
+        itemDistance: 50
+    },
+	credits: {
+        enabled: false
+    },
+    xAxis: {
+        categories: ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12']
+    },
+	yAxis: {
+        labels: {
+            format: '{value} inch'
+        }
+    },
+    series: [{
+		name:'Actual',
+		color:'#8338bd',
+        data: [6, 6.3, 6.9, 7, 7.1, 7.1, 7.2, 7.3, 7.4, 7.4, 7.6, 7.8]
+    }, {
+		name:'Expected',
+		color:'#034a73',
+        data: [6, 6, 6.6, 7, 7, 7.1, 7.5, 7.5, 7.7, 7.8, 7.9, 8.0]
+    }]
+});
+
+// Chart3
+Highcharts.chart('chart3', {
+	chart: {
+        type: 'line',
+    //spacingTop: 0,
+            spacingRight: 5,
+            spacingBottom: 0,
+            spacingLeft: 50,
+            //plotBorderWidth: 0,
+            marginRight: 5,
+       marginLeft: 50,//-60,  //whenever the page changes width
+            marginTop: 10,
+            //marginBottom: 0
+    },
+    title: {
+        text: ''
+    },
+
+    legend: {
+        // layout: 'horizontal', // default
+        itemDistance: 50
+    },
+	credits: {
+        enabled: false
+    },
+    xAxis: {
+        categories: ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12']
+    },
+	yAxis: {
+        labels: {
+            format: '{value} kg'
+        }
+    },
+    series: [{
+		name:'Actual',
+		color:'#ff2759',
+        data: [1, 2.2, 3.5, 4, 5, 5.2, 5.7, 6, 6.7, 6.7, 8, 9]
+    }, {
+		name:'Expected',
+		color:'#034a73',
+        data: [3, 3.5, 4, 4.5, 5, 5.7, 5.9, 6.5, 7, 8, 9, 10]
+    }]
+});
+
+// Chart4
+Highcharts.chart('chart4', {
+	chart: {
+        type: 'line',
+    //spacingTop: 0,
+            spacingRight: 5,
+            spacingBottom: 0,
+            spacingLeft: 50,
+            //plotBorderWidth: 0,
+            marginRight: 5,
+       marginLeft: 50,//-60,  //whenever the page changes width
+            marginTop: 10,
+            //marginBottom: 0
+    },
+    title: {
+        text: ''
+    },
+
+    legend: {
+        // layout: 'horizontal', // default
+        itemDistance: 50
+    },
+	credits: {
+        enabled: false
+    },
+    xAxis: {
+        categories: ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12']
+    },
+	yAxis: {
+        labels: {
+            format: '{value} cm'
+        }
+    },
+    series: [{
+		name:'Actual',
+		color:'#0fa953',
+        data: [6, 6.3, 6.9, 7, 7.1, 7.1, 7.2, 7.3, 7.4, 7.4, 7.6, 7.8]
+    }, {
+		name:'Expected',
+		color:'#034a73',
+        data: [6, 6, 6.6, 7, 7, 7.1, 7.5, 7.5, 7.7, 7.8, 7.9, 8.0]
+    }]
+});
+
+
+// Chart5
+Highcharts.chart('chart5', {
+    chart: {
+        type: 'column'
+    },
+    title: {
+        text: ''
+    },
+	credits: {
+        enabled: false
+    },
+    xAxis: {
+        type: 'category',
+        labels: {
+            enabled: true
+        }
+    },
+    
+
+    legend: {
+        enabled: false
+    },
+
+    plotOptions: {
+        series: {
+            borderWidth: 0,
+            dataLabels: {
+                enabled: true
+            }
+        }
+    },
+
+    series: [{
+    		pointWidth:20,
+        name: 'Diagnosis',
+        colorByPoint: true,
+        data: [{
+            name: '<a href="#" class="clickable" data-browser="ff" style="color:#007ec7">Cough</a>',
+            y: 6,
+            color: '#005b9e'
+        },{
+            name: '<a href="#" class="clickable" data-browser="ff" style="color:#007ec7">Bronchitis</a>',
+            y: 2,
+            color: '#005b9e'
+        },{
+            name: '<a href="#" class="clickable" data-browser="ff" style="color:#007ec7">Bronchiloitis</a>',
+            y: 4,
+            color: '#005b9e'
+        },{
+            name: '<a href="#" class="clickable" data-browser="ff" style="color:#007ec7">Common Cold</a>',
+            y: 3,
+            color: '#005b9e'
+        },{
+            name: '<a href="#" class="clickable" data-browser="ff" style="color:#007ec7">Respiratory Syntical Virus</a>',
+            y: 5,
+            color: '#005b9e'
+        },{
+            name: '<a href="#" class="clickable" data-browser="ff" style="color:#007ec7">Gastroenteritis</a>',
+            y: 8,
+            color: '#005b9e'
+        }]
+    }]
+});
+
+    function showDetails() {
+
+    var x = document.getElementById("show_details");
+    if (x.style.display === "none") {
+    //x.style.display = "block";
+    $("#show_details").show()
+    } else {
+    x.style.display = "none";
+    }
+
+    //$("#show_details").show()
+
+    }
+	
+	function load_pie() {
+	
+		alert('hi');
+	}
+
+	</script>
+	
+	<script>
+
+ Highcharts.chart('chart6', {
+    chart: {
+        type: 'pie',
+        options3d: {
+            enabled: false,
+            alpha: 25
+        }
+    },
+    title: {
+        text: ''
+    },
+    subtitle: {
+        text: ''
+    },
+	credits: {
+		enabled: false
+	},
+    plotOptions: {
+        pie: {
+            innerSize: 70,
+            depth: 15
+        }
+    },
+    series: [{
+        name: 'Remaining Items',
+        data: [{
+             y: 8,
+			name: "Syp Metronidazole ",
+			color: "#0178bc"
+			},
+			{
+            y: 3,
+			name:'Syp Zinc',
+			color:"#00bcda"
+			},
+            {
+			y: 2,
+			name:'Cough Suppressants',
+			color: "#4fa7da"
+			},
+            {
+			y: 6,
+			name:'Syp Paracetamol',
+			color:"#efb636"
+			},
+			{
+			y:5,
+			name:'Simethicone drops',
+			color:"#37ca78"
+			}
+            
+        ]
+    }]
+});
+	</script>
+	
+	
+	
+  </body>
+</html>
