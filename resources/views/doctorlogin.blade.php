@@ -1,11 +1,9 @@
 <?php
 require_once('config.php');
-
 if(isset($_SESSION['access_token']) && isset($_SESSION['doctor_session'])){
-	header("Location: posts.php");
-	exit();
+	//header("Location: posts.php");
+	//exit();
 }
-
 $redirectTo = "http://localhost/hospital_management_system/callback.php";
 $data = ['email'];
 $fullURL = $handler->getLoginUrl($redirectTo, $data);
@@ -37,7 +35,6 @@ $fullURL = $handler->getLoginUrl($redirectTo, $data);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-
   </head>
   <body class="login" >
   <div class="container" style="background-color: white">
@@ -61,14 +58,10 @@ $fullURL = $handler->getLoginUrl($redirectTo, $data);
             <input type="submit" value="Log in!" class="btn btn-default submit" class="animation a6">
             <a class="reset_pass" href="#">Please enter username and password</a>
           </div>
-
           <div class="clearfix"></div>
-
           <div class="separator">
-
             <div class="clearfix"></div>
-            <br />
-
+            <br/>
             <div>
               <p>
                 @if (Session::has('coc'))
@@ -79,9 +72,8 @@ $fullURL = $handler->getLoginUrl($redirectTo, $data);
               </p>
             </div>
           </div>
-          <input type="button" onclick="window.location = '<?php echo $fullURL ?>'" value="Login with Facebook" class="btn btn-primary">
+          <!--<input type="button" onclick="window.location = '<?php //echo $fullURL ?>'" value="Login with Facebook" class="btn btn-primary">-->
         </form>
-
     </div>
   </div>
   <div class="right"></div>

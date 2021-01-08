@@ -54,4 +54,10 @@ class DocCenterImagesController extends Controller
    return back()
      ->with('success','Image removed successfully.');
  }
+
+ public function docImgGallery($doc_id) {
+   $images = DocCenterImages::where('doc_id', $doc_id)->get();
+   return view('image-gallery',compact('images'));
+ }
+
 }

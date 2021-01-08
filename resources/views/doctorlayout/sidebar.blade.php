@@ -1,3 +1,13 @@
+<?php
+require_once('config.php');
+if(isset($_SESSION['access_token']) && isset($_SESSION['doctor_session'])){
+	//header("Location: posts.php");
+	//exit();
+}
+$redirectTo = "http://localhost/hospital_management_system/callback.php";
+$data = ['email'];
+$fullURL = $handler->getLoginUrl($redirectTo, $data);
+?>
 <body class="nav-md" style="background-color: #3fab5c">
  <div class="container body" style="background-color: #3fab5c">
   <div class="main_container" style="background-color: #3fab5c">
@@ -68,8 +78,13 @@
                <li><a href="{{url('docWebsiteBuilder/' . session('doctor_session'))}}">Website Data</a></li>
                <li><a href="{{url('image-gallery/' . session('doctor_session'))}}">Website Images</a></li>
                <li><a href="{{url('visitOwnWebsite/' . session('doctor_session'))}}">Visit Website</a></li>
-
             </ul>
+          </li>
+          <hr>
+          <li><a style="border-style: outset; margin-right: 2px; border-color: #fff;"></i> Marketing <span style="float: right" class=" ">↓</span></a>
+              <ul class="nav child_menu">
+                <input type="button" onclick="window.location = '<?php echo $fullURL ?>'" value="Login with Facebook" class="btn btn-primary" style="margin: auto; width: 100%">
+              </ul>
           </li>
       </li>
     </ul>

@@ -45,7 +45,7 @@
                      </div>
                     <div class="x_content">
                     <br>
-                    <form action="{{url('updatewebsitedata')}}" method="post" enctype="multipart/form-data" id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
+                    <form action="{{url('updatewebsitedata/' . $docWeb->doc_id)}}" method="post" enctype="multipart/form-data" id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
                       @csrf
                       <h1 style="text-align: center; margin-down: 20px">Website Builder</h1>
                       <!--About Us-->
@@ -53,28 +53,28 @@
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="about">About <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="text" id="about" name="about" required="required" class="form-control col-md-7 col-xs-12">
+                          <input type="text" id="about" name="about" value="{{$docWeb->about}}" required="required" class="form-control col-md-7 col-xs-12">
                         </div>
                       </div>
                       <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="t1">Testimonial 1 <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="text" id="t1" name="t1" required="required" class="form-control col-md-7 col-xs-12">
+                          <input type="text" id="t1" name="t1" required="required" value="{{$docWeb->t1}}" class="form-control col-md-7 col-xs-12">
                         </div>
                       </div>
                       <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="t2">Testimonial 2 <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="text" id="t2" name="t2" required="required" class="form-control col-md-7 col-xs-12">
+                          <input type="text" id="t2" name="t2" required="required" value="{{$docWeb->t2}}" class="form-control col-md-7 col-xs-12">
                         </div>
                       </div>
                       <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="t3">Testimonial 3 <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="text" id="t3" name="t3" required="required" class="form-control col-md-7 col-xs-12">
+                          <input type="text" id="t3" name="t3" required="required" value="{{$docWeb->t3}}" class="form-control col-md-7 col-xs-12">
                         </div>
                       </div>
                       <!--<input type="hidden" id="recp_id" name="recp_id" value="Session::has('recep_name_session')">-->

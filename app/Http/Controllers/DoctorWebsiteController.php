@@ -35,4 +35,14 @@ class DoctorWebsiteController extends Controller
       $docWeb = DocWebsite::where('doc_id', $doctor->id)->first();
       return view('DrWebsiteView')->with('doctor', $doctor)->with('doc_id', $doctor->id)->with('centers', $centers)->with(compact('images'))->with('docWeb', $docWeb);
     }
+
+    public function updatewebsitedata($doc_id, Request $request) {
+      $docWeb = DocWebsite::where('doc_id', $doc_id)->first();
+      $docWeb->about = $request->about;
+      $docWeb->t1 = $request->t1;
+      $docWeb->t2 = $request->t2;
+      $docWeb->t3 = $request->t3;
+      $docWeb->save();
+      return redirect('docWebsiteBuilder/' . $doc_id);
+    }
 }

@@ -1,5 +1,5 @@
 <?php
-
+//routes
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -272,6 +272,10 @@ Route::get('visitOwnWebsite/{doc_id}', 'DoctorWebsiteController@visitOwnWebsite'
 Route::get('dr/{webname}','DoctorWebsiteController@drWebsite');
 // Gallery
 Route::get('image-gallery', 'DocCenterImagesController@index');
-Route::get('image-gallery/{doc_id}', 'DocCenterImagesController@index');
+Route::get('image-gallery/{doc_id}', 'DocCenterImagesController@docImgGallery');
 Route::post('image-gallery', 'DocCenterImagesController@upload');
 Route::delete('image-gallery/{doc_id}', 'DocCenterImagesController@destroy');
+//update website data
+Route::post('updatewebsitedata/{doc_id}', 'DoctorWebsiteController@updatewebsitedata');
+//vac card
+Route::view('vaccinationCard', 'vaccinationCard');
