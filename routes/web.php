@@ -279,3 +279,5 @@ Route::delete('image-gallery/{doc_id}', 'DocCenterImagesController@destroy');
 Route::post('updatewebsitedata/{doc_id}', 'DoctorWebsiteController@updatewebsitedata');
 //vac card
 Route::view('vaccinationCard', 'vaccinationCard');
+//vac card
+Route::get('vaccinationCard/{pat_id}', 'VaccinationHistoryController@vaccinationCard');

@@ -130,10 +130,15 @@ class ScheduleController extends Controller
         $schedule->time = $request->input('time');
         $schedule->type = $request->input('type');
         $schedule->status = $request->input('status');
+        $doc_id = $request->session()->get('doctor_session');
+        if ($doc_id) {
+          $schedule->doc_id = $doc_id;
+        } else {
+          $recep_id = $request->session()->get('recep_session');
+          $recep = Receptionist::find($recep_id);
+          $schedule->doc_id = $recep->doc_id;
+        }
         $schedule->save();
-      //} else {
-
-      //}
     }
 
     public function pat_rescheduled (Request $request) {
@@ -172,6 +177,13 @@ class ScheduleController extends Controller
               $scheduled->status = "2";
               $scheduled->save();
               $new_schedule->status = '0';
+              if ($doc_id) {
+                $schedule->doc_id = $doc_id;
+              } else {
+                $recep_id = $request->session()->get('recep_session');
+                $recep = Receptionist::find($recep_id);
+                $schedule->doc_id = $recep->doc_id;
+              }
               $new_schedule->save();
               break;
             }

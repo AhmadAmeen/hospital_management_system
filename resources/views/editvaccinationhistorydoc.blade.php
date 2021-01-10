@@ -101,9 +101,8 @@ form {
 <link rel="stylesheet" href="//cdn.materialdesignicons.com/5.4.55/css/materialdesignicons.min.css">
 <link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
           <!-- my code -->
-                            <div style="background: url('csd/img/bg9.jpg')">
+                          <div style="background: url('csd/img/bg9.jpg')">
                             <body>
                               <div class="x_title" style="color: white">
                                 <h2>Welcome <small style="color: white">Edit Vaccine History Details</small></h2>
@@ -172,7 +171,7 @@ form {
                                               <div>
                                                 <input type="checkbox" value="{{$vtid}}" name="vchecks[]" @if ($check == 'TRUE') ? checked : '' @endif  class="form-control col-md-7 col-xs-12">
                                                 <div class="popup" onclick="myFunction({{$i}})" style="margin-top: 5px; padding-left: 5px; padding-right: 5px; background-color: gray; color: white"><i>?</i>
-                                                <span class="popuptext" id="{{$i}}"><p><i>Vaccine Timing ID: {{$advvaccinetiming->id}}</i><br><i>Vaccine Name:</i><br> {{$vaccine->vname}}<br><i>Vaccine Timing:</i><br> {{$vt}} Months<br><i>Doctor Name:</i><br> {{$cur_doctor->dname}}<br><i>Patient Name:</i><br> {{$patient->fname}} {{$patient->lname}}</p></span>
+                                                <span class="popuptext" id="{{$i}}"><p><i>Vaccine Timing ID: {{$advvaccinetiming->id}}</i><br><i>Vaccine Name:</i><br> {{$vaccine->vname}}<br><i>Vaccine Timing:</i><br> {{$vt}} Days<br><i>Doctor Name:</i><br> {{$cur_doctor->dname}}<br><i>Patient Name:</i><br> {{$patient->fname}} {{$patient->lname}}</p></span>
                                               </div>
                                             </div>
                                             </td>
@@ -250,20 +249,20 @@ form {
                           </div>
                         </div>
                       </div>
-                              <div class="ln_solid"></div>
-                              <div class="form-group">
-                                <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                                  <button type="submit" name="submit" class="btn btn-primary" style="border-color: white; border-width: 3px; padding: 10px 25px 10px 25px">Update</button>
-                                </div>
-                              </div>
-                            </form>
-                          </body>
-                            </div>
-                          </div>
+                      <div class="ln_solid"></div>
+                      <div class="form-group">
+                        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                          <button type="submit" name="submit" class="btn btn-primary" style="border-color: white; border-width: 3px; padding: 10px 25px 10px 25px">Update</button>
                         </div>
                       </div>
-                    </div>
-                  </div>
+                    </form>
+                  </body>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 <script>
 // When the user clicks on div, open the popup
   function myFunction(c_id) {

@@ -1,10 +1,9 @@
-
 <!DOCTYPE html>
 <html>
 <title>Immunization Card</title>
 <head>
 <!-- Bootstrap CSS -->
-<link rel="stylesheet" href="public/css/bootstrap.min.css">
+<link rel="stylesheet" href="{{ asset('public/ImmunizationCard/css/bootstrap.min.css') }}">
 <style>
 
 </style>
@@ -16,7 +15,7 @@
 <table class="table table-hover">
 <thead>
 <tr>
-<th style="background-color:#fff; color:#000; width:20%">Place your Logo Image / Text</th>
+<th style="background-color:#fff; color:#000; width:20%">Text</th>
 <th style="background-color:#49c59d; color:#fff; font-weight:bold; font-size:20px; text-align:center; width:60%">IMMUNIZATION CARD</th>
 <th style="background-color:#eee; color:#000; text-align:center; width:20%">Date: <span style="color:#717171">05-JAN-2021</span></th>
 </tr>
@@ -28,19 +27,19 @@
 		<div class="form-group">
 			<div class="col-md-2">
 				<label class="control-label" style="color:#4b86d0">Patient ID</label>
-				<span style="margin-left:10px; margin-right:10px">111</span>
+				<span style="margin-left:10px; margin-right:10px">{{$patient->id}}</span>
 			</div>
 			<div class="col-md-2">
 				<label class="control-label " style="color:#4b86d0">Name</label>
-				<span style="margin-left:10px; margin-right:10px">Aziz Aslam</span>
+				<span style="margin-left:10px; margin-right:10px">{{$patient->fname}} {{$patient->lname}}</span>
 			</div>
 			<div class="col-sm-2">
 				<label class="control-label " style="color:#4b86d0">Father Name</label>
-				<span style="margin-left:10px; margin-right:10px">Mohd Aslam</span>
+				<span style="margin-left:10px; margin-right:10px">{{$patient->fname}}</span>
 			</div>
 			<div class="col-sm-2">
 				<label class="control-label " style="color:#4b86d0">Contact</label>
-				<span style="margin-left:10px; margin-right:10px">0321-XXXXXXX</span>
+				<span style="margin-left:10px; margin-right:10px">{{$patient->guard_no}}</span>
 			</div>
 			</div>
 		</form>
@@ -56,225 +55,77 @@
 <th style="background-color:#6c7ae0; color:#fff">Fourth Dose</th>
 <th style="background-color:#6c7ae0; color:#fff">Booster 1</th>
 <th style="background-color:#6c7ae0; color:#fff">Booster 2</th>
-<th style="background-color:#6c7ae0; color:#fff">Booster 3</th>
-
 </tr>
 </thead>
 <tbody>
+	<?php use App\VaccinationHistory; $temp[] = "";?>
+@foreach ($vaccinationhistories as $vaccinationhistory)
+<?php $i = 0 ?>
+<?php
+$vhs = VaccinationHistory::where('vname', $vaccinationhistory->vname)->where('vt_type', 'Dosage')->get();
+$vhs1 = VaccinationHistory::where('vname', $vaccinationhistory->vname)->where('vt_type', 'Booster')->get();
+if (in_array($vaccinationhistory->vname, $temp)) {
+	continue;
+}
+$temp[] = $vaccinationhistory->vname;
+?>
 <tr>
-<td style="background-color:#fcebf5">
-<img src="public/Immunization Card/images/v1.png" style="width:20px; height:23px">
-B.C.G & Polio
+	<td style="background-color:#fcebf5">
+		<img src="{{ asset('public/ImmunizationCard/images/v1.png') }}" style="width:20px; height:23px">
+{{$vaccinationhistory->vname}}
 </td>
-<td>01/01/2020</td>
+@foreach ($vhs as $vh)
+@if ($vh->vt_type == 'Dosage')
+@if ($vh->status == 'TRUE')
+<td style="color: gray">{{$vh->vaccination_date}}</td>
+@else
+<td style="color: red">{{$vh->vaccination_date}}</td>
+@endif
+@endif
+@endforeach
+@if(count($vhs) == 0)
 <td>--</td>
 <td>--</td>
-<td class="tooltip">11/03/2020</td>
 <td>--</td>
 <td>--</td>
-<td>16/11/2020</td>
-
+@endif
+@if(count($vhs) == 1)
+<td>--</td>
+<td>--</td>
+<td>--</td>
+@endif
+@if(count($vhs) == 2)
+<td>--</td>
+<td>--</td>
+@endif
+@if(count($vhs) == 3)
+<td>--</td>
+@endif
+<!--booster-->
+@foreach ($vhs1 as $vh1)
+@if ($vh1->vt_type == 'Booster')
+<td>{{$vh1->vaccination_date}}</td>
+@endif
+@endforeach
+@if(count($vhs1) == 0)
+<td>--</td>
+<td>--</td>
+@endif
+@if(count($vhs1) == 1)
+<td>--</td>
+@endif
 </tr>
+@endforeach
 <tr>
-<td style="background-color:#fcebf5">
-<img src="images/v2.png" style="width:20px; height:23px">
-Hepatitis B
-</td>
-<td>07/02/2020</td>
-<td>--</td>
-<td>--</td>
-<td>--</td>
-<td>--</td>
-<td>11/10/2020</td>
-<td>03/12/2020</td>
-
-</tr>
-<tr>
-<td style="background-color:#fcebf5">
-<img src="images/v3.png" style="width:20px; height:23px">
-DaPT+IPV
-</td>
-<td>--</td>
-<td>--</td>
-<td>13/10/2020</td>
-<td>--</td>
-<td>09/11/2020</td>
-<td>--</td>
-<td>--</td>
-
-</tr>
-<tr>
-<td style="background-color:#fcebf5">
-<img src="images/v4.png" style="width:20px; height:23px">
-DPT+OPV
-</td>
-<td>--</td>
-<td>--</td>
-<td>09/11/2020</td>
-<td>--</td>
-<td>--</td>
-<td>--</td>
-<td>--</td>
-
-</tr>
-<tr>
-<td style="background-color:#fcebf5">
-<img src="images/v4.png" style="width:20px; height:23px">
-DT
-</td>
-<td>--</td>
-<td>05/11/2020</td>
-<td>--</td>
-<td>--</td>
-<td>--</td>
-<td>08/11/2020</td>
-<td>--</td>
-
-</tr>
-<tr>
-<td style="background-color:#fcebf5">
-<img src="images/v2.png" style="width:20px; height:23px">
-Hib
-</td>
-<td>06/12/2020</td>
-<td>--</td>
-<td>--</td>
-<td>06/12/2020</td>
-<td>--</td>
-<td>--</td>
-<td>03/11/2020</td>
-
-</tr>
-<tr>
-<td style="background-color:#fcebf5">
-<img src="images/v1.png" style="width:20px; height:23px">
-Pneumococcal Conjugate
-</td>
-<td>--</td>
-<td>--</td>
-<td>14/07/2020</td>
-<td>--</td>
-<td>--</td>
-<td>03/11/2020</td>
-<td>--</td>
-
-</tr>
-<tr>
-<td style="background-color:#fcebf5">
-<img src="images/v3.png" style="width:20px; height:23px">
-Rota Virus
-</td>
-<td>--</td>
-<td>--</td>
-<td>10/07/2020</td>
-<td>--</td>
-<td>--</td>
-<td>12/08/2020</td>
-<td>17/12/2020</td>
-
-</tr>
-
-<tr>
-<td style="background-color:#fcebf5">
-<img src="images/v2.png" style="width:20px; height:23px">
-Measles
-</td>
-<td>--</td>
-<td>08/09/2020</td>
-<td>--</td>
-<td>18/08/2020</td>
-<td>--</td>
-<td>19/09/2020</td>
-<td>--</td>
-
-</tr>
-<tr>
-<td style="background-color:#fcebf5">
-<img src="images/v3.png" style="width:20px; height:23px">Chickenpox
-</td>
-<td>--</td>
-<td>14/03/2020</td>
-<td>16/05/2020</td>
-<td>--</td>
-<td>--</td>
-<td>03/12/2020</td>
-<td>--</td>
-
-</tr>
-<tr>
-<td style="background-color:#fcebf5">
-<img src="images/v4.png" style="width:20px; height:23px">MMR
-</td>
-<td>19/02/2020</td>
-<td>--</td>
-<td>23/06/2020</td>
-<td>--</td>
-<td>--</td>
-<td>19/09/2020</td>
-<td>--</td>
-
-</tr>
-<tr>
-<td style="background-color:#fcebf5">
-<img src="images/v1.png" style="width:20px; height:23px">Meningococal Polysaccharide</td>
-<td>--</td>
-<td>16/03/2020</td>
-<td>--</td>
-<td>--</td>
-<td>21/07/2020</td>
-<td>--</td>
-<td>--</td>
-
-</tr>
-<tr>
-<td style="background-color:#fcebf5">
-<img src="v4.png" style="width:20px; height:23px">Typhoid</td>
-<td>--</td>
-<td>23/02/2020</td>
-<td>--</td>
-<td>--</td>
-<td>05/06/2020</td>
-<td>--</td>
-<td>--</td>
-
-</tr>
-<tr>
-<td style="background-color:#fcebf5">
-<img src="images/v2.png" style="width:20px; height:23px">FLU</td>
-<td>02/04/2020</td>
-<td>--</td>
-<td>--</td>
-<td>--</td>
-<td>--</td>
-<td>05/08/2020</td>
-<td>--</td>
-
-</tr>
-<tr>
-<td style="background-color:#fcebf5">
-<img src="images/v4.png" style="width:20px; height:23px">HPV</td>
-<td>--</td>
-<td>--</td>
-<td>09/04/2020</td>
-<td>23/05/2020</td>
-<td>--</td>
-<td>--</td>
-<td>--</td>
-
-</tr>
 </tbody>
 </table>
 </div>
-
 </div>
-
 <!-- jQuery library -->
-<script src="public/Immunization Card/js/jquery.min.js"></script>
+<script src="{{ asset('public/ImmunizationCard/js/jquery.min.js') }}"></script>
 <!-- Bootstrap JS -->
-<script src="public/Immunization Card/js/bootstrap.min.js"></script>
-
+<script src="{{ asset('public/ImmunizationCard/js/bootstrap.min.js') }}"></script>
 <script>
-;
 </script>
 <!-- Initialize Bootstrap functionality -->
 <script>

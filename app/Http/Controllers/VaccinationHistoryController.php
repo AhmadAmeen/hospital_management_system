@@ -63,6 +63,9 @@ class VaccinationHistoryController extends Controller
         $vt = AdvVaccineTiming::find($vcheck);
         $v_history->timingindays = $vt->vtiming;
         $v_history->vt_type = $vt->vt_type;
+        /*new field*/
+        $v_history->vt_type_num = $vt->vt_type_num;
+        /*new field*/
         $vaccine = AdvVaccine::find($vt->v_id);
         $v_history->vname = $vaccine->vname;
         $v_history->save();
@@ -84,8 +87,11 @@ class VaccinationHistoryController extends Controller
           $vt = AdvVaccineTiming::find($vcheck);
           $v_history->timingindays = "_";
           $v_history->vt_type = "_";
-          $vaccine = AdvVaccine::find($vt->v_id);
-          $v_history->vname = "_";
+          /*new field*/
+          $v_history->vt_type_num = "_";
+          /*new field*/
+          $vaccine = AdvVaccine::find($vaccinetiming->v_id);
+          $v_history->vname = $vaccine->vname;
           $v_history->save();
         }
       }
@@ -112,6 +118,9 @@ class VaccinationHistoryController extends Controller
         $vt = AdvVaccineTiming::find($vcheck);
         $v_history->timingindays = $vt->vtiming;
         $v_history->vt_type = $vt->vt_type;
+        /*new field*/
+        $v_history->vt_type_num = "_";
+        /*new field*/
         $vaccine = AdvVaccine::find($vt->v_id);
         $v_history->vname = $vaccine->vname;
         $v_history->save();
@@ -133,8 +142,11 @@ class VaccinationHistoryController extends Controller
           $vt = AdvVaccineTiming::find($vcheck);
           $v_history->timingindays = "_";
           $v_history->vt_type = "_";
+          /*new field*/
+          $v_history->vt_type_num = "_";
+          /*new field*/
           $vaccine = AdvVaccine::find($vt->v_id);
-          $v_history->vname = "_";
+          $v_history->vname = $vaccine->vname;
           $v_history->save();
         }
       }
@@ -295,29 +307,8 @@ class VaccinationHistoryController extends Controller
 
   public function recep_advvaccineforpatientupdate($pat_id, Request $request) {
     $vaccinationhistories = VaccinationHistory::where('pat_id', $pat_id)->get();
-    /*
-    $vid_to_dlt[]="";
-    $vh[]="";
-    foreach ($vaccinationhistories as $vaccinationhistory) {
-      $vh[] = $vaccinationhistory->vt_id;
-      $vid_to_dlt[] = $vaccinationhistory->id;
-    }
-    foreach ($vid_to_dlt as $vid) {
-      $cur_vh = VaccinationHistory::find($vid);
-      if($cur_vh) {
-        $cur_vh->delete();
-      }
-    }
-    //$diff = array_diff($vh, $request->vchecks);
-    if($request->vchecks) {
-      foreach ($request->vchecks as $vcheck) {
-        $v_history = VaccinationHistory::firstOrNew(['pat_id' => $pat_id, 'vt_id' => $vcheck, 'status' => "TRUE"]);
-        $v_history->save();
-      }
-    }*/
 
     foreach ($vaccinationhistories as $vaccinationhistory) {
-      // code...
       $vaccinationhistory->delete();
     }
 
@@ -330,11 +321,15 @@ class VaccinationHistoryController extends Controller
         $v_history->status = "TRUE";
         $dt = Carbon::now();
         //$v_history->vaccination_date = $dt->toDateString();
+        $vaccinetiming = AdvVaccineTiming::find($vcheck);
         $v_history->vaccination_date = date('Y-m-d', strtotime($patient->dob. ' + '. $vaccinetiming->vtiming .' days'));
         //$v_history->vaccination_date = "_";
         $vt = AdvVaccineTiming::find($vcheck);
         $v_history->timingindays = $vt->vtiming;
         $v_history->vt_type = $vt->vt_type;
+        /*new field*/
+        $v_history->vt_type_num = $vt->vt_type_num;
+        /*new field*/
         $vaccine = AdvVaccine::find($vt->v_id);
         $v_history->vname = $vaccine->vname;
         $v_history->save();
@@ -356,12 +351,22 @@ class VaccinationHistoryController extends Controller
           $vt = AdvVaccineTiming::find($vcheck);
           $v_history->timingindays = "_";
           $v_history->vt_type = "_";
-          $vaccine = AdvVaccine::find($vt->v_id);
-          $v_history->vname = "_";
+          /*new field*/
+          $v_history->vt_type_num = "_";
+          /*new field*/
+          $vaccine = AdvVaccine::find($vaccinetiming->v_id);
+          $v_history->vname = $vaccine->vname;
           $v_history->save();
         }
       }
     }
     return redirect ('recep_main_p_visit/' . $pat_id);
+  }
+
+  public function vaccinationCard($pat_id) {
+    $patient = Patient::find($pat_id);
+    $vaccinationhistories = VaccinationHistory::where('pat_id', $pat_id)->get();
+
+    return view ('vaccinationCard')->with('patient', $patient)->with('vaccinationhistories', $vaccinationhistories);
   }
 }

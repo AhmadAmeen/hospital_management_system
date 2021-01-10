@@ -17,6 +17,8 @@ class AdvVaccineTimingController extends Controller
     $vaccinetiming->vtiming = $request->vtiming;
     $vaccinetiming->v_id = $adv_vid;
     $vaccinetiming->vt_type = $request->vt_type;
+    $allvaccinetiming = AdvVaccineTiming::where('v_id', $adv_vid)->where('vt_type', $request->vt_type)->get();
+    $vaccinetiming->vt_type_num = $allvaccinetiming->count() + 1;
     $vaccinetiming->save();
     return redirect('addadvvaccinetiming/' . $adv_vid);
   }

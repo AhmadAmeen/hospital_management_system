@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -24,10 +23,10 @@
 
     <!-- owl carousel -->
     <link rel="stylesheet" href="{{ asset('csd/css/owl.carousel.css') }}" type="text/css">
-	<link href="{{ asset('csd/css/jquery-jvectormap-1.2.2.css') }}" rel="stylesheet">
+	  <link href="{{ asset('csd/css/jquery-jvectormap-1.2.2.css') }}" rel="stylesheet">
     <!-- Custom styles -->
-	<link rel="stylesheet" href="{{ asset('csd/css/fullcalendar.css') }}">
-	<link href="{{ asset('csd/css/widgets.css') }}" rel="stylesheet">
+	  <link rel="stylesheet" href="{{ asset('csd/css/fullcalendar.css') }}">
+ 	  <link href="{{ asset('csd/css/widgets.css') }}" rel="stylesheet">
     <link href="{{ asset('csd/css/style.css') }}" rel="stylesheet">
     <link href="{{ asset('csd/css/style-responsive.css') }}" rel="stylesheet" />
 
@@ -40,7 +39,7 @@
         Author URL: http://sammarzaidi.com
     ======================================================= -->
 
-	<script src="{{ asset('csd/js/highcharts.js') }}"></script>
+<script src="{{ asset('csd/js/highcharts.js') }}"></script>
 <script src="{{ asset('csd/js/exporting.js') }}"></script>
 <script src="{{ asset('csd/js/export-data.js') }}"></script>
 <script src="{{ asset('csd/js/data.js') }}"></script>
@@ -48,11 +47,10 @@
 <script src="{{ asset('csd/js/highcharts-3d.js') }}"></script>
 <script src="{{ asset('csd/js/rounded-corners.js') }}"></script>
 
-
-
 <style style="text/css">
 
 	/* Define the default color for all the table rows */
+
 	.hoverTable tr{
 		background: #fff;
 	}
@@ -68,13 +66,13 @@
       border-radius: 50%
     }
 
-	.blue-bg {
-  background: #b90000;
-  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to right, #b90000, #ff0602);
-  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to right, #b90000, #ff0602);
-  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  	.blue-bg {
+    background: #b90000;
+    /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #b90000, #ff0602);
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #b90000, #ff0602);
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
 .bg {
@@ -85,23 +83,8 @@
     height: 500px;
 }
 
-/*
-body {
-  background-image: url("img/bg.jpg"), url("img/bg.jpg");
-  background-color: #cccccc;
-}
-*/
-
-body {
-  background: url("{{ asset('csd/img/bg9.jpg')}}") no-repeat center center fixed;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  background-size: cover;
-  -o-background-size: cover;
-}
-
-
 </style>
+
   </head>
 
   <body>
@@ -113,7 +96,6 @@ body {
             <!--logo end-->
             <div class="nav search-row" id="top_menu">
             </div>
-
       </header>
       <!--header end-->
 
@@ -203,7 +185,6 @@ body {
 					<div id="chart4" name="chart4" style="min-width: 300px; height: 200px; margin: 0 auto"></div>
 					</div>
 				</div>
-
 			</div>
 			<div class="row">
 				<div class="col-md-6">
@@ -240,46 +221,22 @@ body {
       <!--main content end-->
   </section>
   <!-- container section start -->
-
-    <!-- javascripts -->
-    <script src="{{ asset('csd/js/jquery.js') }}"></script>
-	  <script src="{{ asset('csd/js/jquery-ui-1.10.4.min.js') }}"></script>
-    <script src="{{ asset('csd/js/jquery-1.8.3.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('csd/js/jquery-ui-1.9.2.custom.min.js') }}"></script>
-    <!-- bootstrap -->
-    <script src="{{ asset('csd/js/bootstrap.min.js') }}"></script>
-    <!-- nice scroll -->
-    <script src="{{ asset('csd/js/jquery.scrollTo.min.js') }}"></script>
-    <script src="{{ asset('csd/js/jquery.nicescroll.js') }}" type="text/javascript"></script>
-    <!-- charts scripts -->
-    <script src="assets/jquery-knob/{{ asset('csd/js/jquery.knob.js') }}"></script>
-    <!-- <script src="{{ asset('csd/js/jquery.sparkline.js') }}" type="text/javascript"></script> -->
-    <!-- <script src="assets/jquery-easy-pie-chart/jquery.easy-pie-chart.js') }}"></script> -->
-    <script src="{{ asset('csd/js/owl.carousel.js') }}" ></script>
-    <!-- jQuery full calendar -->
-    <!-- <<script src="{{ asset('csd/js/fullcalendar.min.js') }}"></script> -->
-	<!-- <script src="assets/fullcalendar/fullcalendar/fullcalendar.js') }}"></script> -->
-    <!--script for this page only-->
-    <!-- <script src="{{ asset('csd/js/calendar-custom.js') }}"></script> -->
-	<!-- <script src="{{ asset('csd/js/jquery.rateit.min.js') }}"></script> -->
-    <!-- custom select -->
-    <!-- <script src="{{ asset('csd/js/jquery.customSelect.min.js') }}" ></script> -->
-	<!-- <script src="assets/chart-master/Chart.js') }}"></script> -->
-
-    <!--custome script for all page-->
-    <script src="{{ asset('csd/js/scripts.js') }}"></script>
-    <!-- custom script for this page-->
-    <!-- <script src="{{ asset('csd/js/sparkline-chart.js') }}"></script> -->
-    <!-- <script src="{{ asset('csd/js/easy-pie-chart.js') }}"></script> -->
-	<!-- <script src="{{ asset('csd/js/jquery-jvectormap-1.2.2.min.js') }}"></script> -->
-	<!-- <script src="{{ asset('csd/js/jquery-jvectormap-world-mill-en.js') }}"></script> -->
-	<!-- <script src="{{ asset('csd/js/xcharts.min.js') }}"></script> -->
+  <!-- javascripts -->
+  <script src="{{ asset('csd/js/jquery.js') }}"></script>
+  <script src="{{ asset('csd/js/jquery-ui-1.10.4.min.js') }}"></script>
+  <script src="{{ asset('csd/js/jquery-1.8.3.min.js') }}"></script>
+  <script type="text/javascript" src="{{ asset('csd/js/jquery-ui-1.9.2.custom.min.js') }}"></script>
+  <!-- bootstrap -->
+  <script src="{{ asset('csd/js/bootstrap.min.js') }}"></script>
+  <!-- nice scroll -->
+  <script src="{{ asset('csd/js/jquery.scrollTo.min.js') }}"></script>
+  <script src="{{ asset('csd/js/jquery.nicescroll.js') }}" type="text/javascript"></script>
+  <script src="assets/jquery-knob/{{ asset('csd/js/jquery.knob.js') }}"></script>
+  <script src="{{ asset('csd/js/owl.carousel.js') }}" ></script>
+  <script src="{{ asset('csd/js/scripts.js') }}"></script>
 	<script src="{{ asset('csd/js/jquery.autosize.min.js') }}"></script>
 	<script src="{{ asset('csd/js/jquery.placeholder.min.js') }}"></script>
 	<script src="{{ asset('csd/js/gdp-data.js') }}"></script>
-	<!-- <script src="{{ asset('csd/js/morris.min.js') }}"></script> -->
-	<!-- <script src="{{ asset('csd/js/sparklines.js') }}"></script>	 -->
-	<!-- <script src="{{ asset('csd/js/charts.js') }}"></script> -->
 	<script src="{{ asset('csd/js/jquery.slimscroll.min.js') }}"></script>
   <script>
   var arrmed = <?php echo json_encode($arrmed) ?>;

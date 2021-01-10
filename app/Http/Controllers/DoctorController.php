@@ -292,14 +292,15 @@ class DoctorController extends Controller
      ->get();
 
      $centers = AdvCenter::where('doc_id', $doc_id)
-     ->whereYear('created_at', Carbon::now()->year)
-     ->whereMonth('created_at', Carbon::now()->month)
      ->get();
 
      $center_ids = AdvCenter::where('doc_id', $doc_id)
      ->whereYear('created_at', Carbon::now()->year)
      ->whereMonth('created_at', Carbon::now()->month)
      ->pluck('id')->all();
+
+     //echo "<pre>";
+     //print_r($centers);
 
      $schedules = Schedule::whereIn('center_id', $center_ids)
      ->whereYear('created_at', Carbon::now()->year)
@@ -381,7 +382,23 @@ class DoctorController extends Controller
 
      //last month data taken
 
+     $center_sch_pats = array();
+     $x_axis = array();
+
+     for ($i = 0; $i < 15; $i++) {
+       $next_date = $request['time']=Carbon::parse(date("d-m-Y 00:00:00", time()))->addDays($i);
+       $sch_pats = Schedule::where('doc_id', $doc_id)->where('date', $next_date)->get();
+       array_push($center_sch_pats, count($sch_pats));
+       $output_date = substr($next_date, 0, 10);
+       array_push($x_axis, $output_date);
+     }
+     //echo "<pre>";
+     //print_r($center_sch_pats);
+     //print_r($x_axis);
+
      return view ('showdashboard')
+     ->with('center_sch_pats', json_encode($center_sch_pats))
+     ->with('x_axis', json_encode($x_axis))
      ->with('patients', $patients)
      ->with('males', $males)
      ->with('females', $females)
@@ -599,7 +616,7 @@ class DoctorController extends Controller
     ->with('prescribed_med', $prescribed_med);
   }
 
-  public function patDetailedDashboard($pat_id, $vh_id, Request $request) {
+  public function patDetailedDashboard ($pat_id, $vh_id, Request $request) {
     $visit_history = VisitHistory::find($vh_id);
     $visit_histories = VisitHistory::where('patient_id', $pat_id)->get();
     $visit_histories_ids = VisitHistory::where('patient_id', $pat_id)->pluck('id')->all();
@@ -628,6 +645,7 @@ class DoctorController extends Controller
       $rand_background = $background_colors[array_rand($background_colors)];
       array_push($arrayDiagName, array('y'=> count(array_keys($diagnoses_alltime, $diagnosis->dis_id)), 'name'=>$diagnosis->dis_id, 'color'=>$rand_background));
     }
+
     $headsizes = array();
     $ex_hs = array();
     $lengths = array();
@@ -635,6 +653,7 @@ class DoctorController extends Controller
     $weights = array();
     $ex_w = array();
     $x_axis = array();
+
     foreach ($visit_histories as $visit_history) {
       // code...
       if($visit_history->ageinmonths >= '0' && $visit_history->ageinmonths < '13') {
@@ -667,4 +686,6 @@ class DoctorController extends Controller
     ->with('arrmed', json_encode($arrayMedName))
     ->with('arrdiag', json_encode($arrayDiagName));
   }
+
+
 }

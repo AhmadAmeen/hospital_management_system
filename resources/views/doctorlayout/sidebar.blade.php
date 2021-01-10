@@ -8,9 +8,9 @@ $redirectTo = "http://localhost/hospital_management_system/callback.php";
 $data = ['email'];
 $fullURL = $handler->getLoginUrl($redirectTo, $data);
 ?>
-<body class="nav-md" style="background-color: #3fab5c">
+<body class="nav-md" style="background-color: #fff">
  <div class="container body" style="background-color: #3fab5c">
-  <div class="main_container" style="background-color: #3fab5c">
+  <div class="main_container" style="background-color: #fff">
     <div class="col-md-3 left_col" style="background-color: #3fab5c">
       <div class="left_col scroll-view" style="background-color: #3fab5c">
         <div class="navbar nav_title" style="background-color: #3fab5c">

@@ -14,8 +14,6 @@ use App\AdvVaccine;
 use App\Patient;
 use App\VaccinationHistory;
 $i = 0;
-
-
 ?>
 <script src="https://cdn.jsdelivr.net/npm/jquery-mask-plugin@1.14.16/dist/jquery.mask.min.js"></script>
 <!-- Jquery Library 2.1 JavaScript-->
@@ -60,9 +58,9 @@ setInterval(function() {
 
 setInterval(function() {
     // do stuff
-    if ($('input[name="search_value"]').val().toLowerCase().length == 0) {
-      $('.select-data').empty();
-    }
+    //if ($('input[name="search_value"]').val().toLowerCase().length == 0) {
+      //$('.select-data').empty();
+    //}
 }, 10);
 
   function current_date () {
@@ -286,7 +284,6 @@ setInterval(function() {
               <!--growth histories-->
                   <!--growth histories-->
                   <div>
-                    fds
                   </div>
                 </div>
               </div>
