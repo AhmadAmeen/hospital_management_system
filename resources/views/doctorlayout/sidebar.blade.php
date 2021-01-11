@@ -73,14 +73,14 @@ $fullURL = $handler->getLoginUrl($redirectTo, $data);
           </li>
       </li>
       <li>
-         <li><a style="border-style: outset; margin-right: 2px; border-color: #fff;"></i> Website <span style="float: right" class=" ">↓</span></a>
-             <ul class="nav child_menu">
-               <li><a href="{{url('docWebsiteBuilder/' . session('doctor_session'))}}">Website Data</a></li>
-               <li><a href="{{url('image-gallery/' . session('doctor_session'))}}">Website Images</a></li>
-               <li><a href="{{url('visitOwnWebsite/' . session('doctor_session'))}}">Visit Website</a></li>
+          <hr>
+          <li><a style="border-style: outset; margin-right: 2px; border-color: #fff;"></i> Website <span style="float: right" class=" ">↓</span></a>
+            <ul class="nav child_menu">
+              <li><a href="{{url('docWebsiteBuilder/' . session('doctor_session'))}}">Website Data</a></li>
+              <li><a href="{{url('image-gallery/' . session('doctor_session'))}}">Website Images</a></li>
+              <li><a href="{{url('visitOwnWebsite/' . session('doctor_session'))}}">Visit Website</a></li>
             </ul>
           </li>
-          <hr>
           <li><a style="border-style: outset; margin-right: 2px; border-color: #fff;"></i> Marketing <span style="float: right" class=" ">↓</span></a>
               <ul class="nav child_menu">
                 <input type="button" onclick="window.location = '<?php echo $fullURL ?>'" value="Login with Facebook" class="btn btn-primary" style="margin: auto; width: 100%">

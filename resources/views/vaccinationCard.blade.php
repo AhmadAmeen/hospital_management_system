@@ -60,10 +60,10 @@
 <tbody>
 	<?php use App\VaccinationHistory; $temp[] = "";?>
 @foreach ($vaccinationhistories as $vaccinationhistory)
-<?php $i = 0 ?>
 <?php
-$vhs = VaccinationHistory::where('vname', $vaccinationhistory->vname)->where('vt_type', 'Dosage')->get();
-$vhs1 = VaccinationHistory::where('vname', $vaccinationhistory->vname)->where('vt_type', 'Booster')->get();
+$i = 1;
+$vhs = VaccinationHistory::where('vname', $vaccinationhistory->vname)->where('vt_type', 'Dosage')->where('pat_id', $patient->id)->get();
+$vhs1 = VaccinationHistory::where('vname', $vaccinationhistory->vname)->where('vt_type', 'Booster')->where('pat_id', $patient->id)->get();
 if (in_array($vaccinationhistory->vname, $temp)) {
 	continue;
 }
@@ -76,13 +76,14 @@ $temp[] = $vaccinationhistory->vname;
 </td>
 @foreach ($vhs as $vh)
 @if ($vh->vt_type == 'Dosage')
-@if ($vh->status == 'TRUE')
-<td style="color: gray">{{$vh->vaccination_date}}</td>
-@else
-<td style="color: red">{{$vh->vaccination_date}}</td>
-@endif
+	@if ($vh->status == 'TRUE')
+	<td style="color: green">{{$vh->vaccination_date}}</td>
+	@else
+	<td style="color: red">{{$vh->vaccination_date}}</td>
+	@endif
 @endif
 @endforeach
+
 @if(count($vhs) == 0)
 <td>--</td>
 <td>--</td>
@@ -104,7 +105,11 @@ $temp[] = $vaccinationhistory->vname;
 <!--booster-->
 @foreach ($vhs1 as $vh1)
 @if ($vh1->vt_type == 'Booster')
-<td>{{$vh1->vaccination_date}}</td>
+	@if ($vh1->status == 'TRUE')
+	<td style="color: green">{{$vh->vaccination_date}}</td>
+	@else
+	<td style="color: red">{{$vh->vaccination_date}}</td>
+	@endif
 @endif
 @endforeach
 @if(count($vhs1) == 0)

@@ -84,7 +84,9 @@ class VaccinationHistoryController extends Controller
           $v_history->vt_id = $vaccinetiming->id;
           $v_history->status = "FALSE";
           $v_history->vaccination_date = date('Y-m-d', strtotime($patient->dob. ' + '. $vaccinetiming->vtiming .' days'));
-          $vt = AdvVaccineTiming::find($vcheck);
+          if (isset($vcheck)) {
+            $vt = AdvVaccineTiming::find($vcheck);
+          }
           $v_history->timingindays = "_";
           $v_history->vt_type = "_";
           /*new field*/
@@ -115,7 +117,9 @@ class VaccinationHistoryController extends Controller
         $vaccinetiming = AdvVaccineTiming::find($vcheck);
         $v_history->vaccination_date = date('Y-m-d', strtotime($patient->dob. ' + '. $vaccinetiming->vtiming .' days'));
         //$v_history->vaccination_date = "_";
-        $vt = AdvVaccineTiming::find($vcheck);
+        if (isset($vcheck)) {
+          $vt = AdvVaccineTiming::find($vcheck);
+        }
         $v_history->timingindays = $vt->vtiming;
         $v_history->vt_type = $vt->vt_type;
         /*new field*/
@@ -139,7 +143,9 @@ class VaccinationHistoryController extends Controller
           $v_history->vt_id = $vaccinetiming->id;
           $v_history->status = "FALSE";
           $v_history->vaccination_date = date('Y-m-d', strtotime($patient->dob. ' + '. $vaccinetiming->vtiming .' days'));
-          $vt = AdvVaccineTiming::find($vcheck);
+          if (isset($vcheck)) {
+            $vt = AdvVaccineTiming::find($vcheck);
+          }
           $v_history->timingindays = "_";
           $v_history->vt_type = "_";
           /*new field*/
@@ -324,7 +330,9 @@ class VaccinationHistoryController extends Controller
         $vaccinetiming = AdvVaccineTiming::find($vcheck);
         $v_history->vaccination_date = date('Y-m-d', strtotime($patient->dob. ' + '. $vaccinetiming->vtiming .' days'));
         //$v_history->vaccination_date = "_";
-        $vt = AdvVaccineTiming::find($vcheck);
+        if (isset($vcheck)) {
+          $vt = AdvVaccineTiming::find($vcheck);
+        }
         $v_history->timingindays = $vt->vtiming;
         $v_history->vt_type = $vt->vt_type;
         /*new field*/
@@ -348,9 +356,9 @@ class VaccinationHistoryController extends Controller
           $v_history->vt_id = $vaccinetiming->id;
           $v_history->status = "FALSE";
           $v_history->vaccination_date = date('Y-m-d', strtotime($patient->dob. ' + '. $vaccinetiming->vtiming .' days'));
-          $vt = AdvVaccineTiming::find($vcheck);
+          $vt = AdvVaccineTiming::find($vaccinetiming->id);
           $v_history->timingindays = "_";
-          $v_history->vt_type = "_";
+          $v_history->vt_type =  $vt->vt_type;
           /*new field*/
           $v_history->vt_type_num = "_";
           /*new field*/

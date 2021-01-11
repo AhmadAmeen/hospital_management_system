@@ -7,7 +7,7 @@
 -->
 <html>
 	<head>
-		<title>Hosptal Management System</title>
+		<title>Kidoctor</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="public/welcome-page-bootstrap/assets/css/main.css" />
@@ -34,19 +34,13 @@
 							</ul>
 						</nav>
 					</header>
-
-
 				<!-- Footer -->
 					<footer id="footer">
-						<p class="copyright">&copy; All Rights Reserved <a href="#">Hospital Management System</a>.</p>
+						<p class="copyright">&copy; All Rights Reserved <a href="#">IC-Global Tech</a>.</p>
 					</footer>
-
-
 			</div>
-
 		<!-- BG -->
 			<div id="bg"></div>
-
 		<!-- Scripts -->
 			<script src="public/welcome-page-bootstrap/assets/js/jquery.min.js"></script>
 			<script src="public/welcome-page-bootstrap/assets/js/browser.min.js"></script>

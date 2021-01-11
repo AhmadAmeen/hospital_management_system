@@ -54,7 +54,7 @@ setInterval(function() {
     fetch_tvh_records();
     //getdiagnosis();
     //getmedicines();
- }, 1000);
+ }, 10000);
 
 setInterval(function() {
     // do stuff
@@ -245,6 +245,7 @@ setInterval(function() {
                       -->
                       <a onclick="editvaccinationhistory()" class='btn btn-primary'>Vaccination</a>
                       <a onclick="patDetailedDashboard()" id="myModal" name="30days" class='btn btn-primary'>Summary</a>
+                      <!--<a onclick="vaccinationCard()" class='btn btn-primary'>Vaccination Card</a>-->
                       <a onclick="showPrescription()" id="30days" name="30days" class='btn btn-primary'>Print</a>
                        <a onclick="removePatFromList()" id="30days" name="30days" class='btn btn-success'>Save</a>
                      </div>
@@ -311,6 +312,13 @@ function showPrescription() {
       }
     }
     //window.location = "{{url('showPrescription')}}";
+  }
+
+
+  function vaccinationCard() {
+    if ($("#pid").text()) {
+      window.open("{{url('vaccinationCard')}}"+'/'+$("#pid").text());
+    }
   }
 
  function patDetailedDashboard() {
